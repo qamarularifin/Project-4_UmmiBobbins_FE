@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import jwt from "jsonwebtoken"
+// import jwt from "jsonwebtoken"
 import { Link, Navigate, useNavigate } from "react-router-dom"
 import {Form, Button, Card, Alert} from "react-bootstrap"
 import { useContext } from "react"
@@ -49,17 +49,29 @@ const Dashboard = () => {
   // to check if token exists or not
   useEffect(()=>{
       const token = localStorage.getItem("token") // get from localstorage
-      if (token){ // if token exists
-        const user = jwt.decode(token)
-        console.log("fffff", user)
-        if (!user){  // if token doesnt exist, remove token from local storage and go back to login
+      if (!token){ // if token exists // if token doesnt exist, remove token from local storage and go back to login
           localStorage.removeItem("token")
           navigate("/login")
         } else{
           populatePage() // if token exists, do this
         }
       }
-  }, [])
+  , [])
+
+  // to check if token exists or not
+//   useEffect(()=>{
+//     const token = localStorage.getItem("token") // get from localstorage
+//     if (token){ // if token exists
+//       const user = jwt.decode(token)
+//       console.log("fffff", user)
+//       if (!user){  // if token doesnt exist, remove token from local storage and go back to login
+//         localStorage.removeItem("token")
+//         navigate("/login")
+//       } else{
+//         populatePage() // if token exists, do this
+//       }
+//     }
+// }, [])
 
   // this is to update field and in this case is the Quote
   async function updateQuote(event){

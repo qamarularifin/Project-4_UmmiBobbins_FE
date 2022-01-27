@@ -39,7 +39,7 @@ const Login = () => {
         )
         const data = await response.json()
         if(data.user){  //check if token exists
-          localStorage.setItem("token", data.user)
+          localStorage.setItem("token", data.user) //this creates token in the localstorage
           setError("")
           setLoading(true)
           navigate("/dashboard")
