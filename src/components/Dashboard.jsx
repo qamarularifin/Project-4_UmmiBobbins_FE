@@ -51,6 +51,7 @@ const Dashboard = () => {
       const token = localStorage.getItem("token") // get from localstorage
       if (token){ // if token exists
         const user = jwt.decode(token)
+        console.log("fffff", user)
         if (!user){  // if token doesnt exist, remove token from local storage and go back to login
           localStorage.removeItem("token")
           navigate("/login")
