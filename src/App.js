@@ -7,6 +7,7 @@ import Dashboard from "./components/Dashboard"
 import PrivateRoute from "./components/PrivateRoute"
 import GeneralContext from "./context/GeneralContext"
 import DefaultLayout from "./defaultLayout/DefaultLayout"
+import UpdateProfile from "./components/UpdateProfile"
 
 function App() {
   const token = localStorage.getItem("token")
@@ -41,7 +42,7 @@ function App() {
               <Route path="/signup" element={<Signup/>} />
               <Route path="/login" element={<Login/>} />
               <Route path="/dashboard" element={<PrivateRoute> <Dashboard/> </PrivateRoute>} />
-      
+              <Route path="/update-profile" element={<PrivateRoute> <UpdateProfile/> </PrivateRoute>} />
             </Routes>
             
           
