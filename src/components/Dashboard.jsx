@@ -23,6 +23,7 @@ const Dashboard = () => {
   const [tempQuote, setTempQuote] = useState("")
 
   // this function can be used for rendering stuff i.e, set data into input fields etc
+  // REUSABLE for dataController as well i.e, for booking get requests etc
   // since token is attached, after refreshing the data will remain 
   const populatePage = async() =>{
       // get requests
