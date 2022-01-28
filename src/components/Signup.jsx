@@ -6,7 +6,7 @@ import GeneralContext from "../context/GeneralContext"
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
 
-const Register = () => {
+const Signup = () => {
     const { userContext } = useContext(GeneralContext);
     const [name, setName,
           email, setEmail,
@@ -18,9 +18,7 @@ const Register = () => {
     const passwordConfirmRef = useRef()
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState("")
-    // const [name, setName] = useState("")
-    // const [email, setEmail] = useState("")
-    // const [password, setPassword] = useState("")
+  
 
     const navigate = useNavigate()
 
@@ -31,13 +29,13 @@ const Register = () => {
       setName("")
     }, [])
 
-     const registerUser = async(event) =>{
+     const signupUser = async(event) =>{
         event.preventDefault() // prevents refreshing app
 
         if (passwordRef.current.value !== passwordConfirmRef.current.value) {
           return setError("Passwords do not match")
       }
-        const response = await fetch(`${BACKEND_BASE_URL}/user/api/register`,
+        const response = await fetch(`${BACKEND_BASE_URL}/user/api/signup`,
          {
           method: "POST",
           
@@ -67,7 +65,7 @@ const Register = () => {
         <Card.Body>
         <h2 className="text-center mb-4">Sign Up</h2>
         {error && <Alert variant="danger">{error}</Alert> }
-        <Form onSubmit={registerUser}>
+        <Form onSubmit={signupUser}>
                     <Form.Group id="name">
                         <Form.Label>Name</Form.Label>
                         <Form.Control type="name"  ref={nameRef} required value={name} onChange={(e)=>setName(e.target.value)}/>
@@ -104,4 +102,4 @@ const Register = () => {
     )
 };
 
-export default Register;
+export default Signup;

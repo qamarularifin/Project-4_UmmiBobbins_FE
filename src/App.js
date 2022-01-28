@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react"
 import {Route, Routes } from 'react-router-dom'
 import {Container} from "react-bootstrap"
-import Register from "./components/Register"
+import Signup from "./components/Signup"
 import Login from "./components/Login"
 import Dashboard from "./components/Dashboard"
 import PrivateRoute from "./components/PrivateRoute"
@@ -33,7 +33,7 @@ function App() {
 
           
             <Routes>
-              <Route path="/register" element={<Register/>} />
+              <Route path="/signup" element={<Signup/>} />
               <Route path="/login" element={<Login/>} />
               <Route path="/dashboard/" element={<PrivateRoute> <Dashboard/> </PrivateRoute>} />
       
