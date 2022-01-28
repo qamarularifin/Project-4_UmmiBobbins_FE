@@ -4,6 +4,8 @@ import { Link, Navigate, useNavigate } from "react-router-dom"
 import {Form, Button, Card, Alert} from "react-bootstrap"
 import { useContext } from "react"
 import GeneralContext from "../context/GeneralContext"
+import BabySitter from "./roles/BabySitter"
+import Parent from "./roles/Parent"
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
 
@@ -15,7 +17,8 @@ const Dashboard = () => {
          name, setName,
          email, setEmail,
          password, setPassword,
-         userId, setUserId] = userContext
+         userId, setUserId,
+         role, setRole] = userContext
 
   const token = localStorage.getItem("token")
   const navigate = useNavigate()
@@ -40,6 +43,7 @@ const Dashboard = () => {
         setEmail(data.email) 
         setUserId(data._id)
         setName(data.name)
+        setRole(data.role)
         console.log("data", data)
       } else{
         alert(data.error)
@@ -113,25 +117,28 @@ const Dashboard = () => {
 
   return (
     <>
-    <Card>
-          <Card.Body>
-              <h2 className="text-center mb-4">Your quote: {quote || "No quote found"} </h2>
-              <h2 className="text-left mb-4">Your email: {email}</h2>
-              <h2 className="text-left mb-4">Your user ID: {userId}</h2>
-              <h2 className="text-left mb-4">Your name: {name}</h2>
-              <Form onSubmit={updateQuote}>
-                    <Form.Group id="name">
-                        <Form.Label>Add Quote</Form.Label>
-                        <Form.Control type="text" placeholder="Quote" value={tempQuote} onChange={(e)=>setTempQuote(e.target.value)}/>
-                    </Form.Group>
-                    <Button  className="w-100 mt-3" type="submit">Update Quote</Button>
-              </Form>
-              </Card.Body>
+       {
+         role === "Parent" ? 
+         
+            <Parent 
+              quote={quote}
+              setQuote={setQuote}
+              tempQuote={tempQuote}
+              setTempQuote={setTempQuote}
+              updateQuote={updateQuote}
+              handleLogout={handleLogout}
+            />     :
 
-          </Card>
-          <div className="w-100 text-center mt-2">
-                    <Link to="/login"><Button variant="link" onClick={handleLogout}>Log Out</Button></Link>
-                </div>
+         <BabySitter 
+              quote={quote}
+              setQuote={setQuote}
+              tempQuote={tempQuote}
+              setTempQuote={setTempQuote}
+              updateQuote={updateQuote}
+              handleLogout={handleLogout}
+         />
+         
+       }
     </>
     )
 };
