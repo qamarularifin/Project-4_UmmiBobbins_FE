@@ -1,28 +1,43 @@
-import React, {useRef, useState} from "react"
+import React, {useRef, useState, useEffect} from "react"
 import {Form, Button, Card, Alert} from "react-bootstrap"
 import { Link, useNavigate } from "react-router-dom"
 import { useContext } from "react"
 import GeneralContext from "../context/GeneralContext"
 
+const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
 
 const Register = () => {
     const { userContext } = useContext(GeneralContext);
     const [name, setName,
           email, setEmail,
-          password, setPassword] = userContext
+          password, setPassword,
+          passwordConfirm, setPasswordConfirm] = userContext
     const nameRef = useRef()
     const emailRef = useRef()
     const passwordRef = useRef()
+    const passwordConfirmRef = useRef()
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState("")
     // const [name, setName] = useState("")
     // const [email, setEmail] = useState("")
     // const [password, setPassword] = useState("")
 
     const navigate = useNavigate()
 
+    useEffect(()=>{
+      setEmail("")
+      setPassword("")
+      setPasswordConfirm("")
+      setName("")
+    }, [])
+
      const registerUser = async(event) =>{
         event.preventDefault() // prevents refreshing app
-        const response = await fetch("http://localhost:5000/user/api/register",
+
+        if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+          return setError("Passwords do not match")
+      }
+        const response = await fetch(`${BACKEND_BASE_URL}/user/api/register`,
          {
           method: "POST",
           
@@ -50,8 +65,8 @@ const Register = () => {
     <>  
       <Card>
         <Card.Body>
-        <h2 className="text-center mb-4">Register</h2>
-
+        <h2 className="text-center mb-4">Sign Up</h2>
+        {error && <Alert variant="danger">{error}</Alert> }
         <Form onSubmit={registerUser}>
                     <Form.Group id="name">
                         <Form.Label>Name</Form.Label>
@@ -67,7 +82,12 @@ const Register = () => {
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" ref={passwordRef} required value={password} onChange={(e)=>setPassword(e.target.value)} />
                     </Form.Group>
-                    <Button disabled={loading} className="w-100 mt-3" type="submit">Register</Button>
+
+                    <Form.Group id="password-confirm">
+                        <Form.Label>Password Confirmation</Form.Label>
+                        <Form.Control type="password" ref={passwordConfirmRef} required value={passwordConfirm} onChange={(e)=>setPasswordConfirm(e.target.value)} />
+                    </Form.Group>
+                    <Button disabled={loading} className="w-100 mt-3" type="submit">Sign Up</Button>
                 </Form>
                 <div className="w-100 text-center mt-2">
                     Already have an account? <Link to="/login">Log In</Link>

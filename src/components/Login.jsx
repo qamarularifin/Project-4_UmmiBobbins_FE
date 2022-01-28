@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react"
+import React, {useRef, useState, useEffect} from "react"
 import {Form, Button, Card, Alert} from "react-bootstrap"
 import { Link, Navigate, useNavigate } from "react-router-dom"
 import { useContext } from "react"
@@ -11,6 +11,7 @@ const Login = () => {
   const { userContext } = useContext(GeneralContext);
   const [
          email, setEmail,
+         name, setName,
          password, setPassword] = userContext
 
     const emailRef = useRef()
@@ -21,6 +22,14 @@ const Login = () => {
     const [error, setError] = useState("")
 
     const navigate = useNavigate()
+
+
+    useEffect(()=>{
+      setEmail("")
+      setPassword("")
+      setName("")
+    }, [])
+
 
      const loginUser = async(event) =>{
         event.preventDefault() // prevents refreshing app
