@@ -6,6 +6,7 @@ import Login from "./components/Login"
 import Dashboard from "./components/Dashboard"
 import PrivateRoute from "./components/PrivateRoute"
 import GeneralContext from "./context/GeneralContext"
+import DefaultLayout from "./defaultLayout/DefaultLayout"
 
 function App() {
   const token = localStorage.getItem("token")
@@ -17,6 +18,7 @@ function App() {
 
 
   return (
+    
     <GeneralContext.Provider
         value={{
           userContext: [
@@ -27,22 +29,25 @@ function App() {
             userId, setUserId
           ]
         }}>
+        <DefaultLayout>
         <Container className="d-flex align-items-center justify-content-center"
             style={{minHeight: "100vh"}}>
               <div className="w-100" style={{ maxWidth: "400px" }}>
 
-          
+              
             <Routes>
               <Route path="/signup" element={<Signup/>} />
               <Route path="/login" element={<Login/>} />
               <Route path="/dashboard/" element={<PrivateRoute> <Dashboard/> </PrivateRoute>} />
       
             </Routes>
-      
+            
           
        </div>
       </Container>
+      </DefaultLayout>
     </GeneralContext.Provider>
+    
   );
 }
 

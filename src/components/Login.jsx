@@ -4,6 +4,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom"
 import { useContext } from "react"
 import GeneralContext from "../context/GeneralContext"
 
+
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
 
 const Login = () => {
@@ -62,7 +63,8 @@ const Login = () => {
 
   return (
     
-    <>  
+    <> 
+      
       <Card>
         <Card.Body>
         <h2 className="text-center mb-4">Log In</h2>
