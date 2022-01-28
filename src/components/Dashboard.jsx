@@ -27,7 +27,7 @@ const Dashboard = () => {
   // since token is attached, after refreshing the data will remain 
   const populatePage = async() =>{
       // get requests
-      const request = await fetch(`${BACKEND_BASE_URL}/user/api/quote`, {
+      const request = await fetch(`${BACKEND_BASE_URL}/user/api/dashboard`, {
         headers: {
           "x-access-token": localStorage.getItem("token")
         }
@@ -47,7 +47,7 @@ const Dashboard = () => {
       
   }
 
-  // to check if token exists or not
+  // to check if token exists or not or login
   useEffect(()=>{
       const token = localStorage.getItem("token") // get from localstorage
       if (!token){ // if token exists // if token doesnt exist, remove token from local storage and go back to login
@@ -77,7 +77,7 @@ const Dashboard = () => {
   // this is to update field and in this case is the Quote
   async function updateQuote(event){
     event.preventDefault() // prevents whole page from refreshing
-    const request = await fetch(`${BACKEND_BASE_URL}/user/api/quote`, {
+    const request = await fetch(`${BACKEND_BASE_URL}/user/api/dashboard`, {
       method: "POST",
         headers: {
           "Content-Type": "application/json",
