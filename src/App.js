@@ -10,7 +10,7 @@ import DefaultLayout from "./defaultLayout/DefaultLayout"
 import UpdateProfile from "./components/UpdateProfile"
 
 function App() {
-  const token = localStorage.getItem("token")
+  
   const [userId, setUserId] = useState(null)
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
@@ -41,7 +41,8 @@ function App() {
             <Routes>
               <Route path="/signup" element={<Signup/>} />
               <Route path="/login" element={<Login/>} />
-              <Route path="/dashboard" element={<PrivateRoute> <Dashboard/> </PrivateRoute>} />
+              {/* <Route path="/dashboard" element={<PrivateRoute> <Dashboard/> </PrivateRoute>} /> */}
+              <Route path="/dashboard" element={<Dashboard/>} />
               <Route path="/update-profile" element={<PrivateRoute> <UpdateProfile/> </PrivateRoute>} />
             </Routes>
             

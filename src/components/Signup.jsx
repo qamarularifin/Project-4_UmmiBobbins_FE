@@ -1,5 +1,5 @@
 import React, {useRef, useState, useEffect} from "react"
-import {Form, Button, Card, Alert} from "react-bootstrap"
+import {Form, Button, Card, Alert, Dropdown, DropdownButton} from "react-bootstrap"
 import { Link, useNavigate } from "react-router-dom"
 import { useContext } from "react"
 import GeneralContext from "../context/GeneralContext"
@@ -11,7 +11,8 @@ const Signup = () => {
     const [name, setName,
           email, setEmail,
           password, setPassword,
-          passwordConfirm, setPasswordConfirm] = userContext
+          passwordConfirm, setPasswordConfirm,
+          role, setRole] = userContext
     const nameRef = useRef()
     const emailRef = useRef()
     const passwordRef = useRef()
@@ -27,6 +28,7 @@ const Signup = () => {
       setPassword("")
       setPasswordConfirm("")
       setName("")
+      
     }, [])
 
      const signupUser = async(event) =>{
@@ -42,7 +44,8 @@ const Signup = () => {
           body: JSON.stringify({
             name : name,
             email : email,
-            password : password
+            password : password,
+            role : role
           }),
           headers:{
             "Content-Type": "application/json",
@@ -54,8 +57,13 @@ const Signup = () => {
         if (data.status === "ok"){
           navigate("/login")
         }
-        //console.log(data)
+        console.log(data)
     }
+
+    const handleSelect=(e)=>
+        {
+          console.log(e)
+          setRole(e)}
 
 
   return (
@@ -75,6 +83,21 @@ const Signup = () => {
                         <Form.Label>Email</Form.Label>
                         <Form.Control type="email" ref={emailRef} required value={email} onChange={(e)=>setEmail(e.target.value)} />
                     </Form.Group>
+
+                    <DropdownButton
+                        alignRight
+                        title="Select Role"
+                        id="dropdown-menu-align-right"
+                        onSelect={handleSelect}
+                        
+                          >
+                                <Dropdown.Item eventKey="parent">Parent</Dropdown.Item>
+                                <Dropdown.Item eventKey="babysitter">BabySitter</Dropdown.Item>
+                              
+                                <Dropdown.Divider />
+                              
+                        </DropdownButton>
+                        <h4>{role}</h4>
 
                     <Form.Group id="password">
                         <Form.Label>Password</Form.Label>

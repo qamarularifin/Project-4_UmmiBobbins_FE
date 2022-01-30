@@ -1,42 +1,46 @@
 import React, {useRef, useState, useEffect} from "react"
 import {Form, Button, Card, Alert} from "react-bootstrap"
-import { Link, Navigate, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useContext } from "react"
 import GeneralContext from "../context/GeneralContext"
 
-
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
 
-const Login = () => {
- 
-  const { userContext } = useContext(GeneralContext);
-  const [
-         email, setEmail,
-         name, setName,
-         password, setPassword] = userContext
-
+const Signup = () => {
+    const { userContext } = useContext(GeneralContext);
+    const [name, setName,
+          email, setEmail,
+          password, setPassword,
+          passwordConfirm, setPasswordConfirm] = userContext
+    const nameRef = useRef()
     const emailRef = useRef()
     const passwordRef = useRef()
+    const passwordConfirmRef = useRef()
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState("")
+  
 
     const navigate = useNavigate()
-
 
     useEffect(()=>{
       setEmail("")
       setPassword("")
+      setPasswordConfirm("")
       setName("")
     }, [])
 
-
-     const loginUser = async(event) =>{
+     const signupUser = async(event) =>{
         event.preventDefault() // prevents refreshing app
-        const response = await fetch(`${BACKEND_BASE_URL}/user/api/login`,
+
+        if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+          return setError("Passwords do not match")
+      }
+        const response = await fetch(`${BACKEND_BASE_URL}/user/api/signup`,
          {
           method: "POST",
           
           body: JSON.stringify({
+            name : name,
             email : email,
             password : password
           }),
@@ -46,14 +50,9 @@ const Login = () => {
         }
         )
         const data = await response.json()
-        if(data.userData){  //check if session exists
-          localStorage.setItem("session", data.userData) //this stores session in the localstorage
-          setError("")
-          setLoading(true)
-          navigate("/dashboard")
-        } else{
-          setError("Failed to sign in")
-          
+        
+        if (data.status === "ok"){
+          navigate("/login")
         }
         //console.log(data)
     }
@@ -61,14 +60,16 @@ const Login = () => {
 
   return (
     
-    <> 
-      
+    <>  
       <Card>
         <Card.Body>
-        <h2 className="text-center mb-4">Log In</h2>
-        {error && <Alert variant="danger">{error}</Alert>}
-        <Form onSubmit={loginUser}>
-                    
+        <h2 className="text-center mb-4">Sign Up</h2>
+        {error && <Alert variant="danger">{error}</Alert> }
+        <Form onSubmit={signupUser}>
+                    <Form.Group id="name">
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control type="name"  ref={nameRef} required value={name} onChange={(e)=>setName(e.target.value)}/>
+                    </Form.Group>
 
                     <Form.Group id="email">
                         <Form.Label>Email</Form.Label>
@@ -79,10 +80,15 @@ const Login = () => {
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" ref={passwordRef} required value={password} onChange={(e)=>setPassword(e.target.value)} />
                     </Form.Group>
-                    <Button disabled={loading} className="w-100 mt-3" type="submit">Login</Button>
+
+                    <Form.Group id="password-confirm">
+                        <Form.Label>Password Confirmation</Form.Label>
+                        <Form.Control type="password" ref={passwordConfirmRef} required value={passwordConfirm} onChange={(e)=>setPasswordConfirm(e.target.value)} />
+                    </Form.Group>
+                    <Button disabled={loading} className="w-100 mt-3" type="submit">Sign Up</Button>
                 </Form>
                 <div className="w-100 text-center mt-2">
-                    Need an account?  <Link to="/signup"> Sign Up</Link>   
+                    Already have an account? <Link to="/login">Log In</Link>
                 </div>
 
         </Card.Body>
@@ -96,4 +102,4 @@ const Login = () => {
     )
 };
 
-export default Login;
+export default Signup;

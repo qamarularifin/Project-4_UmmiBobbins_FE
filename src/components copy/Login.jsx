@@ -18,6 +18,8 @@ const Login = () => {
     const emailRef = useRef()
     const passwordRef = useRef()
     const [loading, setLoading] = useState(false)
+    // const [email, setEmail] = useState("")
+    // const [password, setPassword] = useState("")
     const [error, setError] = useState("")
 
     const navigate = useNavigate()
@@ -46,16 +48,16 @@ const Login = () => {
         }
         )
         const data = await response.json()
-        if(data.userData){  //check if session exists
-          localStorage.setItem("session", data.userData) //this stores session in the localstorage
+        if(data.user){  //check if token exists
+          localStorage.setItem("token", data.user) //this creates token in the localstorage
           setError("")
           setLoading(true)
           navigate("/dashboard")
         } else{
           setError("Failed to sign in")
-          
+          // alert("Please check your username and password")
         }
-        //console.log(data)
+        console.log(data)
     }
 
 
