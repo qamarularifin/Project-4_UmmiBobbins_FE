@@ -26,6 +26,7 @@ const UpdateProfile = () => {
     const navigate = useNavigate()
 
     const [tempEmail, setTempEmail] = useState("")
+    const [tempPassword, setTempPassword] = useState("")
 
 
 
@@ -33,20 +34,22 @@ const UpdateProfile = () => {
       // this is to update field and in this case is the Quote
    const handleSubmit = async(event) =>{
     event.preventDefault() // prevents whole page from refreshing
-    // validation
+        //validation
         // if (passwordRef.current.value !== passwordConfirmRef.current.value) {
         //     return setError("Passwords do not match")
         // }
-    const res = await fetch(`${BACKEND_BASE_URL}/user/api/dashboard/update-profile/${user._id}`, {
-      method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          
-        },
-        body: JSON.stringify({
-          email: tempEmail,
-        })
-      })
+
+          const res = await fetch(`${BACKEND_BASE_URL}/user/api/dashboard/update-profile/${user._id}`, {
+            method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                
+              },
+              body: JSON.stringify({
+                email: tempEmail,
+                // password: tempPassword
+              })
+            })
 
       if (res.status !== 200) {
         console.error("failed to fetch item");
@@ -57,7 +60,12 @@ const UpdateProfile = () => {
       console.log("gggg", data)
       
       setEmail(tempEmail)
+      // setPassword(tempPassword)
       navigate("/dashboard")
+
+
+        
+    
       
   }
 
@@ -81,15 +89,17 @@ const UpdateProfile = () => {
                 {/* <Form.Group id="password">
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" ref={passwordRef}  
-                     
-                            placeholder="Leave black to keep the same"
+                    //  defaultValue={password}
+                             placeholder="Enter new password"
                     />
-                </Form.Group>
+                </Form.Group> */}
 
-                <Form.Group id="password-confirm">
+                {/* <Form.Group id="password-confirm">
                     <Form.Label>Password Confirmation</Form.Label>
                     <Form.Control type="password" ref={passwordConfirmRef}  
-                        placeholder="Leave black to keep the same"
+                       onChange={(e)=>setTempPassword(e.target.value)}
+                    // defaultValue={passwordConfirm}
+                         placeholder="Confirm new password"
                     />
                 </Form.Group> */}
 
