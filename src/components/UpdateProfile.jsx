@@ -92,9 +92,9 @@ const UpdateProfile = () => {
                     //  defaultValue={password}
                              placeholder="Enter new password"
                     />
-                </Form.Group> */}
+                </Form.Group> 
 
-                {/* <Form.Group id="password-confirm">
+                 <Form.Group id="password-confirm">
                     <Form.Label>Password Confirmation</Form.Label>
                     <Form.Control type="password" ref={passwordConfirmRef}  
                        onChange={(e)=>setTempPassword(e.target.value)}
