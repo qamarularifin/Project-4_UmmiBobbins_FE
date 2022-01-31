@@ -13,7 +13,8 @@ const Login = () => {
   const [
          email, setEmail,
          name, setName,
-         password, setPassword] = userContext
+         password, setPassword,
+         role, setRole] = userContext
 
     const emailRef = useRef()
     const passwordRef = useRef()
@@ -26,7 +27,7 @@ const Login = () => {
     useEffect(()=>{
       setEmail("")
       setPassword("")
-      setName("")
+      // setName("")
     }, [])
 
 
@@ -47,10 +48,12 @@ const Login = () => {
         )
         const data = await response.json()
         if(data.userData){  //check if session exists
-          localStorage.setItem("session", JSON.stringify(data.userData)) //this stores session in the localstorage
+          localStorage.setItem("currentUser", JSON.stringify(data.userData)) //this stores session in the localstorage
           setError("")
           setLoading(true)
-          console.log("dataaaa", data )
+          // console.log("dataaaa", data.userData.user.email )
+          // setEmail(data.userData.user.email)
+          // setRole(data.userData.user.role)
           navigate("/dashboard")
           
         } else{

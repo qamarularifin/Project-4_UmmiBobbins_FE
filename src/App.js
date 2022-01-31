@@ -9,6 +9,8 @@ import GeneralContext from "./context/GeneralContext"
 import DefaultLayout from "./defaultLayout/DefaultLayout"
 import UpdateProfile from "./components/UpdateProfile"
 
+const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
+
 function App() {
   
   const [userId, setUserId] = useState(null)
@@ -17,6 +19,7 @@ function App() {
   const [password, setPassword] = useState("")
   const [passwordConfirm, setPasswordConfirm] = useState("")
   const [role, setRole] = useState("")
+
 
 
   return (

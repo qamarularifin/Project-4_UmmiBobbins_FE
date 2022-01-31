@@ -3,7 +3,7 @@ import { Route, Navigate } from "react-router-dom"
 
 
 const PrivateRoute = ({children}) => {
-  const session = localStorage.getItem("session")
+  const session = localStorage.getItem("currentUser")
   //console.log("token", token)
 
   return (

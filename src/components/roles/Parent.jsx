@@ -6,7 +6,9 @@ import GeneralContext from "../../context/GeneralContext"
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
 
+
 const Parent = (props) => {
+    
     const { quote,
             setQuote,
             tempQuote,
@@ -24,54 +26,22 @@ const Parent = (props) => {
 
     const navigate = useNavigate()
 
-// /////////////
-// const populatePage = async() =>{
-//     // get requests
-//     const request = await fetch(`${BACKEND_BASE_URL}/user/api/dashboard`, {
-//       headers: {
-//         "x-access-token": localStorage.getItem("token")
-//       }
-//     }
-//     )
-
-//     // this is for showing the quote
-//     const data = await request.json()
-//     if (data.status === "ok"){
-//       //setQuote(data.quote)
-//       setEmail(data.email) 
-//       setUserId(data._id)
-//       setName(data.name)
-//       setRole(data.role)
-//       console.log("data", data)
-//     } else{
-//       alert(data.error)
-//     }
+    const user = JSON.parse(localStorage.getItem("currentUser"))
     
-// }
 
-// // to check if token exists or not or login
-// useEffect(()=>{
-//     const token = localStorage.getItem("token") // get from localstorage
-//     if (!token){ // if token exists // if token doesnt exist, remove token from local storage and go back to login
-//         localStorage.removeItem("token")
-//         navigate("/login")
-//       } else{
-//         populatePage() // if token exists, do this
-//       }
-//     }
-// , [])
-// ///////////////////////////
+
 
         
   return (
       <>
-    {/* <Card>
+    <Card>
           <Card.Body>
+             <h1>Parent</h1> 
               <h2 className="text-center mb-4">Your quote: {quote || "No quote found"} </h2>
-              <h2 className="text-left mb-4">Your email: {email}</h2>
-              <h2 className="text-left mb-4">Your user ID: {userId}</h2>
-              <h2 className="text-left mb-4">Your name: {name}</h2>
-              <h2 className="text-left mb-4">Your role: {role}</h2>
+              <h2 className="text-left mb-4">Your email: {user.email} </h2>
+              <h2 className="text-left mb-4">Your user ID: {user._id}</h2>
+              <h2 className="text-left mb-4">Your name: {user.name}</h2>
+              <h2 className="text-left mb-4">Your role: {user.role}</h2>
               <Form onSubmit={updateQuote}>
                     <Form.Group id="name">
                         <Form.Label>Add Quote</Form.Label>
@@ -82,7 +52,7 @@ const Parent = (props) => {
               </Form>
               </Card.Body>
 
-          </Card> */}
+          </Card>
           <div className="w-100 text-center mt-2">
                     <Link to="/login"><Button variant="link" onClick={handleLogout}>Log Out</Button></Link>
                 </div>

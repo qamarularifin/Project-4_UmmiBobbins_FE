@@ -5,6 +5,7 @@ import { useContext } from "react"
 import GeneralContext from "../../context/GeneralContext"
 
 
+
 const BabySitter = (props) => {
     const { quote,
             setQuote,
@@ -19,15 +20,19 @@ const BabySitter = (props) => {
             password, setPassword,
             userId, setUserId,
             role, setRole] = userContext
+
+  const user = JSON.parse(localStorage.getItem("currentUser"))
+  
   return (
       <>
-    {/* <Card>
+    <Card>
           <Card.Body>
+             <h1>BabySitter</h1> 
               <h2 className="text-center mb-4">Your quote: {quote || "No quote found"} </h2>
-              <h2 className="text-left mb-4">Your email: {email}</h2>
-              <h2 className="text-left mb-4">Your user ID: {userId}</h2>
-              <h2 className="text-left mb-4">Your name: {name}</h2>
-              <h2 className="text-left mb-4">Your role: {role}</h2>
+              <h2 className="text-left mb-4">Your email:{user.email} </h2>
+              <h2 className="text-left mb-4">Your user ID: {user._id}</h2>
+              <h2 className="text-left mb-4">Your name: {user.name}</h2>
+              <h2 className="text-left mb-4">Your role: {user.role}</h2>
               <Form onSubmit={updateQuote}>
                     <Form.Group id="name">
                         <Form.Label>Add Quote</Form.Label>
@@ -38,7 +43,7 @@ const BabySitter = (props) => {
               </Form>
               </Card.Body>
 
-          </Card> */}
+          </Card>
           <div className="w-100 text-center mt-2">
                     <Link to="/login"><Button variant="link" onClick={handleLogout}>Log Out</Button></Link>
                 </div>

@@ -85,7 +85,7 @@ const Signup = () => {
                     </Form.Group>
 
                     <DropdownButton
-                        alignRight
+                        
                         title="Select Role"
                         id="dropdown-menu-align-right"
                         onSelect={handleSelect}

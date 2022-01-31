@@ -22,45 +22,7 @@ const Parent = (props) => {
             userId, setUserId,
             role, setRole] = userContext
 
-    const navigate = useNavigate()
 
-// /////////////
-// const populatePage = async() =>{
-//     // get requests
-//     const request = await fetch(`${BACKEND_BASE_URL}/user/api/dashboard`, {
-//       headers: {
-//         "x-access-token": localStorage.getItem("token")
-//       }
-//     }
-//     )
-
-//     // this is for showing the quote
-//     const data = await request.json()
-//     if (data.status === "ok"){
-//       //setQuote(data.quote)
-//       setEmail(data.email) 
-//       setUserId(data._id)
-//       setName(data.name)
-//       setRole(data.role)
-//       console.log("data", data)
-//     } else{
-//       alert(data.error)
-//     }
-    
-// }
-
-// // to check if token exists or not or login
-// useEffect(()=>{
-//     const token = localStorage.getItem("token") // get from localstorage
-//     if (!token){ // if token exists // if token doesnt exist, remove token from local storage and go back to login
-//         localStorage.removeItem("token")
-//         navigate("/login")
-//       } else{
-//         populatePage() // if token exists, do this
-//       }
-//     }
-// , [])
-// ///////////////////////////
 
         
   return (
