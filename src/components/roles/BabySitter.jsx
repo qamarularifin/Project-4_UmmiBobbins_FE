@@ -31,9 +31,9 @@ const BabySitter = (props) => {
           <h1>Dashboard for BabySitters</h1>
              
               <h2 className="text-center mb-4">Your quote: {quote || "No quote found"} </h2>
-              <h2 className="text-left mb-4">Your email:{user.email} </h2>
+              <h2 className="text-left mb-4">Your email:{email} </h2>
               <h2 className="text-left mb-4">Your user ID: {user._id}</h2>
-              <h2 className="text-left mb-4">Your name: {user.name}</h2>
+              <h2 className="text-left mb-4">Your name: {name}</h2>
               <h2 className="text-left mb-4">Your role: {user.role}</h2>
               <Form onSubmit={updateQuote}>
                     <Form.Group id="name">

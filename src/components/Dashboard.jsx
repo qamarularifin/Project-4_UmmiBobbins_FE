@@ -49,7 +49,9 @@ const Dashboard = () => {
       console.log("dddd", data)
       setQuote(data.quote) //without this the quote will not be rendered // will render instantly
       setEmail(data.email)  //will render instantly
-      // setEmail(data.email)
+      setRole(data.role)
+      setPassword(data.password)
+      
       
     };
 
