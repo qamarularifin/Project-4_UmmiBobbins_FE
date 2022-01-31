@@ -47,10 +47,12 @@ const Login = () => {
         )
         const data = await response.json()
         if(data.userData){  //check if session exists
-          localStorage.setItem("session", data.userData) //this stores session in the localstorage
+          localStorage.setItem("session", JSON.stringify(data.userData)) //this stores session in the localstorage
           setError("")
           setLoading(true)
+          console.log("dataaaa", data )
           navigate("/dashboard")
+          
         } else{
           setError("Failed to sign in")
           

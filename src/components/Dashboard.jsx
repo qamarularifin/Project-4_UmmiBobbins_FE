@@ -20,8 +20,8 @@ const Dashboard = () => {
          userId, setUserId,
          role, setRole] = userContext
 
-//   const token = localStorage.getItem("token")
-//   const navigate = useNavigate()
+
+  const navigate = useNavigate()
 //   const [quote, setQuote] = useState('')
 //   const [tempQuote, setTempQuote] = useState("")
 
@@ -78,38 +78,57 @@ const Dashboard = () => {
 // //     }
 // // }, [])
 
-//   // this is to update field and in this case is the Quote
-//   async function updateQuote(event){
-//     event.preventDefault() // prevents whole page from refreshing
-//     const request = await fetch(`${BACKEND_BASE_URL}/user/api/dashboard`, {
-//       method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//           "x-access-token": localStorage.getItem("token")
-//         },
-//         body: JSON.stringify({
-//           quote: tempQuote,
-//         })
-//       })
+  // this is to update field and in this case is the Quote
+  // async function updateQuote(event){
+  //   event.preventDefault() // prevents whole page from refreshing
+  //   const request = await fetch(`${BACKEND_BASE_URL}/user/api/dashboard`, {
+  //     method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "x-access-token": localStorage.getItem("token")
+  //       },
+  //       body: JSON.stringify({
+  //         quote: tempQuote,
+  //       })
+  //     })
 
-//       const data = await request.json()
-//       if (data.status === "ok"){
-//         setQuote(tempQuote)
-//         setTempQuote("")
-//       } else{
-//         alert(data.error)
-//       }
-//       console.log(data)
-//   }
+  //     const data = await request.json()
+  //     if (data.status === "ok"){
+  //       setQuote(tempQuote)
+  //       setTempQuote("")
+  //     } else{
+  //       alert(data.error)
+  //     }
+  //     console.log(data)
+  // }
 
 
-//   const handleLogout = () =>{
-//     setEmail("")
-//     setPassword("")
-//     setName("")
-//     localStorage.clear()
+  const handleLogout = async(event) =>{
+    setEmail("")
+    setPassword("")
+    setName("")
+
+    event.preventDefault() // prevents whole page from refreshing
+
+    try{
+      await fetch(`${BACKEND_BASE_URL}/user/api/dashboard`, {
+      method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+         
+        }
+      });
+      localStorage.removeItem("session")
+      navigate("/login")
+    } catch(error){
+      console.log(error)
+    }
     
-//   }
+
+    
+    
+    
+  }
   
 
 
@@ -118,28 +137,28 @@ const Dashboard = () => {
   return (
     <>
     <h1>Dashboard</h1>
-       {/* {
+       {
          role === "Parent" ? 
          
             <Parent 
-              quote={quote}
-              setQuote={setQuote}
-              tempQuote={tempQuote}
-              setTempQuote={setTempQuote}
-              updateQuote={updateQuote}
+              // quote={quote}
+              // setQuote={setQuote}
+              // tempQuote={tempQuote}
+              // setTempQuote={setTempQuote}
+              // updateQuote={updateQuote}
               handleLogout={handleLogout}
             />     :
 
          <BabySitter 
-              quote={quote}
-              setQuote={setQuote}
-              tempQuote={tempQuote}
-              setTempQuote={setTempQuote}
-              updateQuote={updateQuote}
+              // quote={quote}
+              // setQuote={setQuote}
+              // tempQuote={tempQuote}
+              // setTempQuote={setTempQuote}
+              // updateQuote={updateQuote}
               handleLogout={handleLogout}
          />
          
-       } */}
+       }
     </>
     )
 };

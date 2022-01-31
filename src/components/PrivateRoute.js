@@ -3,13 +3,13 @@ import { Route, Navigate } from "react-router-dom"
 
 
 const PrivateRoute = ({children}) => {
-  const token = localStorage.getItem("token")
+  const session = localStorage.getItem("session")
   //console.log("token", token)
 
   return (
 
             // if there is currentUser, render the component, else redirect to login page
-            token ? children : <Navigate to="/login" />
+            session ? children : <Navigate to="/login" />
   );
 };
 
