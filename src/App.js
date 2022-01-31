@@ -11,9 +11,11 @@ import UpdateProfile from "./components/UpdateProfile"
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
 
+
+
 function App() {
   
-  const [userId, setUserId] = useState(null)
+
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -21,7 +23,7 @@ function App() {
   const [role, setRole] = useState("")
 
 
-
+ 
   return (
     
     <GeneralContext.Provider
@@ -31,7 +33,6 @@ function App() {
             email, setEmail,
             password, setPassword,
             passwordConfirm, setPasswordConfirm,
-            userId, setUserId,
             role, setRole
           ]
         }}>

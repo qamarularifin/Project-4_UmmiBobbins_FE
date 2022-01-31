@@ -8,7 +8,7 @@ const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
 
 
 const Parent = (props) => {
-    
+    const user = JSON.parse(localStorage.getItem("currentUser"))
     const { quote,
             setQuote,
             tempQuote,
@@ -21,27 +21,25 @@ const Parent = (props) => {
             name, setName,
             email, setEmail,
             password, setPassword,
-            userId, setUserId,
             role, setRole] = userContext
 
     const navigate = useNavigate()
 
-    const user = JSON.parse(localStorage.getItem("currentUser"))
     
 
-
-
-        
+  
+     
   return (
       <>
     <Card>
           <Card.Body>
-             <h1>Parent</h1> 
+          <h1>Dashboard for Parents</h1>
+            
               <h2 className="text-center mb-4">Your quote: {quote || "No quote found"} </h2>
-              <h2 className="text-left mb-4">Your email: {user.email} </h2>
+              <h2 className="text-left mb-4">Your email: {email} </h2>
               <h2 className="text-left mb-4">Your user ID: {user._id}</h2>
-              <h2 className="text-left mb-4">Your name: {user.name}</h2>
-              <h2 className="text-left mb-4">Your role: {user.role}</h2>
+              <h2 className="text-left mb-4">Your name: {name}</h2>
+              <h2 className="text-left mb-4">Your role: {role}</h2>
               <Form onSubmit={updateQuote}>
                     <Form.Group id="name">
                         <Form.Label>Add Quote</Form.Label>

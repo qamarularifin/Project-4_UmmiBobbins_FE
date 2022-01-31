@@ -9,7 +9,10 @@ import Parent from "./roles/Parent"
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
 
+
 const Dashboard = () => {
+  const user = JSON.parse(localStorage.getItem("currentUser")) // returns all the data from user // and must be within main function
+  
 
   
   const { userContext } = useContext(GeneralContext);
@@ -17,20 +20,25 @@ const Dashboard = () => {
          name, setName,
          email, setEmail,
          password, setPassword,
-         userId, setUserId,
          role, setRole] = userContext
 
-  const user = JSON.parse(localStorage.getItem("currentUser")) // returns all the data from user
-  
-
+  // will this require no user. in the parent and baby page?
+  useEffect(()=>{
+    setName(user.name)
+    setEmail(user.name)
+    setPassword(user.password)
+    setRole(user.role)
+  }, [])
 
 
   const navigate = useNavigate()
   const [quote, setQuote] = useState('')
   const [tempQuote, setTempQuote] = useState("")
+  
 
+   // do i really need below??
     // route GET cash data for index page only
-    const loadPage = async () => {
+    const loadData = async () => {
       const res = await fetch(`${BACKEND_BASE_URL}/user/api/dashboard/${user._id}`);
       if (res.status !== 200) {
         console.error("failed to fetch item");
@@ -38,38 +46,23 @@ const Dashboard = () => {
         return;
       }
       const data = await res.json();
-      setQuote(data.quote)
       console.log("dddd", data)
+      setQuote(data.quote) //without this the quote will not be rendered // will render instantly
+      setEmail(data.email)  //will render instantly
+      // setEmail(data.email)
+      
     };
 
-//   const populatePage = async() =>{
-//     // get requests
-//     const request = await fetch(`${BACKEND_BASE_URL}/user/api/dashboard/${user._id}`, {
-//       headers: {
-//         "Content-Type": "application/json",
-//       }
-//     })
-
-//     // this is for showing the quote
-//     const data = await request.json()
-//     if (data){
-//       setQuote(data.quote)
-  
-//       console.log("data", data)
-//     } else{
-//       alert(data.error)
-//     }
-    
-// }
-
+// need this to render the quote if use without user.quote
+// need this also so that the quote will re-render instantly but must use without user.quote
 useEffect(()=>{
-  loadPage()
-  }, [quote])
+  loadData()
+  }, [])
   
 
 
    // this is to update field and in this case is the Quote
-   async function updateQuote(event){
+   const updateQuote = async(event) =>{
     event.preventDefault() // prevents whole page from refreshing
     const res = await fetch(`${BACKEND_BASE_URL}/user/api/dashboard/${user._id}`, {
       method: "POST",
@@ -92,7 +85,7 @@ useEffect(()=>{
       setQuote(tempQuote)
       setTempQuote("")
 
-      console.log("gggg", data)
+      // console.log("gggg", data)
   }
 
 
@@ -133,11 +126,12 @@ useEffect(()=>{
 
   return (
     <>
-    <h1>Dashboard</h1>
+    
        {
-         user.role === "parent" ? 
+         role === "parent" ? 
          
             <Parent 
+        
               quote={quote}
               setQuote={setQuote}
               tempQuote={tempQuote}

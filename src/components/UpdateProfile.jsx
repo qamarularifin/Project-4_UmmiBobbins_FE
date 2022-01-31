@@ -6,8 +6,9 @@ import GeneralContext from "../context/GeneralContext"
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
 
-const UpdateProfile = () => {
 
+const UpdateProfile = () => {
+    const user = JSON.parse(localStorage.getItem("currentUser"))
     const { userContext } = useContext(GeneralContext);
     const [
             name, setName,
@@ -24,74 +25,42 @@ const UpdateProfile = () => {
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
-    console.log("tttt", userId)
+    const [tempEmail, setTempEmail] = useState("")
 
-    /////////////
-    const populatePage = async() =>{
-        // get requests
-        const request = await fetch(`${BACKEND_BASE_URL}/user/api/dashboard`, {
-          headers: {
-            "x-access-token": localStorage.getItem("token")
-          }
-        }
-        )
-  
-        // this is for showing the quote
-        const data = await request.json()
-        if (data.status === "ok"){
-          //setQuote(data.quote)
-          setEmail(data.email) 
-          setUserId(data._id)
-          setName(data.name)
-          setRole(data.role)
-          console.log("data", data)
-        } else{
-          alert(data.error)
-        }
-        
-    }
-  
-    // to check if token exists or not or login
-    useEffect(()=>{
-        const token = localStorage.getItem("token") // get from localstorage
-        if (!token){ // if token exists // if token doesnt exist, remove token from local storage and go back to login
-            localStorage.removeItem("token")
-            navigate("/login")
-          } else{
-            populatePage() // if token exists, do this
-          }
-        }
-    , [])
-    ///////////////////////////
 
-    const handleSubmit = async (e) =>{
-        e.preventDefault() // prevents from refreshing
-        // validation
+
+
+      // this is to update field and in this case is the Quote
+   const handleSubmit = async(event) =>{
+    event.preventDefault() // prevents whole page from refreshing
+    // validation
         // if (passwordRef.current.value !== passwordConfirmRef.current.value) {
         //     return setError("Passwords do not match")
         // }
-        const response = await fetch(`${BACKEND_BASE_URL}/user/api/${userId}`,
-         {
-          method: "PUT",
+    const res = await fetch(`${BACKEND_BASE_URL}/user/api/dashboard/update-profile/${user._id}`, {
+      method: "POST",
+        headers: {
+          "Content-Type": "application/json",
           
-          body: JSON.stringify({
-            
-            email : email,
-            // password : password
-          }),
-          headers:{
-            "Content-Type": "application/json",
-          },
-        }
-        )
-        const data = await response.json()
-        
-        
-        navigate("/dashboard")
-        
+        },
+        body: JSON.stringify({
+          email: tempEmail,
+        })
+      })
 
+      if (res.status !== 200) {
+        console.error("failed to fetch item");
+        
+        return;
+      }
+      const data = await res.json();
+      console.log("gggg", data)
+      
+      setEmail(tempEmail)
+      navigate("/dashboard")
+      
+  }
 
-    }
 
 
   return (
@@ -106,7 +75,7 @@ const UpdateProfile = () => {
                 <Form.Group id="email">
                     <Form.Label>Email</Form.Label>
                     <Form.Control type="email" ref={emailRef} required
-                    defaultValue={email} onChange={(e)=>setEmail(e.target.value)} />
+                    defaultValue={email} onChange={(e)=>setTempEmail(e.target.value)} />
                 </Form.Group>
 
                 {/* <Form.Group id="password">

@@ -7,6 +7,7 @@ import GeneralContext from "../../context/GeneralContext"
 
 
 const BabySitter = (props) => {
+    const user = JSON.parse(localStorage.getItem("currentUser"))
     const { quote,
             setQuote,
             tempQuote,
@@ -21,13 +22,14 @@ const BabySitter = (props) => {
             userId, setUserId,
             role, setRole] = userContext
 
-  const user = JSON.parse(localStorage.getItem("currentUser"))
+  
   
   return (
       <>
     <Card>
           <Card.Body>
-             <h1>BabySitter</h1> 
+          <h1>Dashboard for BabySitters</h1>
+             
               <h2 className="text-center mb-4">Your quote: {quote || "No quote found"} </h2>
               <h2 className="text-left mb-4">Your email:{user.email} </h2>
               <h2 className="text-left mb-4">Your user ID: {user._id}</h2>
