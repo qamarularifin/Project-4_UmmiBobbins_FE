@@ -3,6 +3,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom"
 import {Form, Button, Card, Alert} from "react-bootstrap"
 import { useContext } from "react"
 import GeneralContext from "../../context/GeneralContext"
+import Logout from "../Logout"
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
 
@@ -51,9 +52,10 @@ const Parent = (props) => {
               </Card.Body>
 
           </Card>
-          <div className="w-100 text-center mt-2">
+          <Logout/>
+          {/* <div className="w-100 text-center mt-2">
                     <Link to="/login"><Button variant="link" onClick={handleLogout}>Log Out</Button></Link>
-                </div>
+                </div> */}
 
                 </>
   )

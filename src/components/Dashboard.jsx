@@ -94,33 +94,33 @@ useEffect(()=>{
 
 
 
-  const handleLogout = async(event) =>{
-    setEmail("")
-    setPassword("")
-    setName("")
+  // const handleLogout = async(event) =>{
+  //   setEmail("")
+  //   setPassword("")
+  //   setName("")
 
-    event.preventDefault() // prevents whole page from refreshing
+  //   event.preventDefault() // prevents whole page from refreshing
 
-    try{
-      const response = await fetch(`${BACKEND_BASE_URL}/user/api/logout`, {
-      method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
+  //   try{
+  //     const response = await fetch(`${BACKEND_BASE_URL}/user/api/logout`, {
+  //     method: "DELETE",
+  //       headers: {
+  //         "Content-Type": "application/json",
          
-        }
-      });
-      const data = await response.json()
-      if (data.status === "ok"){
-        localStorage.removeItem("currentUser")
-        navigate("/login")
-      }
+  //       }
+  //     });
+  //     const data = await response.json()
+  //     if (data.status === "ok"){
+  //       localStorage.removeItem("currentUser")
+  //       navigate("/login")
+  //     }
       
-    } catch(error){
-      console.log(error)
-    }
+  //   } catch(error){
+  //     console.log(error)
+  //   }
     
     
-  }
+  // }
   
 
 
@@ -139,7 +139,7 @@ useEffect(()=>{
               tempQuote={tempQuote}
               setTempQuote={setTempQuote}
               updateQuote={updateQuote}
-              handleLogout={handleLogout}
+              // handleLogout={handleLogout}
             />     :
 
          <BabySitter 
@@ -148,7 +148,7 @@ useEffect(()=>{
               tempQuote={tempQuote}
               setTempQuote={setTempQuote}
               updateQuote={updateQuote}
-              handleLogout={handleLogout}
+              // handleLogout={handleLogout}
          />
          
        }

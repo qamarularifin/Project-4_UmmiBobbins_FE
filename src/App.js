@@ -3,6 +3,7 @@ import {Route, Routes } from 'react-router-dom'
 import {Container} from "react-bootstrap"
 import Signup from "./components/Signup"
 import Login from "./components/Login"
+import Logout from "./components/Logout"
 import Dashboard from "./components/Dashboard"
 import PrivateRoute from "./components/PrivateRoute"
 import GeneralContext from "./context/GeneralContext"
@@ -45,8 +46,9 @@ function App() {
             <Routes>
               <Route path="/signup" element={<Signup/>} />
               <Route path="/login" element={<Login/>} />
+              <Route path="/logout" element={<Logout/>} />
               <Route path="/dashboard" element={<PrivateRoute> <Dashboard/> </PrivateRoute>} />
-              <Route path="/dashboard" element={<Dashboard/>} />
+              {/* <Route path="/dashboard" element={<Dashboard/>} /> */}
               <Route path="/update-profile" element={<PrivateRoute> <UpdateProfile/> </PrivateRoute>} />
             </Routes>
             

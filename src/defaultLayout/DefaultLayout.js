@@ -1,6 +1,7 @@
 import React from "react"
 import "../App.css"
 import {Form, Button, FormControl, Container, Navbar, Nav, NavDropdown} from "react-bootstrap"
+import Logout from "../components/Logout"
 
 const DefaultLayout = (props) =>{
     const session = localStorage.getItem("currentUser")
@@ -21,10 +22,10 @@ const DefaultLayout = (props) =>{
                     <Nav.Link href="/login">Log In</Nav.Link> */}
                     <NavDropdown title="Profile" id="navbarScrollingDropdown" >
 
-                    {session ?   
-                             <NavDropdown.Item href="/login">Log Out</NavDropdown.Item>
-                             :
-                             <NavDropdown.Item href="/login">Log In</NavDropdown.Item>
+                    {!session &&  
+                             <NavDropdown.Item href="/login"> Log In</NavDropdown.Item>
+                    }
+                       {session && <NavDropdown.Item href="/logout"><Logout/> </NavDropdown.Item>
                     }
                     
                     <NavDropdown.Item href="/signup">Sign Up</NavDropdown.Item>

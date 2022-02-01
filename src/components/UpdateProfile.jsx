@@ -35,9 +35,9 @@ const UpdateProfile = () => {
    const handleSubmit = async(event) =>{
     event.preventDefault() // prevents whole page from refreshing
         //validation
-        // if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-        //     return setError("Passwords do not match")
-        // }
+        if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+            return setError("Passwords do not match")
+        }
 
           const res = await fetch(`${BACKEND_BASE_URL}/user/api/dashboard/update-profile/${user._id}`, {
             method: "POST",
@@ -47,7 +47,7 @@ const UpdateProfile = () => {
               },
               body: JSON.stringify({
                 email: tempEmail,
-                // password: tempPassword
+                password: tempPassword
               })
             })
 
@@ -60,7 +60,7 @@ const UpdateProfile = () => {
       console.log("gggg", data)
       
       setEmail(tempEmail)
-      // setPassword(tempPassword)
+      setPassword(tempPassword)
       navigate("/dashboard")
 
 
@@ -86,7 +86,7 @@ const UpdateProfile = () => {
                     defaultValue={email} onChange={(e)=>setTempEmail(e.target.value)} />
                 </Form.Group>
 
-                {/* <Form.Group id="password">
+                <Form.Group id="password">
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" ref={passwordRef}  
                     //  defaultValue={password}
@@ -101,7 +101,7 @@ const UpdateProfile = () => {
                     // defaultValue={passwordConfirm}
                          placeholder="Confirm new password"
                     />
-                </Form.Group> */}
+                </Form.Group>
 
                 <Button disabled={loading} className="w-100 mt-3" type="submit">Update</Button>
             </Form>
