@@ -1,62 +1,95 @@
-import React from "react"
-import "../App.css"
-import {Form, Button, FormControl, Container, Navbar, Nav, NavDropdown} from "react-bootstrap"
-import Logout from "../components/Logout"
+import React from "react";
+import "../App.css";
+import {
+  Form,
+  Button,
+  FormControl,
+  Container,
+  Navbar,
+  Nav,
+  NavDropdown,
+} from "react-bootstrap";
+import Logout from "../components/Logout";
+import { useNavigate } from "react-router-dom";
 
-const DefaultLayout = (props) =>{
-    const session = localStorage.getItem("currentUser")
-    return (
-        <div >
-            <Navbar bg="light" expand="lg">
-            <Container fluid>
-                <Navbar.Brand href="/dashboard">Ummi Bobbins</Navbar.Brand>
-                <Navbar.Toggle aria-controls="navbarScroll" />
-                <Navbar.Collapse id="navbarScroll">
-                <Nav
-                    className="me-auto my-2 my-lg-0"
-                    style={{ maxHeight: '100px' }}
-                    navbarScroll
-                >
-                    {/* <Nav.Link href="/dashboard">Dashboard</Nav.Link> */}
-                    {/* <Nav.Link href="/signup">Sign Up</Nav.Link>
-                    <Nav.Link href="/login">Log In</Nav.Link> */}
-                    <NavDropdown title="Profile" id="navbarScrollingDropdown" >
+const DefaultLayout = (props) => {
+  const session = JSON.parse(localStorage.getItem("currentUser"));
+  const navigate = useNavigate();
 
-                    {!session &&  
-                             <NavDropdown.Item href="/login"> Log In</NavDropdown.Item>
-                    }
-                       {session && <NavDropdown.Item href="/logout"><Logout/> </NavDropdown.Item>
-                    }
-                    
-                    <NavDropdown.Item href="/signup">Sign Up</NavDropdown.Item>
-                    {/* <NavDropdown.Divider />  */}
-                    {/* <NavDropdown.Item href="#action5">
-                        Something else here
-                    </NavDropdown.Item>  */}
-                    </NavDropdown>
-                    {/* <Nav.Link href="#" disabled>
-                    Link
-                    </Nav.Link> */}
-                </Nav>
-                {/* <Form className="d-flex">
-                    <FormControl
-                    type="search"
-                    placeholder="Search"
-                    className="me-2"
-                    aria-label="Search"
-                    />
-                    <Button variant="outline-success">Search</Button>
-                </Form> */}
-                </Navbar.Collapse>
-            </Container>
-            </Navbar>
+  const logout = () => {
+    localStorage.removeItem("currentUser");
+    navigate("/login");
+  };
 
-            <div >
-                {props.children}
-            </div>
-
+  return (
+    <div>
+      <nav className="navbar navbar-expand-lg">
+        <a className="navbar-brand" href="/dashboard">
+          Ummi Bobbins
+        </a>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          {/* for hamburger icon */}
+          <span className="navbar-toggler-icon">
+            <i className="fa fa-bars" style={{ color: "white" }}></i>
+          </span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav mr-5">
+            {session ? (
+              <>
+                <div className="dropdown">
+                  <button
+                    className="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    <i className="fa fa-user mr-2"></i>
+                    {session.name}
+                  </button>
+                  <div
+                    className="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <a className="dropdown-item" href="#">
+                      Bookings
+                    </a>
+                    <a className="dropdown-item" href="#" onClick={logout}>
+                      Logout
+                    </a>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <li className="nav-item active">
+                  <a className="nav-link" href="/signup">
+                    Sign Up
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/login">
+                    Log In
+                  </a>
+                </li>
+              </>
+            )}
+          </ul>
         </div>
-    )
-}
+      </nav>
+      <div>{props.children}</div>
+    </div>
+  );
+};
 
-export default DefaultLayout
+export default DefaultLayout;
