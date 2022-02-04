@@ -31,7 +31,7 @@ const Parent = (props) => {
           <h1>Dashboard for Parents</h1>
 
           <h2 className="text-center mb-4">
-            Your quote: {quote || "No quote found"}{" "}
+            Your quote: {quote || "No quote found"}
           </h2>
           <h2 className="text-left mb-4">Your email: {email} </h2>
           <h2 className="text-left mb-4">Your user ID: {user._id}</h2>
