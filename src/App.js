@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import Signup from "./components/Signup";
-import Login from "./components/Login";
+import Signup from "./screens/Auth/Signup";
+import Login from "./screens/Auth/Login";
 import Logout from "./components/Logout";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./screens/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
 import GeneralContext from "./context/GeneralContext";
 import DefaultLayout from "./defaultLayout/DefaultLayout";
-import UpdateProfile from "./components/UpdateProfile";
+import UpdateProfile from "./screens/Auth/UpdateProfile";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
