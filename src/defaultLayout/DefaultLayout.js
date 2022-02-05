@@ -10,7 +10,7 @@ import {
   NavDropdown,
 } from "react-bootstrap";
 import Logout from "../components/Logout";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const DefaultLayout = (props) => {
   const session = JSON.parse(localStorage.getItem("currentUser"));
@@ -64,6 +64,12 @@ const DefaultLayout = (props) => {
                     <a className="dropdown-item" href="#">
                       Bookings
                     </a>
+                    <Link to="/update-profile" className="dropdown-item">
+                      Account Settings
+                    </Link>
+                    {/* <a className="dropdown-item" href="/update-profile">
+                      Account Settings
+                    </a> */}
                     <a className="dropdown-item" href="#" onClick={logout}>
                       Logout
                     </a>

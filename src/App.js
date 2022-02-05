@@ -52,8 +52,7 @@ function App() {
                   path="/dashboard"
                   element={
                     <PrivateRoute>
-                      {" "}
-                      <Dashboard />{" "}
+                      <Dashboard />
                     </PrivateRoute>
                   }
                 />
@@ -62,8 +61,7 @@ function App() {
                   path="/update-profile"
                   element={
                     <PrivateRoute>
-                      {" "}
-                      <UpdateProfile />{" "}
+                      <UpdateProfile />
                     </PrivateRoute>
                   }
                 />

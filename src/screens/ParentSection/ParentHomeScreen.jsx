@@ -50,9 +50,6 @@ const Parent = (props) => {
             <Button className="w-100 mt-3" type="submit">
               Update Quote
             </Button>
-            <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
-              Update Profile
-            </Link>
           </Form>
         </Card.Body>
       </Card>
