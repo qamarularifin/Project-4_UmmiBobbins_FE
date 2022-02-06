@@ -12,7 +12,10 @@ const ParentBabySitterDetailScreen = (props) => {
       <div className="col-md-4 ">
         <p>Name: {babySitter.name}</p>
         <p>Location: {babySitter.location}</p>
-        <button className="btn btn-primary m-2">Book Now</button>
+        <Link to={`/book/${babySitter._id}/`}>
+          <button className="btn btn-primary m-2">Book Now</button>
+        </Link>
+
         <button className="btn btn-primary" onClick={handleShow}>
           View Details
         </button>

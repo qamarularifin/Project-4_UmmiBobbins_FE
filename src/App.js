@@ -10,6 +10,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import GeneralContext from "./context/GeneralContext";
 import DefaultLayout from "./defaultLayout/DefaultLayout";
 import UpdateProfile from "./screens/Auth/UpdateProfile";
+import ParentBookingScreen from "./screens/ParentSection/ParentBookingScreen";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
@@ -62,6 +63,15 @@ function App() {
                   element={
                     <PrivateRoute>
                       <UpdateProfile />
+                    </PrivateRoute>
+                  }
+                />
+
+                <Route
+                  path="/book/:parentid"
+                  element={
+                    <PrivateRoute>
+                      <ParentBookingScreen />
                     </PrivateRoute>
                   }
                 />
