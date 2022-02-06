@@ -8,7 +8,7 @@ import moment from "moment";
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
 const ParentBookingScreen = () => {
-  const { parentid } = useParams();
+  const { babysitterid } = useParams();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const [babySitter, setBabySitter] = useState();
@@ -20,7 +20,7 @@ const ParentBookingScreen = () => {
       const results = await axios.post(
         `${BACKEND_BASE_URL}/babysitter/api/getbabysitterbyid`,
         {
-          id: parentid,
+          id: babysitterid,
         }
       );
       console.log("results", results.data);
