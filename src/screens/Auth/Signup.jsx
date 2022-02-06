@@ -53,7 +53,7 @@ const Signup = () => {
       method: "POST",
 
       body: JSON.stringify({
-        name: name,
+        // name: name,
         email: email,
         password: password,
         role: role,
@@ -82,7 +82,7 @@ const Signup = () => {
           <h2 className="text-center mb-4">Sign Up</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={signupUser}>
-            <Form.Group id="name">
+            {/* <Form.Group id="name">
               <Form.Label>Name</Form.Label>
               <Form.Control
                 type="name"
@@ -91,7 +91,7 @@ const Signup = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
-            </Form.Group>
+            </Form.Group> */}
 
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>

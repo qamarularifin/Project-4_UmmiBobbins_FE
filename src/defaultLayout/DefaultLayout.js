@@ -55,7 +55,7 @@ const DefaultLayout = (props) => {
                     aria-expanded="false"
                   >
                     <i className="fa fa-user mr-2"></i>
-                    {session.name}
+                    {session.email}
                   </button>
                   <div
                     className="dropdown-menu"
