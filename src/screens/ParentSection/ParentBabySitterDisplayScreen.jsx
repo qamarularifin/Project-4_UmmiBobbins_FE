@@ -11,7 +11,9 @@ const ParentBabySitterDisplayScreen = (props) => {
     <div className="row bs ">
       <div className="col-md-9">
         <p>Name: {babySitter.name}</p>
+        <img src={babySitter.image} className="bigimg" />
         <p>Location: {babySitter.location}</p>
+        <p>Rate Per Hour: $ {babySitter.ratePerHour}</p>
 
         <Link to={`/book/${babySitter._id}/`}>
           <button className="btn btn-primary m-2">Book Now</button>

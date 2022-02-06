@@ -35,15 +35,17 @@ const ParentBookingScreen = () => {
 
   return (
     <div className="m-5">
-      <h1>Parent Booking Screen</h1>
+      <h1 className="row justify-content-center mt-5">Parent Booking Screen</h1>
       {loading ? (
         <Loader />
       ) : babySitter ? (
         <div>
           <div className="row justify-content-center mt-5 bs">
             <div className="col-md-9">
+              <img src={babySitter.image} className="bigimg" />
               <p>Name: {babySitter.name}</p>
               <p>Location: {babySitter.location}</p>
+              <p>Rate Per Hour: $ {babySitter.ratePerHour}</p>
             </div>
           </div>
         </div>

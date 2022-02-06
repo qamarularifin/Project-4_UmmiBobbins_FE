@@ -36,13 +36,16 @@ const BabySitterDetailScreen = () => {
   }, []);
   return (
     <div className="m-5">
-      <h1>Baby Sitter Detail Screen</h1>
+      <h1 className="row justify-content-center mt-5">
+        Baby Sitter Detail Screen
+      </h1>
       {loading ? (
         <Loader />
       ) : parent ? (
         <div>
           <div className="row justify-content-center mt-5 bs">
             <div className="col-md-9">
+              <img src={parent.image} className="bigimg" />
               <p>Name: {parent.name}</p>
               <p>Location: {parent.location}</p>
             </div>

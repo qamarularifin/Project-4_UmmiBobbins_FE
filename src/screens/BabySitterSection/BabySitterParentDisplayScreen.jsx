@@ -10,8 +10,9 @@ const BabySitterParentDisplayScreen = (props) => {
 
   return (
     <div className="row bs">
-      <div className="col-md-4 ">
+      <div className="col-md-9 ">
         <p>Name: {parent.name}</p>
+        <img src={parent.image} className="bigimg" />
         <p>Location: {parent.location}</p>
         <Link to={`/detail/${parent._id}`}>
           <button className="btn btn-primary m-2">Message</button>
