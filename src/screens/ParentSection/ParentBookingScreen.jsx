@@ -20,7 +20,7 @@ const ParentBookingScreen = () => {
       const results = await axios.post(
         `${BACKEND_BASE_URL}/babysitter/api/getbabysitterbyid`,
         {
-          xxx: parentid,
+          id: parentid,
         }
       );
       console.log("results", results.data);
@@ -35,14 +35,20 @@ const ParentBookingScreen = () => {
 
   return (
     <div className="m-5">
+      <h1>Parent Booking Screen</h1>
       {loading ? (
         <Loader />
       ) : babySitter ? (
         <div>
-          <h1>{babySitter.name}</h1>
+          <div className="row justify-content-center mt-5 bs">
+            <div className="col-md-9">
+              <p>Name: {babySitter.name}</p>
+              <p>Location: {babySitter.location}</p>
+            </div>
+          </div>
         </div>
       ) : (
-        <Error />
+        <Error message="Booking data error" />
       )}
     </div>
   );

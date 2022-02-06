@@ -6,10 +6,11 @@ import GeneralContext from "../../context/GeneralContext";
 import axios from "axios";
 import Loader from "../../components/Loader";
 import Error from "../../components/Error";
-import ParentBabySitterDetailScreen from "./ParentBabySitterDetailScreen";
+import ParentBabySitterDisplayScreen from "./ParentBabySitterDisplayScreen";
 import moment from "moment";
 // import "antd/dist/antd.css";
 import { DatePicker } from "antd";
+
 const { RangePicker } = DatePicker;
 
 // import Logout from "../Logout"
@@ -63,7 +64,7 @@ const ParentHomeScreen = (props) => {
             babySitters.map((babySitter, i) => {
               return (
                 <div key={i} className="col-md-9 mt-2">
-                  <ParentBabySitterDetailScreen babySitter={babySitter} />
+                  <ParentBabySitterDisplayScreen babySitter={babySitter} />
                 </div>
               );
             })
