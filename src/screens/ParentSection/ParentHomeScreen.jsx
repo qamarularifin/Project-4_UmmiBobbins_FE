@@ -8,7 +8,7 @@ import Loader from "../../components/Loader";
 import Error from "../../components/Error";
 import ParentBabySitterDetailScreen from "./ParentBabySitterDetailScreen";
 import moment from "moment";
-import "antd/dist/antd.css";
+// import "antd/dist/antd.css";
 import { DatePicker } from "antd";
 const { RangePicker } = DatePicker;
 
@@ -16,7 +16,7 @@ const { RangePicker } = DatePicker;
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
-const Parent = (props) => {
+const ParentHomeScreen = (props) => {
   const user = JSON.parse(localStorage.getItem("currentUser"));
 
   const {
@@ -76,4 +76,4 @@ const Parent = (props) => {
   );
 };
 
-export default Parent;
+export default ParentHomeScreen;
