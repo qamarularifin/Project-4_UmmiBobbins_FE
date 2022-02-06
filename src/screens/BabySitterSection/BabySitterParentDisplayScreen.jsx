@@ -13,7 +13,10 @@ const BabySitterParentDisplayScreen = (props) => {
       <div className="col-md-4 ">
         <p>Name: {parent.name}</p>
         <p>Location: {parent.location}</p>
-        <button className="btn btn-primary m-2">Message</button>
+        <Link to={`/detail/${parent._id}`}>
+          <button className="btn btn-primary m-2">Message</button>
+        </Link>
+
         <button className="btn btn-primary" onClick={handleShow}>
           View Details
         </button>
