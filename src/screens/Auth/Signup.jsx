@@ -65,7 +65,7 @@ const Signup = () => {
     const data = await response.json();
 
     if (data.status === "ok") {
-      navigate("/login");
+      navigate("/");
     }
     console.log(data);
   };
@@ -143,7 +143,7 @@ const Signup = () => {
             </Button>
           </Form>
           <div className="w-100 text-center mt-2">
-            Already have an account? <Link to="/login">Log In</Link>
+            Already have an account? <Link to="/">Log In</Link>
           </div>
         </Card.Body>
       </Card>

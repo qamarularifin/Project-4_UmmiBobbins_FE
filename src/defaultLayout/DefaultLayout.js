@@ -70,7 +70,7 @@ const DefaultLayout = (props) => {
                     {/* <a className="dropdown-item" href="/update-profile">
                       Account Settings
                     </a> */}
-                    <a className="dropdown-item" href="#" onClick={logout}>
+                    <a className="dropdown-item" href="/" onClick={logout}>
                       Logout
                     </a>
                   </div>
@@ -84,7 +84,7 @@ const DefaultLayout = (props) => {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/login">
+                  <a className="nav-link" href="/">
                     Log In
                   </a>
                 </li>

@@ -46,6 +46,9 @@ const ParentBookingScreen = () => {
               <p>Name: {babySitter.name}</p>
               <p>Location: {babySitter.location}</p>
               <p>Rate Per Hour: $ {babySitter.ratePerHour}</p>
+              <button className="btn btn-primary" style={{ float: "right" }}>
+                Pay Now
+              </button>
             </div>
           </div>
         </div>
