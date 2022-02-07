@@ -65,7 +65,8 @@ const Signup = () => {
     const data = await response.json();
 
     if (data.status === "ok") {
-      navigate("/login");
+      // navigate("/login");
+      navigate("/parent/new-profile");
     }
     console.log(data);
   };
@@ -107,12 +108,13 @@ const Signup = () => {
             <DropdownButton
               title="Select Role"
               id="dropdown-menu-align-right"
+              className="mt-3"
               onSelect={handleSelect}
             >
               <Dropdown.Item eventKey="parent">Parent</Dropdown.Item>
               <Dropdown.Item eventKey="babysitter">BabySitter</Dropdown.Item>
 
-              <Dropdown.Divider />
+              {/* <Dropdown.Divider /> */}
             </DropdownButton>
             <h4>{role}</h4>
 

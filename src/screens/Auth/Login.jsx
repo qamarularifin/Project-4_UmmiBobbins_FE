@@ -3,6 +3,7 @@ import { Form, Button, Card, Alert } from "react-bootstrap";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import GeneralContext from "../../context/GeneralContext";
+import axios from "axios";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
@@ -16,6 +17,8 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const [parent, setParent] = useState();
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,6 +26,26 @@ const Login = () => {
     setPassword("");
     // setName("")
   }, []);
+
+  // //get parent by id
+  // useEffect(async () => {
+  //   try {
+  //     // setLoading(true);
+  //     const results = await axios.post(
+  //       `${BACKEND_BASE_URL}/parent/api/getparentbyid`,
+  //       {
+  //         id: parentid,
+  //       }
+  //     );
+  //     console.log("results", results.data);
+  //     setParent(results.data);
+  //     // setLoading(false);
+  //   } catch (error) {
+  //     // setError(true);
+  //     console.log(error);
+  //     // setLoading(false);
+  //   }
+  // }, []);
 
   const loginUser = async (event) => {
     event.preventDefault(); // prevents refreshing app
@@ -43,14 +66,22 @@ const Login = () => {
       localStorage.setItem("currentUser", JSON.stringify(data.userData)); //this stores session in the localstorage
       setError("");
       setLoading(true);
-      // console.log("dataaaa", data.userData.user.email )
-      // setEmail(data.userData.user.email)
-      // setRole(data.userData.user.role)
-      navigate("/dashboard");
-    } else {
-      setError("Failed to sign in");
+      // navigate("/parent/new-profile")
+      const user = JSON.parse(localStorage.getItem("currentUser"));
+      console.log("oooo", user);
+      if (user.role === "parent" && user.created === false) {
+        navigate("/parent/new-profile");
+      } else if (user.role === "babysitter" && user.created === false) {
+        navigate("/babysitter/new-profile");
+      } else {
+        navigate("/dashboard");
+      }
+
+      // else {
+      //   setError("Failed to sign in");
+      // }
+      //console.log(data)
     }
-    //console.log(data)
   };
 
   return (
