@@ -73,13 +73,15 @@ const Login = () => {
         navigate("/parent/new-profile");
       } else if (user.role === "babysitter" && user.created === false) {
         navigate("/babysitter/new-profile");
-      } else {
+      } else if (
+        (user.role === "parent" && user.created === true) ||
+        (user.role === "babysitter" && user.created === true)
+      ) {
+        //dashboard acts as a middleman to render parent homescreen or babysitter homescreen
         navigate("/dashboard");
+      } else {
+        setError("Failed to sign in");
       }
-
-      // else {
-      //   setError("Failed to sign in");
-      // }
       //console.log(data)
     }
   };
