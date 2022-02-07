@@ -65,6 +65,8 @@ const Login = () => {
       setError("");
       setLoading(true);
       // navigate("/parent/new-profile")
+
+      //if new user, will navigate to either parent or babysitter create profile page based on role
       const user = JSON.parse(localStorage.getItem("currentUser"));
       console.log("oooo", user);
       if (user.role === "parent" && user.created === false) {

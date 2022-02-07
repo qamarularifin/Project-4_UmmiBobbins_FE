@@ -21,6 +21,7 @@ const ParentNewProfileScreen = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault(); //need this else will not navigate to dashboard page
+    // set newly signed up parent and change the created to true
     const res = await fetch(
       `${BACKEND_BASE_URL}/parent/api/new-profile/${user._id}`,
       {
@@ -34,12 +35,41 @@ const ParentNewProfileScreen = () => {
       }
     );
 
+    // const results = await fetch(
+    //   `${BACKEND_BASE_URL}/parent/api/createparentnewprofile`,
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       userId: user._id,
+    //       name: name,
+    //       location: location,
+    //       image: image,
+    //     }),
+    //   }
+    // );
+
     if (res.status !== 200) {
       console.error("failed to fetch item");
 
       return;
     }
-    const data = await res.json();
+    // const data = await res.json();
+
+    /////////////////////////////////////
+    // create new parent profile
+    const results = await axios.post(
+      `${BACKEND_BASE_URL}/parent/api/createparentnewprofile`,
+      {
+        userId: user._id,
+        name: name,
+        location: location,
+        image: image,
+      }
+    );
+
     navigate("/dashboard");
   };
   return (
@@ -49,7 +79,7 @@ const ParentNewProfileScreen = () => {
           <h2 className="text-center mb-4">Create New Parent Profile</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
-            {/* <Form.Group id="name">
+            <Form.Group id="name">
               <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
@@ -80,7 +110,7 @@ const ParentNewProfileScreen = () => {
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
               />
-            </Form.Group> */}
+            </Form.Group>
             <Button disabled={loading} className="w-100 mt-3" type="submit">
               Submit
             </Button>
