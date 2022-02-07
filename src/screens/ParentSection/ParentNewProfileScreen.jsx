@@ -22,18 +22,44 @@ const ParentNewProfileScreen = () => {
   const handleSubmit = async (event) => {
     event.preventDefault(); //need this else will not navigate to dashboard page
     // set newly signed up parent and change the created to true
-    const res = await fetch(
-      `${BACKEND_BASE_URL}/parent/api/new-profile/${user._id}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+
+    try {
+      // change created to true
+      await axios.post(
+        `${BACKEND_BASE_URL}/parent/api/new-profile/${user._id}`,
+        {
           created: true,
-        }),
-      }
-    );
+        }
+      );
+
+      // create new parent profile
+      await axios.post(
+        `${BACKEND_BASE_URL}/parent/api/createparentnewprofile`,
+        {
+          userId: user._id,
+          name: name,
+          location: location,
+          image: image,
+        }
+      );
+
+      navigate("/dashboard");
+    } catch (error) {
+      console.log(error);
+    }
+
+    // const res = await fetch(
+    //   `${BACKEND_BASE_URL}/parent/api/new-profile/${user._id}`,
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       created: true,
+    //     }),
+    //   }
+    // );
 
     // const results = await fetch(
     //   `${BACKEND_BASE_URL}/parent/api/createparentnewprofile`,
@@ -51,26 +77,14 @@ const ParentNewProfileScreen = () => {
     //   }
     // );
 
-    if (res.status !== 200) {
-      console.error("failed to fetch item");
+    // if (res.status !== 200) {
+    //   console.error("failed to fetch item");
 
-      return;
-    }
+    //   return;
+    // }
     // const data = await res.json();
 
     /////////////////////////////////////
-    // create new parent profile
-    const results = await axios.post(
-      `${BACKEND_BASE_URL}/parent/api/createparentnewprofile`,
-      {
-        userId: user._id,
-        name: name,
-        location: location,
-        image: image,
-      }
-    );
-
-    navigate("/dashboard");
   };
   return (
     <>

@@ -2,6 +2,8 @@ import React, { useRef, useState, useEffect } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Loader from "../../components/Loader";
+import Error from "../../components/Error";
 import { useContext } from "react";
 import GeneralContext from "../../context/GeneralContext";
 
@@ -23,40 +25,54 @@ const BabySitterNewProfileScreen = () => {
   const handleSubmit = async (event) => {
     event.preventDefault(); //need this else will not navigate to dashboard page
     // set newly signed up parent and change the created to true
-    const res = await fetch(
-      `${BACKEND_BASE_URL}/babysitter/api/new-profile/${user._id}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+
+    try {
+      // setLoading(true);
+      await axios.post(
+        `${BACKEND_BASE_URL}/babysitter/api/new-profile/${user._id}`,
+        {
           created: true,
-        }),
-      }
-    );
+        }
+      );
 
-    if (res.status !== 200) {
-      console.error("failed to fetch item");
-
-      return;
+      await axios.post(
+        `${BACKEND_BASE_URL}/babysitter/api/createbabysitternewprofile`,
+        {
+          userId: user._id,
+          name: name,
+          location: location,
+          image: image,
+          ratePerHour: rate,
+        }
+      );
+      // setLoading(false);
+      navigate("/dashboard");
+    } catch (error) {
+      // setError(true);
+      console.log(error);
+      // setLoading(false);
     }
+
+    // another method with fetch
+    // const res = await fetch(
+    //   `${BACKEND_BASE_URL}/babysitter/api/new-profile/${user._id}`,
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       created: true,
+    //     }),
+    //   }
+    // );
+
+    // if (res.status !== 200) {
+    //   console.error("failed to fetch item");
+
+    //   return;
+    // }
     // const data = await res.json();
-
-    /////////////////////////////////////
-    // create new parent profile
-    const results = await axios.post(
-      `${BACKEND_BASE_URL}/babysitter/api/createbabysitternewprofile`,
-      {
-        userId: user._id,
-        name: name,
-        location: location,
-        image: image,
-        ratePerHour: rate,
-      }
-    );
-
-    navigate("/dashboard");
   };
   return (
     <>
