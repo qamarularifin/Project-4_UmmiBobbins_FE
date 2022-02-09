@@ -41,8 +41,6 @@ const ParentHomeScreen = (props) => {
   const [toTime, setToTime] = useState();
   const [duplicateBabySitters, setDuplicateBabySitters] = useState([]); //need [] because its a list
 
-  const [searchKey, setSearchKey] = useState();
-
   const navigate = useNavigate();
 
   useEffect(async () => {
@@ -67,7 +65,7 @@ const ParentHomeScreen = (props) => {
     setFromTime(moment(dates[0]).format("DD-MM-YYYY"));
     setToTime(moment(dates[1]).format("DD-MM-YYYY"));
 
-    let tempBabySitters = []; //tempRooms is for pushing available rooms
+    let tempBabySitters = [];
     let availability = false;
     for (const babySitter of duplicateBabySitters) {
       // check if theres any bookings
