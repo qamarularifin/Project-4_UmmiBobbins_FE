@@ -89,7 +89,7 @@ function App() {
                 />
 
                 <Route
-                  path="/book/:babysitterid"
+                  path="/book/:babysitterid/:fromtime/:totime"
                   element={
                     <PrivateRoute>
                       <ParentBookingScreen />

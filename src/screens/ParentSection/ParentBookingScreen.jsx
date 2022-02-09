@@ -4,14 +4,25 @@ import axios from "axios";
 import Loader from "../../components/Loader";
 import Error from "../../components/Error";
 import moment from "moment";
+// import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
 const ParentBookingScreen = () => {
-  const { babysitterid } = useParams();
+  const navigate = useNavigate();
+  const { babysitterid, fromtime, totime } = useParams();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const [babySitter, setBabySitter] = useState();
+  const [totalAmount, setTotalAmount] = useState();
+
+  // useParams for the dates //  use moment to calculate no. of days
+  const formattedFromTime = moment(fromtime, "DD-MM-YYYY");
+  const formattedToTime = moment(totime, "DD-MM-YYYY");
+  const totalTime =
+    moment.duration(formattedToTime.diff(formattedFromTime)).asDays() + 1;
+
   // send data from frontend to backend with post method //right roomid is from front end and send to left roomid backend to retrieve the specific room individual data
   //!!! this is important to get the id complete object of individual room
   useEffect(async () => {
@@ -23,7 +34,8 @@ const ParentBookingScreen = () => {
           id: babysitterid,
         }
       );
-      console.log("results", results.data);
+      console.log("results", results.data.ratePerHour);
+      setTotalAmount(totalTime * results.data.ratePerHour);
       setBabySitter(results.data);
       setLoading(false);
     } catch (error) {
@@ -32,6 +44,26 @@ const ParentBookingScreen = () => {
       setLoading(false);
     }
   }, []);
+
+  const bookBabySitter = async () => {
+    const bookingDetails = {
+      parentUserId: JSON.parse(localStorage.getItem("currentUser"))._id,
+      babySitterId: babysitterid,
+      fromTime: formattedFromTime,
+      toTime: formattedToTime,
+      totalAmount: totalAmount,
+      totalTime: totalTime,
+    };
+    try {
+      const results = await axios.post(
+        `${BACKEND_BASE_URL}/booking/api/bookbabysitter`,
+        bookingDetails
+      );
+      console.log(results.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="m-5">
@@ -46,8 +78,12 @@ const ParentBookingScreen = () => {
               <p>Name: {babySitter.name}</p>
               <p>Location: {babySitter.location}</p>
               <p>Rate Per Hour: $ {babySitter.ratePerHour}</p>
-              <button className="btn btn-primary" style={{ float: "right" }}>
-                Pay Now
+              <button
+                className="btn btn-primary"
+                style={{ float: "right" }}
+                onClick={bookBabySitter}
+              >
+                Proceed to book
               </button>
             </div>
           </div>

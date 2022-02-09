@@ -3,10 +3,11 @@ import { Modal, Button, Carousel } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const ParentBabySitterDisplayScreen = (props) => {
-  const { babySitter } = props;
+  const { babySitter, fromTime, toTime } = props;
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   return (
     <div className="row bs ">
       <div className="col-md-9">
@@ -15,13 +16,16 @@ const ParentBabySitterDisplayScreen = (props) => {
         <p>Location: {babySitter.location}</p>
         <p>Rate Per Hour: $ {babySitter.ratePerHour}</p>
 
-        <Link to={`/book/${babySitter._id}/`}>
-          <button className="btn btn-primary m-2">Book Now</button>
-        </Link>
-
-        <button className="btn btn-primary" onClick={handleShow}>
-          View Details
-        </button>
+        <div>
+          {fromTime && toTime && (
+            <Link to={`/book/${babySitter._id}/${fromTime}/${toTime}`}>
+              <button className="btn btn-primary m-2">Book Now</button>
+            </Link>
+          )}
+          <button className="btn btn-primary" onClick={handleShow}>
+            View Details
+          </button>
+        </div>
       </div>
 
       {/* Modal pop up to show details */}

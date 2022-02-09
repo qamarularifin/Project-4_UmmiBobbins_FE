@@ -8,7 +8,6 @@ import Loader from "../../components/Loader";
 import Error from "../../components/Error";
 import ParentBabySitterDisplayScreen from "./ParentBabySitterDisplayScreen";
 import moment from "moment";
-// import "antd/dist/antd.css";
 import { DatePicker } from "antd";
 
 const { RangePicker } = DatePicker;
@@ -34,17 +33,26 @@ const ParentHomeScreen = (props) => {
     userContext;
 
   const [babySitters, setBabySitters] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
+
+  const [fromTime, setFromTime] = useState();
+  const [toTime, setToTime] = useState();
+  const [duplicateBabySitters, setDuplicateBabySitters] = useState([]); //need [] because its a list
+
+  const [searchKey, setSearchKey] = useState();
 
   const navigate = useNavigate();
 
   useEffect(async () => {
     try {
       setLoading(true);
-      const results = await axios.get(`${BACKEND_BASE_URL}/babysitter/api/`);
+      const results = await axios.get(
+        `${BACKEND_BASE_URL}/babysitter/api/getallbabysitters`
+      );
       console.log("results", results.data);
       setBabySitters(results.data);
+      setDuplicateBabySitters(results.data);
       setLoading(false);
     } catch (error) {
       setError(true);
@@ -53,23 +61,73 @@ const ParentHomeScreen = (props) => {
     }
   }, []);
 
+  const filterByDate = (dates) => {
+    setFromTime(moment(dates[0]).format("DD-MM-YYYY"));
+    setToTime(moment(dates[1]).format("DD-MM-YYYY"));
+
+    let tempBabySitters = []; //tempRooms is for pushing available rooms
+    let availability = false;
+    for (const babySitter of duplicateBabySitters) {
+      // check if theres any bookings
+      if (babySitter.currentBookings.length > 0) {
+        //check if the fromdate and todate (which is dates[0] and dates[1]) does not lie between the range of currentbooking fromdate and todate
+
+        for (const booking of babySitter.currentBookings) {
+          // unable to work if choose outside of booked range but consists of booked dates
+          if (
+            !moment(moment(dates[0]).format("DD-MM-YYYY")).isBetween(
+              booking.fromTime,
+              booking.toTime
+            ) &&
+            !moment(moment(dates[1]).format("DD-MM-YYYY")).isBetween(
+              booking.fromTime,
+              booking.toTime
+            )
+          ) {
+            //check if user entered fromdate and todate i.e, (moment(date[0]), moment(date[1])) is not equal to booked fromdate and todate from database
+            if (
+              moment(dates[0]).format("DD-MM-YYYY") !== booking.fromTime && //from date entered not equal booked fromdate
+              moment(dates[0]).format("DD-MM-YYYY") !== booking.toTime && //from date entered not equal to booked todate
+              moment(dates[1]).format("DD-MM-YYYY") !== booking.fromTime && //to date entered not equal to booked fromdate
+              moment(dates[1]).format("DD-MM-YYYY") !== booking.toTime //to date entered not equal to booked todate
+            ) {
+              // if all conditions above is true, means room is available, then set availability to true
+              availability = true;
+            }
+          }
+        }
+      }
+      // if room available or no current bookings
+      if (availability === true || babySitter.currentbookings.length === 0) {
+        tempBabySitters.push(babySitter);
+      }
+      // set the rooms with the temprooms so that those booked rooms will not appear in the rooms state
+      setBabySitters(tempBabySitters);
+    }
+  };
+
   return (
     <div className="container">
       <div className="row mt-5">
-        <h1 className="row justify-content-center mt-5">Parent Home Screen</h1>
+        <h1 className="row justify-content-center mt-1">Parent Home Screen</h1>
+        <div className="col-md-3 mt-3">
+          <RangePicker format="DD-MM-YYYY" onChange={filterByDate} />
+        </div>
         <div className="row justify-content-center mt-5">
           {loading ? (
             <Loader />
-          ) : babySitters.length > 1 ? (
+          ) : (
             babySitters.map((babySitter, i) => {
               return (
                 <div key={i} className="col-md-9 mt-2">
-                  <ParentBabySitterDisplayScreen babySitter={babySitter} />
+                  <ParentBabySitterDisplayScreen
+                    babySitter={babySitter}
+                    fromTime={fromTime}
+                    toTime={toTime}
+                  />
                 </div>
               );
             })
-          ) : (
-            <Error message="No Babysitter found!" />
           )}
         </div>
       </div>

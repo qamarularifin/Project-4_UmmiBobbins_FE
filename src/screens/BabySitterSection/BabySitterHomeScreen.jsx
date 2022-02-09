@@ -39,7 +39,9 @@ const BabySitterHomeScreen = (props) => {
   useEffect(async () => {
     try {
       setLoading(true);
-      const results = await axios.get(`${BACKEND_BASE_URL}/parent/api/`);
+      const results = await axios.get(
+        `${BACKEND_BASE_URL}/parent/api/getallparents`
+      );
       console.log("results", results.data);
       setParents(results.data);
       setLoading(false);
