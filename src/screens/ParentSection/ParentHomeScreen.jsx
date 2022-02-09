@@ -37,8 +37,8 @@ const ParentHomeScreen = (props) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
 
-  const [fromTime, setFromTime] = useState();
-  const [toTime, setToTime] = useState();
+  const [fromDate, setFromDate] = useState();
+  const [toDate, setToDate] = useState();
   const [duplicateBabySitters, setDuplicateBabySitters] = useState([]); //need [] because its a list
 
   const navigate = useNavigate();
@@ -62,8 +62,8 @@ const ParentHomeScreen = (props) => {
   }, []);
 
   const filterByDate = (dates) => {
-    setFromTime(moment(dates[0]).format("DD-MM-YYYY"));
-    setToTime(moment(dates[1]).format("DD-MM-YYYY"));
+    setFromDate(moment(dates[0]).format("DD-MM-YYYY"));
+    setToDate(moment(dates[1]).format("DD-MM-YYYY"));
 
     let tempBabySitters = [];
     let availability = false;
@@ -76,20 +76,20 @@ const ParentHomeScreen = (props) => {
           // unable to work if choose outside of booked range but consists of booked dates
           if (
             !moment(moment(dates[0]).format("DD-MM-YYYY")).isBetween(
-              booking.fromTime,
-              booking.toTime
+              booking.fromDate,
+              booking.toDate
             ) &&
             !moment(moment(dates[1]).format("DD-MM-YYYY")).isBetween(
-              booking.fromTime,
-              booking.toTime
+              booking.fromDate,
+              booking.toDate
             )
           ) {
             //check if user entered fromdate and todate i.e, (moment(date[0]), moment(date[1])) is not equal to booked fromdate and todate from database
             if (
-              moment(dates[0]).format("DD-MM-YYYY") !== booking.fromTime && //from date entered not equal booked fromdate
-              moment(dates[0]).format("DD-MM-YYYY") !== booking.toTime && //from date entered not equal to booked todate
-              moment(dates[1]).format("DD-MM-YYYY") !== booking.fromTime && //to date entered not equal to booked fromdate
-              moment(dates[1]).format("DD-MM-YYYY") !== booking.toTime //to date entered not equal to booked todate
+              moment(dates[0]).format("DD-MM-YYYY") !== booking.fromDate && //from date entered not equal booked fromdate
+              moment(dates[0]).format("DD-MM-YYYY") !== booking.toDate && //from date entered not equal to booked todate
+              moment(dates[1]).format("DD-MM-YYYY") !== booking.fromDate && //to date entered not equal to booked fromdate
+              moment(dates[1]).format("DD-MM-YYYY") !== booking.toDate //to date entered not equal to booked todate
             ) {
               // if all conditions above is true, means room is available, then set availability to true
               availability = true;
@@ -122,8 +122,8 @@ const ParentHomeScreen = (props) => {
                 <div key={i} className="col-md-9 mt-2">
                   <ParentBabySitterDisplayScreen
                     babySitter={babySitter}
-                    fromTime={fromTime}
-                    toTime={toTime}
+                    fromDate={fromDate}
+                    toDate={toDate}
                   />
                 </div>
               );

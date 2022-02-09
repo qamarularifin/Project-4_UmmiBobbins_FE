@@ -3,7 +3,7 @@ import { Modal, Button, Carousel } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const ParentBabySitterDisplayScreen = (props) => {
-  const { babySitter, fromTime, toTime } = props;
+  const { babySitter, fromDate, toDate } = props;
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -17,8 +17,8 @@ const ParentBabySitterDisplayScreen = (props) => {
         <p>Rate Per Hour: $ {babySitter.ratePerHour}</p>
 
         <div>
-          {fromTime && toTime && (
-            <Link to={`/book/${babySitter._id}/${fromTime}/${toTime}`}>
+          {fromDate && toDate && (
+            <Link to={`/book/${babySitter._id}/${fromDate}/${toDate}`}>
               <button className="btn btn-primary m-2">Book Now</button>
             </Link>
           )}

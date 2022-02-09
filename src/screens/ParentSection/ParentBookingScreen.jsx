@@ -10,21 +10,18 @@ import { useNavigate } from "react-router-dom";
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
 const ParentBookingScreen = () => {
-  const user = JSON.parse(localStorage.getItem("currentUser"))._id;
-  console.log("userrrr", user);
-
   const navigate = useNavigate();
-  const { babysitterid, fromtime, totime } = useParams();
+  const { babysitterid, fromdate, todate } = useParams(); //lowercase fromdate and todate is correct
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const [babySitter, setBabySitter] = useState();
   const [totalAmount, setTotalAmount] = useState();
 
   // useParams for the dates //  use moment to calculate no. of days
-  const formattedFromTime = moment(fromtime, "DD-MM-YYYY");
-  const formattedToTime = moment(totime, "DD-MM-YYYY");
-  const totalTime =
-    moment.duration(formattedToTime.diff(formattedFromTime)).asDays() + 1;
+  const formattedFromDate = moment(fromdate, "DD-MM-YYYY");
+  const formattedToDate = moment(todate, "DD-MM-YYYY");
+  const totalDays =
+    moment.duration(formattedToDate.diff(formattedFromDate)).asDays() + 1;
 
   // send data from frontend to backend with post method //right roomid is from front end and send to left roomid backend to retrieve the specific room individual data
   //!!! this is important to get the id complete object of individual room
@@ -39,7 +36,7 @@ const ParentBookingScreen = () => {
       );
 
       console.log("results", results.data.ratePerHour);
-      setTotalAmount(totalTime * results.data.ratePerHour);
+      setTotalAmount(totalDays * results.data.ratePerHour);
       setBabySitter(results.data);
       setLoading(false);
     } catch (error) {
@@ -53,21 +50,16 @@ const ParentBookingScreen = () => {
     const bookingDetails = {
       parentUserId: JSON.parse(localStorage.getItem("currentUser"))._id, //need to be parentid and not current parent user id
       babySitterId: babysitterid,
-      fromTime: formattedFromTime,
-      toTime: formattedToTime,
+      fromDate: formattedFromDate,
+      toDate: formattedToDate,
       totalAmount: totalAmount,
-      totalTime: totalTime,
+      totalDays: totalDays,
     };
     try {
       const results = await axios.post(
         `${BACKEND_BASE_URL}/booking/api/bookbabysitter`,
         bookingDetails
       );
-
-      // await axios.post(`${BACKEND_BASE_URL}/booking/api/savetoparent`, {
-      //   parentId: JSON.parse(localStorage.getItem("currentUser"))._id,
-      //   babySitterId: babysitterid,
-      // });
 
       console.log(results.data);
     } catch (error) {
