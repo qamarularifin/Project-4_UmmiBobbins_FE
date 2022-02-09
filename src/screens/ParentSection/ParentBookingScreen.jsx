@@ -35,8 +35,7 @@ const ParentBookingScreen = () => {
         }
       );
 
-      console.log("results", results.data.ratePerHour);
-      setTotalAmount(totalDays * results.data.ratePerHour);
+      setTotalAmount(totalDays * results.data.ratePerDay);
       setBabySitter(results.data);
       setLoading(false);
     } catch (error) {
@@ -79,7 +78,7 @@ const ParentBookingScreen = () => {
               <img src={babySitter.image} className="bigimg" />
               <p>Name: {babySitter.name}</p>
               <p>Location: {babySitter.location}</p>
-              <p>Rate Per Hour: $ {babySitter.ratePerHour}</p>
+              <p>Rate Per Day: $ {babySitter.ratePerDay}</p>
               <button
                 className="btn btn-primary"
                 style={{ float: "right" }}

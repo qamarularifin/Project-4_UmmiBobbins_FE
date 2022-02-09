@@ -14,7 +14,7 @@ const ParentBabySitterDisplayScreen = (props) => {
         <p>Name: {babySitter.name}</p>
         <img src={babySitter.image} className="bigimg" />
         <p>Location: {babySitter.location}</p>
-        <p>Rate Per Hour: $ {babySitter.ratePerHour}</p>
+        <p>Rate Per Day: $ {babySitter.ratePerDay}</p>
 
         <div>
           {fromDate && toDate && (

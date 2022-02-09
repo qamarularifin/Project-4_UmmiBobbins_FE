@@ -13,8 +13,6 @@ import { DatePicker } from "antd";
 
 const { RangePicker } = DatePicker;
 
-// import Logout from "../Logout"
-
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
 const ParentHomeScreen = (props) => {
@@ -97,7 +95,7 @@ const ParentHomeScreen = (props) => {
           }
         }
       }
-      // if room available or no current bookings
+      // if babysitter available or no current bookings
       if (availability === true || babySitter.currentBookings.length === 0) {
         tempBabySitters.push(babySitter);
       }

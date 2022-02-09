@@ -16,7 +16,6 @@ const Dashboard = () => {
   const [name, setName, email, setEmail, password, setPassword, role, setRole] =
     userContext;
 
-  // will this require no user. in the parent and baby page?
   useEffect(() => {
     setName(user.name);
     setEmail(user.name);
@@ -40,7 +39,7 @@ const Dashboard = () => {
       return;
     }
     const data = await res.json();
-    console.log("dddd", data);
+
     setQuote(data.quote); //without this the quote will not be rendered // will render instantly
     setEmail(data.email); //will render instantly
     setRole(data.role);
@@ -78,36 +77,7 @@ const Dashboard = () => {
 
     setQuote(tempQuote);
     setTempQuote("");
-
-    // console.log("gggg", data)
   };
-
-  // const handleLogout = async(event) =>{
-  //   setEmail("")
-  //   setPassword("")
-  //   setName("")
-
-  //   event.preventDefault() // prevents whole page from refreshing
-
-  //   try{
-  //     const response = await fetch(`${BACKEND_BASE_URL}/user/api/logout`, {
-  //     method: "DELETE",
-  //       headers: {
-  //         "Content-Type": "application/json",
-
-  //       }
-  //     });
-  //     const data = await response.json()
-  //     if (data.status === "ok"){
-  //       localStorage.removeItem("currentUser")
-  //       navigate("/login")
-  //     }
-
-  //   } catch(error){
-  //     console.log(error)
-  //   }
-
-  // }
 
   return (
     <>
@@ -118,7 +88,6 @@ const Dashboard = () => {
           tempQuote={tempQuote}
           setTempQuote={setTempQuote}
           updateQuote={updateQuote}
-          // handleLogout={handleLogout}
         />
       ) : (
         <BabySitterHomeScreen
@@ -127,7 +96,6 @@ const Dashboard = () => {
           tempQuote={tempQuote}
           setTempQuote={setTempQuote}
           updateQuote={updateQuote}
-          // handleLogout={handleLogout}
         />
       )}
     </>
