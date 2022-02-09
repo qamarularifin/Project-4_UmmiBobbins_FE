@@ -8,6 +8,7 @@ import Loader from "../../components/Loader";
 import Error from "../../components/Error";
 import ParentBabySitterDisplayScreen from "./ParentBabySitterDisplayScreen";
 import moment from "moment";
+
 import { DatePicker } from "antd";
 
 const { RangePicker } = DatePicker;
@@ -98,7 +99,7 @@ const ParentHomeScreen = (props) => {
         }
       }
       // if room available or no current bookings
-      if (availability === true || babySitter.currentbookings.length === 0) {
+      if (availability === true || babySitter.currentBookings.length === 0) {
         tempBabySitters.push(babySitter);
       }
       // set the rooms with the temprooms so that those booked rooms will not appear in the rooms state
