@@ -48,7 +48,7 @@ const ParentBookingScreen = () => {
   const bookBabySitter = async () => {
     const bookingDetails = {
       parentUserId: JSON.parse(localStorage.getItem("currentUser"))._id, //need to be parentid and not current parent user id
-      babySitterId: babysitterid,
+      babySitterId: babysitterid, //right side is real stringified object id
       fromDate: formattedFromDate,
       toDate: formattedToDate,
       totalAmount: totalAmount,
