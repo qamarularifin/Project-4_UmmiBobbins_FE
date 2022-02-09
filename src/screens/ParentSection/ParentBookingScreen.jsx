@@ -10,6 +10,9 @@ import { useNavigate } from "react-router-dom";
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
 const ParentBookingScreen = () => {
+  const user = JSON.parse(localStorage.getItem("currentUser"))._id;
+  console.log("userrrr", user);
+
   const navigate = useNavigate();
   const { babysitterid, fromtime, totime } = useParams();
   const [loading, setLoading] = useState(true);
@@ -34,6 +37,7 @@ const ParentBookingScreen = () => {
           id: babysitterid,
         }
       );
+
       console.log("results", results.data.ratePerHour);
       setTotalAmount(totalTime * results.data.ratePerHour);
       setBabySitter(results.data);
@@ -47,7 +51,7 @@ const ParentBookingScreen = () => {
 
   const bookBabySitter = async () => {
     const bookingDetails = {
-      parentUserId: JSON.parse(localStorage.getItem("currentUser"))._id,
+      parentUserId: JSON.parse(localStorage.getItem("currentUser"))._id, //need to be parentid and not current parent user id
       babySitterId: babysitterid,
       fromTime: formattedFromTime,
       toTime: formattedToTime,
@@ -59,6 +63,12 @@ const ParentBookingScreen = () => {
         `${BACKEND_BASE_URL}/booking/api/bookbabysitter`,
         bookingDetails
       );
+
+      // await axios.post(`${BACKEND_BASE_URL}/booking/api/savetoparent`, {
+      //   parentId: JSON.parse(localStorage.getItem("currentUser"))._id,
+      //   babySitterId: babysitterid,
+      // });
+
       console.log(results.data);
     } catch (error) {
       console.log(error);
