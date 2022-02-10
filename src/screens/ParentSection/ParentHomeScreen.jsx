@@ -108,26 +108,28 @@ const ParentHomeScreen = (props) => {
     <div className="container">
       <div className="row mt-5">
         <h1 className="row justify-content-center mt-1">Parent Home Screen</h1>
-        <div className="col-md-6 mt-3">
-          <RangePicker format="DD-MM-YYYY" onChange={filterByDate} />
-        </div>
-        <div className="row justify-content-center mt-5">
-          {loading ? (
-            <Loader />
-          ) : (
-            babySitters.map((babySitter, i) => {
-              return (
-                <div key={i} className="col-md-9 mt-2">
-                  <ParentBabySitterDisplayScreen
-                    babySitter={babySitter}
-                    fromDate={fromDate}
-                    toDate={toDate}
-                  />
-                </div>
-              );
-            })
-          )}
-        </div>
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            <div className="col-md-6 mt-3 bs">
+              <RangePicker format="DD-MM-YYYY" onChange={filterByDate} />
+            </div>
+            <div className="row justify-content-center mt-5">
+              {babySitters.map((babySitter, i) => {
+                return (
+                  <div key={i} className="col-md-8 mt-2">
+                    <ParentBabySitterDisplayScreen
+                      babySitter={babySitter}
+                      fromDate={fromDate}
+                      toDate={toDate}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
