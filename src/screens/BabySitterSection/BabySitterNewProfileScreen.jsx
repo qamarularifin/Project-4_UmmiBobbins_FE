@@ -20,14 +20,12 @@ const BabySitterNewProfileScreen = () => {
 
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("currentUser"));
-  console.log("thisss", user);
 
   const handleSubmit = async (event) => {
     event.preventDefault(); //need this else will not navigate to dashboard page
     // set newly signed up parent and change the created to true
 
     try {
-      // setLoading(true);
       await axios.post(
         `${BACKEND_BASE_URL}/babysitter/api/new-profile/${user._id}`,
         {
@@ -45,12 +43,10 @@ const BabySitterNewProfileScreen = () => {
           ratePerDay: rate,
         }
       );
-      // setLoading(false);
+
       navigate("/dashboard");
     } catch (error) {
-      // setError(true);
       console.log(error);
-      // setLoading(false);
     }
 
     // another method with fetch
@@ -80,12 +76,12 @@ const BabySitterNewProfileScreen = () => {
         <Card.Body>
           <h2 className="text-center mb-4">Create New Baby Sitter Profile</h2>
           {error && <Alert variant="danger">{error}</Alert>}
+
           <Form onSubmit={handleSubmit}>
             <Form.Group id="name">
               <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
-                // ref={""}
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -96,7 +92,6 @@ const BabySitterNewProfileScreen = () => {
               <Form.Label>Location</Form.Label>
               <Form.Control
                 type="text"
-                // ref={""}
                 required
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
@@ -107,7 +102,6 @@ const BabySitterNewProfileScreen = () => {
               <Form.Label>Rate Per Hour</Form.Label>
               <Form.Control
                 type="number"
-                // ref={""}
                 required
                 value={rate}
                 onChange={(e) => setRate(e.target.value)}
@@ -118,7 +112,6 @@ const BabySitterNewProfileScreen = () => {
               <Form.Label>Image</Form.Label>
               <Form.Control
                 type="text"
-                // ref={""}
                 required
                 value={image}
                 onChange={(e) => setImage(e.target.value)}

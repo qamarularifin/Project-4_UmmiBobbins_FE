@@ -4,6 +4,8 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import GeneralContext from "../../context/GeneralContext";
 import axios from "axios";
+import Loader from "../../components/Loader";
+import Error from "../../components/Error";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
@@ -25,6 +27,7 @@ const Login = () => {
     // setName("")
   }, []);
 
+  // not needed
   // //get parent by id
   // useEffect(async () => {
   //   try {
@@ -47,44 +50,43 @@ const Login = () => {
 
   const loginUser = async (event) => {
     event.preventDefault(); // prevents refreshing app
-    const response = await fetch(`${BACKEND_BASE_URL}/user/api/login`, {
-      method: "POST",
-
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await response.json();
-    if (data.userData) {
-      //check if session exists
-      localStorage.setItem("currentUser", JSON.stringify(data.userData)); //this stores session in the localstorage
-      setError("");
+    try {
       setLoading(true);
-      // navigate("/parent/new-profile")
+      const response = await fetch(`${BACKEND_BASE_URL}/user/api/login`, {
+        method: "POST",
 
-      //if new user, will navigate to either parent or babysitter create profile page based on role
-      const user = JSON.parse(localStorage.getItem("currentUser"));
-      console.log("oooo", user);
-      if (user.role === "parent" && user.created === false) {
-        navigate("/parent/new-profile");
-      } else if (user.role === "babysitter" && user.created === false) {
-        navigate("/babysitter/new-profile");
-      }
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      setLoading(false);
+      if (data.userData) {
+        //check if session exists
+        localStorage.setItem("currentUser", JSON.stringify(data.userData)); //this stores session in the localstorage
+        setError("");
 
-      // else if (
-      //   (user.role === "parent" && user.created === true) ||
-      //   (user.role === "babysitter" && user.created === true)
-      // )
-      else {
-        //dashboard acts as a middleman to render parent homescreen or babysitter homescreen
-        navigate("/dashboard");
+        //if new user, will navigate to either parent or babysitter create profile page based on role
+        const user = JSON.parse(localStorage.getItem("currentUser"));
+
+        if (user.role === "parent" && user.created === false) {
+          navigate("/parent/new-profile");
+        } else if (user.role === "babysitter" && user.created === false) {
+          navigate("/babysitter/new-profile");
+        } else {
+          //dashboard acts as a middleman to render parent homescreen or babysitter homescreen
+          navigate("/dashboard");
+        }
+      } else {
+        setError("Failed to sign in");
       }
-    } else {
-      setError("Failed to sign in");
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
     }
   };
 
@@ -94,6 +96,8 @@ const Login = () => {
         <Card.Body>
           <h2 className="text-center mb-4">Log In</h2>
           {error && <Alert variant="danger">{error}</Alert>}
+          {loading && <Loader />}
+
           <Form onSubmit={loginUser}>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
