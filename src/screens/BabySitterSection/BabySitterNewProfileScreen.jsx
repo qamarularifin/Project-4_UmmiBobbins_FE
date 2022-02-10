@@ -42,7 +42,7 @@ const BabySitterNewProfileScreen = () => {
           name: name,
           location: location,
           image: image,
-          ratePerHour: rate,
+          ratePerDay: rate,
         }
       );
       // setLoading(false);
