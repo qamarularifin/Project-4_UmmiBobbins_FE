@@ -5,7 +5,7 @@ const Loader = () => {
   let [loading, setLoading] = useState(true);
 
   return (
-    <div style={{ marginTop: "10px" }}>
+    <div style={{ marginTop: "10px", marginRight: "100px" }}>
       <div className="sweet-loading text-center">
         <PuffLoader color="#000" loading={loading} css="" size={80} />
       </div>
