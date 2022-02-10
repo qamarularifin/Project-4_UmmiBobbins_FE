@@ -4,7 +4,7 @@ import axios from "axios";
 import Loader from "../../components/Loader";
 import Error from "../../components/Error";
 import moment from "moment";
-// import Swal from "sweetalert2";
+import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
@@ -55,14 +55,26 @@ const ParentBookingScreen = () => {
       totalDays: totalDays,
     };
     try {
+      setLoading(true);
       const results = await axios.post(
         `${BACKEND_BASE_URL}/booking/api/bookbabysitter`,
         bookingDetails
       );
 
+      setLoading(false);
+      Swal.fire(
+        "Congratulations!",
+        "Your booking is successful",
+        "success"
+      ).then((result) => {
+        navigate("/dashboard");
+      });
       console.log(results.data);
     } catch (error) {
       console.log(error);
+      Swal.fire("Oops!", "Something went wrong", "error").then((result) => {
+        navigate("/dashboard");
+      });
     }
   };
 

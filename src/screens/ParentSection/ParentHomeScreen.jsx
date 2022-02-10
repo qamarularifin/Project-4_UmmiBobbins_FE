@@ -108,7 +108,7 @@ const ParentHomeScreen = (props) => {
     <div className="container">
       <div className="row mt-5">
         <h1 className="row justify-content-center mt-1">Parent Home Screen</h1>
-        <div className="col-md-3 mt-3">
+        <div className="col-md-6 mt-3">
           <RangePicker format="DD-MM-YYYY" onChange={filterByDate} />
         </div>
         <div className="row justify-content-center mt-5">
