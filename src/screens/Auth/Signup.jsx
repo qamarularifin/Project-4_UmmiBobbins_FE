@@ -12,13 +12,13 @@ import { useContext } from "react";
 import GeneralContext from "../../context/GeneralContext";
 import { Tabs } from "antd";
 import { Tag, Divider } from "antd";
+import Loader from "../../components/Loader";
+import Error from "../../components/Error";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 const { TabPane } = Tabs;
 
 const Signup = () => {
-  const user = JSON.parse(localStorage.getItem("currentUser"));
-
   return (
     <div className="ml-3 mt-3">
       <Tabs defaultActiveKey="1">
@@ -52,7 +52,7 @@ export const SignupParent = () => {
     role,
     setRole,
   ] = userContext;
-  const nameRef = useRef();
+
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
@@ -65,58 +65,51 @@ export const SignupParent = () => {
     setEmail("");
     setPassword("");
     setPasswordConfirm("");
-    setName("");
+    // setName("");
   }, []);
 
   const signupUser = async (event) => {
     event.preventDefault(); // prevents refreshing app
+    try {
+      if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+        return setError("Passwords do not match");
+      }
+      setLoading(true);
+      const response = await fetch(`${BACKEND_BASE_URL}/user/api/signup`, {
+        method: "POST",
 
-    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return setError("Passwords do not match");
+        body: JSON.stringify({
+          email: email,
+          password: password,
+          role: "parent",
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+
+      if (data.status === "ok") {
+        navigate("/");
+      }
+      // console.log(data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
     }
-    const response = await fetch(`${BACKEND_BASE_URL}/user/api/signup`, {
-      method: "POST",
-
-      body: JSON.stringify({
-        email: email,
-        password: password,
-        role: "parent",
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await response.json();
-
-    if (data.status === "ok") {
-      navigate("/");
-    }
-    console.log(data);
   };
-
-  // const handleSelect = (e) => {
-  //   console.log(e);
-  //   setRole(e);
-  // };
 
   return (
     <>
       <Card>
         <Card.Body>
           <h2 className="text-center mb-4">Sign Up as Parent</h2>
-          {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={signupUser}>
-            {/* <Form.Group id="name">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type="name"
-                ref={nameRef}
-                required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </Form.Group> */}
 
+          {error && <Alert variant="danger">{error}</Alert>}
+          {loading && <Loader />}
+
+          <Form onSubmit={signupUser}>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
               <Form.Control
@@ -127,19 +120,6 @@ export const SignupParent = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </Form.Group>
-
-            {/* <DropdownButton
-              title="Select Role"
-              id="dropdown-menu-align-right"
-              className="mt-3"
-              onSelect={handleSelect}
-            >
-              <Dropdown.Item eventKey="parent">Parent</Dropdown.Item>
-              <Dropdown.Item eventKey="babysitter">BabySitter</Dropdown.Item>
-
-         
-            </DropdownButton>
-            <h4>{role}</h4> */}
 
             <Form.Group id="password">
               <Form.Label>Password</Form.Label>
@@ -179,7 +159,10 @@ export const SignupParent = () => {
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
 // Sign up Babysitter
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
 export const SignupBabySitter = () => {
   const { userContext } = useContext(GeneralContext);
   const [
@@ -194,7 +177,7 @@ export const SignupBabySitter = () => {
     role,
     setRole,
   ] = userContext;
-  const nameRef = useRef();
+
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
@@ -207,39 +190,40 @@ export const SignupBabySitter = () => {
     setEmail("");
     setPassword("");
     setPasswordConfirm("");
-    setName("");
+    // setName("");
   }, []);
 
   const signupUser = async (event) => {
     event.preventDefault(); // prevents refreshing app
+    try {
+      if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+        return setError("Passwords do not match");
+      }
+      setLoading(true);
+      const response = await fetch(`${BACKEND_BASE_URL}/user/api/signup`, {
+        method: "POST",
 
-    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return setError("Passwords do not match");
+        body: JSON.stringify({
+          email: email,
+          password: password,
+          role: "babysitter",
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+
+      if (data.status === "ok") {
+        navigate("/");
+      }
+      // console.log(data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
     }
-    const response = await fetch(`${BACKEND_BASE_URL}/user/api/signup`, {
-      method: "POST",
-
-      body: JSON.stringify({
-        email: email,
-        password: password,
-        role: "babysitter",
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await response.json();
-
-    if (data.status === "ok") {
-      navigate("/");
-    }
-    console.log(data);
   };
-
-  // const handleSelect = (e) => {
-  //   console.log(e);
-  //   setRole(e);
-  // };
 
   return (
     <>
@@ -247,6 +231,7 @@ export const SignupBabySitter = () => {
         <Card.Body>
           <h2 className="text-center mb-4">Sign Up as Babysitter</h2>
           {error && <Alert variant="danger">{error}</Alert>}
+          {loading && <Loader />}
           <Form onSubmit={signupUser}>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
@@ -258,19 +243,6 @@ export const SignupBabySitter = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </Form.Group>
-
-            {/* <DropdownButton
-              title="Select Role"
-              id="dropdown-menu-align-right"
-              className="mt-3"
-              onSelect={handleSelect}
-            >
-              <Dropdown.Item eventKey="parent">Parent</Dropdown.Item>
-              <Dropdown.Item eventKey="babysitter">BabySitter</Dropdown.Item>
-
-        
-            </DropdownButton>
-            <h4>{role}</h4> */}
 
             <Form.Group id="password">
               <Form.Label>Password</Form.Label>
