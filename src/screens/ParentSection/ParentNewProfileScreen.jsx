@@ -14,10 +14,10 @@ const ParentNewProfileScreen = () => {
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [image, setImage] = useState("");
+  const [description, setDescription] = useState("");
 
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("currentUser"));
-  console.log("thisss", user);
 
   const handleSubmit = async (event) => {
     event.preventDefault(); //need this else will not navigate to dashboard page
@@ -40,6 +40,7 @@ const ParentNewProfileScreen = () => {
           name: name,
           location: location,
           image: image,
+          description: description,
         }
       );
 
@@ -48,6 +49,7 @@ const ParentNewProfileScreen = () => {
       console.log(error);
     }
 
+    // another method using fetch
     // const res = await fetch(
     //   `${BACKEND_BASE_URL}/parent/api/new-profile/${user._id}`,
     //   {
@@ -123,6 +125,17 @@ const ParentNewProfileScreen = () => {
                 required
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group id="description">
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                type="text"
+                // ref={""}
+                required
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
               />
             </Form.Group>
             <Button disabled={loading} className="w-100 mt-3" type="submit">

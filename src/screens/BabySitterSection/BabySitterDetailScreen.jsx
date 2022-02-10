@@ -48,6 +48,7 @@ const BabySitterDetailScreen = () => {
               <img src={parent.image} className="bigimg" />
               <p>Name: {parent.name}</p>
               <p>Location: {parent.location}</p>
+              <p>Description: {parent.description}</p>
             </div>
           </div>
         </div>

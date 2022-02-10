@@ -17,6 +17,7 @@ const BabySitterNewProfileScreen = () => {
   const [location, setLocation] = useState("");
   const [image, setImage] = useState("");
   const [rate, setRate] = useState();
+  const [description, setDescription] = useState("");
 
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("currentUser"));
@@ -41,6 +42,7 @@ const BabySitterNewProfileScreen = () => {
           location: location,
           image: image,
           ratePerDay: rate,
+          description: description,
         }
       );
 
@@ -115,6 +117,16 @@ const BabySitterNewProfileScreen = () => {
                 required
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group id="description">
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                type="text"
+                required
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
               />
             </Form.Group>
             <Button disabled={loading} className="w-100 mt-3" type="submit">
