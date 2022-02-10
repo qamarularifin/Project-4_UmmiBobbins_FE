@@ -10,10 +10,35 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import GeneralContext from "../../context/GeneralContext";
+import { Tabs } from "antd";
+import { Tag, Divider } from "antd";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
+const { TabPane } = Tabs;
 
 const Signup = () => {
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+
+  return (
+    <div className="ml-3 mt-3">
+      <Tabs defaultActiveKey="1">
+        <TabPane tab="Parent" key="1">
+          <SignupParent />
+        </TabPane>
+        <TabPane tab="Babysitter" key="2">
+          <SignupBabySitter />
+        </TabPane>
+      </Tabs>
+    </div>
+  );
+};
+
+export default Signup;
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Sign up parent
+///////////////////////////////////////////////////////////////////////////////////////////////////
+export const SignupParent = () => {
   const { userContext } = useContext(GeneralContext);
   const [
     name,
@@ -53,10 +78,9 @@ const Signup = () => {
       method: "POST",
 
       body: JSON.stringify({
-        // name: name,
         email: email,
         password: password,
-        role: role,
+        role: "parent",
       }),
       headers: {
         "Content-Type": "application/json",
@@ -70,16 +94,16 @@ const Signup = () => {
     console.log(data);
   };
 
-  const handleSelect = (e) => {
-    console.log(e);
-    setRole(e);
-  };
+  // const handleSelect = (e) => {
+  //   console.log(e);
+  //   setRole(e);
+  // };
 
   return (
     <>
       <Card>
         <Card.Body>
-          <h2 className="text-center mb-4">Sign Up</h2>
+          <h2 className="text-center mb-4">Sign Up as Parent</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={signupUser}>
             {/* <Form.Group id="name">
@@ -104,7 +128,7 @@ const Signup = () => {
               />
             </Form.Group>
 
-            <DropdownButton
+            {/* <DropdownButton
               title="Select Role"
               id="dropdown-menu-align-right"
               className="mt-3"
@@ -113,9 +137,9 @@ const Signup = () => {
               <Dropdown.Item eventKey="parent">Parent</Dropdown.Item>
               <Dropdown.Item eventKey="babysitter">BabySitter</Dropdown.Item>
 
-              {/* <Dropdown.Divider /> */}
+         
             </DropdownButton>
-            <h4>{role}</h4>
+            <h4>{role}</h4> */}
 
             <Form.Group id="password">
               <Form.Label>Password</Form.Label>
@@ -151,4 +175,133 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+///////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+// Sign up Babysitter
+export const SignupBabySitter = () => {
+  const { userContext } = useContext(GeneralContext);
+  const [
+    name,
+    setName,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    passwordConfirm,
+    setPasswordConfirm,
+    role,
+    setRole,
+  ] = userContext;
+  const nameRef = useRef();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const passwordConfirmRef = useRef();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setEmail("");
+    setPassword("");
+    setPasswordConfirm("");
+    setName("");
+  }, []);
+
+  const signupUser = async (event) => {
+    event.preventDefault(); // prevents refreshing app
+
+    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+      return setError("Passwords do not match");
+    }
+    const response = await fetch(`${BACKEND_BASE_URL}/user/api/signup`, {
+      method: "POST",
+
+      body: JSON.stringify({
+        email: email,
+        password: password,
+        role: "babysitter",
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+
+    if (data.status === "ok") {
+      navigate("/");
+    }
+    console.log(data);
+  };
+
+  // const handleSelect = (e) => {
+  //   console.log(e);
+  //   setRole(e);
+  // };
+
+  return (
+    <>
+      <Card>
+        <Card.Body>
+          <h2 className="text-center mb-4">Sign Up as Babysitter</h2>
+          {error && <Alert variant="danger">{error}</Alert>}
+          <Form onSubmit={signupUser}>
+            <Form.Group id="email">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                ref={emailRef}
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </Form.Group>
+
+            {/* <DropdownButton
+              title="Select Role"
+              id="dropdown-menu-align-right"
+              className="mt-3"
+              onSelect={handleSelect}
+            >
+              <Dropdown.Item eventKey="parent">Parent</Dropdown.Item>
+              <Dropdown.Item eventKey="babysitter">BabySitter</Dropdown.Item>
+
+        
+            </DropdownButton>
+            <h4>{role}</h4> */}
+
+            <Form.Group id="password">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                ref={passwordRef}
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group id="password-confirm">
+              <Form.Label>Password Confirmation</Form.Label>
+              <Form.Control
+                type="password"
+                ref={passwordConfirmRef}
+                required
+                value={passwordConfirm}
+                onChange={(e) => setPasswordConfirm(e.target.value)}
+              />
+            </Form.Group>
+            <Button disabled={loading} className="w-100 mt-3" type="submit">
+              Sign Up
+            </Button>
+          </Form>
+          <div className="w-100 text-center mt-2">
+            Already have an account? <Link to="/">Log In</Link>
+          </div>
+        </Card.Body>
+      </Card>
+    </>
+  );
+};
