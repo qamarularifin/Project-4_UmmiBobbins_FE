@@ -8,7 +8,6 @@ import Loader from "../../components/Loader";
 import Error from "../../components/Error";
 import BabySitterParentDisplayScreen from "./BabySitterParentDisplayScreen";
 import moment from "moment";
-// import "antd/dist/antd.css";
 import { DatePicker } from "antd";
 const { RangePicker } = DatePicker;
 
@@ -50,6 +49,9 @@ const BabySitterHomeScreen = (props) => {
       console.log(error);
       setLoading(false);
     }
+    return () => {
+      console.log("cleanup app");
+    };
   }, []);
 
   return (
