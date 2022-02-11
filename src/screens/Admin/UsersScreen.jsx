@@ -8,6 +8,9 @@ import Swal from "sweetalert2";
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
 const UsersScreen = () => {
+  const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+  console.log(user);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
@@ -25,6 +28,11 @@ const UsersScreen = () => {
     }
   }, []);
 
+  const deleteUser = async (user) => {
+    await axios.delete(`${BACKEND_BASE_URL}/user/api/deleteuser/${user}`);
+    window.location.reload();
+  };
+
   return (
     <div className="row table-responsive">
       <div className="col-md-12">
@@ -37,6 +45,7 @@ const UsersScreen = () => {
               <th>Role</th>
               <th>Created</th>
               <th>Admin</th>
+              <th>Delete User</th>
             </tr>
           </thead>
           <tbody>
@@ -49,6 +58,14 @@ const UsersScreen = () => {
                     <td>{user.role}</td>
                     <td>{user.created ? "Yes" : "No"}</td>
                     <td>{user.isAdmin ? "Yes" : "No"}</td>
+                    <td>
+                      <button
+                        className="btn btn-primary"
+                        onClick={() => deleteUser(user._id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
                   </tr>
                 );
               })}
