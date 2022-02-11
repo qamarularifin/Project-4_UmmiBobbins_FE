@@ -28,7 +28,7 @@ const BabySittersScreen = () => {
   }, []);
 
   return (
-    <div className="row">
+    <div className="row table-responsive">
       <div className="col-md-12">
         {loading && <Loader />}
         <table className="table table-bordered">

@@ -88,6 +88,7 @@ const ParentNewProfileScreen = () => {
 
     /////////////////////////////////////
   };
+
   return (
     <>
       <Card>
@@ -121,7 +122,6 @@ const ParentNewProfileScreen = () => {
               <Form.Label>Image</Form.Label>
               <Form.Control
                 type="text"
-                // ref={""}
                 required
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
@@ -132,7 +132,6 @@ const ParentNewProfileScreen = () => {
               <Form.Label>Description</Form.Label>
               <Form.Control
                 type="text"
-                // ref={""}
                 required
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
