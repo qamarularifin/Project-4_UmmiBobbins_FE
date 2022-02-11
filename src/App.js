@@ -14,6 +14,7 @@ import ParentBookingScreen from "./screens/ParentSection/ParentBookingScreen";
 import BabySitterDetailScreen from "./screens/BabySitterSection/BabySitterDetailScreen";
 import ParentNewProfileScreen from "./screens/ParentSection/ParentNewProfileScreen";
 import BabySitterNewProfileScreen from "./screens/BabySitterSection/BabySitterNewProfileScreen";
+import AdminScreen from "./screens/Admin/AdminScreen";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
@@ -44,12 +45,16 @@ function App() {
       >
         <DefaultLayout>
           <Container
-            className="d-flex align-items-center justify-content-center"
+            // className="d-flex align-items-center justify-content-center"
             style={{ minHeight: "100vh" }}
           >
-            <div className="w-100" style={{ maxWidth: "600px" }}>
+            <div
+            // className="w-100"
+            // style={{ maxWidth: "600px" }}
+            >
               <Routes>
                 <Route path="/signup" element={<Signup />} />
+
                 <Route path="/" element={<Login />} />
 
                 <Route
@@ -102,6 +107,15 @@ function App() {
                   element={
                     <PrivateRoute>
                       <BabySitterDetailScreen />
+                    </PrivateRoute>
+                  }
+                />
+
+                <Route
+                  path="/admin"
+                  element={
+                    <PrivateRoute>
+                      <AdminScreen />
                     </PrivateRoute>
                   }
                 />
