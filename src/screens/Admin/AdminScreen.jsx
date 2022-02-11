@@ -15,6 +15,7 @@ import Error from "../../components/Error";
 import UsersScreen from "./UsersScreen";
 import ParentsScreen from "./ParentsScreen";
 import BookingsScreen from "./BookingsScreen";
+import BabySittersScreen from "./BabySittersScreen";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 const { TabPane } = Tabs;
@@ -38,7 +39,10 @@ const AdminScreen = () => {
         <TabPane tab="Parents" key="2">
           <ParentsScreen />
         </TabPane>
-        <TabPane tab="Bookings" key="3">
+        <TabPane tab="Baby Sitters" key="3">
+          <BabySittersScreen />
+        </TabPane>
+        <TabPane tab="Bookings" key="4">
           <BookingsScreen />
         </TabPane>
       </Tabs>

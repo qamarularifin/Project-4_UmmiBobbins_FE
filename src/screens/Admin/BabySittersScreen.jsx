@@ -7,18 +7,18 @@ import Swal from "sweetalert2";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
-const ParentsScreen = () => {
-  const [parents, setParents] = useState([]);
+const BabySittersScreen = () => {
+  const [babySitters, setBabySitters] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
 
   useEffect(async () => {
     try {
       const results = await axios.get(
-        `${BACKEND_BASE_URL}/parent/api/getallparents`
+        `${BACKEND_BASE_URL}/babysitter/api/getallbabysitters`
       );
       console.log(results.data);
-      setParents(results.data);
+      setBabySitters(results.data);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -34,25 +34,27 @@ const ParentsScreen = () => {
         <table className="table table-bordered">
           <thead className="bs">
             <tr>
-              <th>Parent ID</th>
+              <th>Babysitter ID</th>
               <th>User ID</th>
               <th>Name</th>
               <th>Location</th>
               <th>Description</th>
+              <th>Rate Per Day</th>
               <th>Image</th>
             </tr>
           </thead>
           <tbody>
-            {parents &&
-              parents.map((parent, i) => {
+            {babySitters &&
+              babySitters.map((babySitter, i) => {
                 return (
                   <tr key={i}>
-                    <td>{parent._id}</td>
-                    <td>{parent.userId}</td>
-                    <td>{parent.name}</td>
-                    <td>{parent.location}</td>
-                    <td>{parent.description}</td>
-                    <td>{parent.image}</td>
+                    <td>{babySitter._id}</td>
+                    <td>{babySitter.userId}</td>
+                    <td>{babySitter.name}</td>
+                    <td>{babySitter.location}</td>
+                    <td>{babySitter.description}</td>
+                    <td>$ {babySitter.ratePerDay}</td>
+                    <td>{babySitter.image}</td>
                   </tr>
                 );
               })}
@@ -63,4 +65,4 @@ const ParentsScreen = () => {
   );
 };
 
-export default ParentsScreen;
+export default BabySittersScreen;
