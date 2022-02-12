@@ -114,7 +114,7 @@ const ParentHomeScreen = (props) => {
         ) : (
           <>
             {/* <div className="col justify-content-center mt-5"> */}
-            <div className="col lg={true}">
+            <div className="col-lg-10">
               <div className="row-md-3 mt-3 bs" style={{ marginLeft: "18%" }}>
                 <RangePicker format="DD-MM-YYYY" onChange={filterByDate} />
               </div>
@@ -132,10 +132,9 @@ const ParentHomeScreen = (props) => {
                 })}
               </div>
             </div>
-          
-                <div className="col lg={true}">
-                  <DisplayBooking />
-                </div>
+            <div className="col-lg-2">
+              <DisplayBooking />
+            </div>
                 
           </>
         )}

@@ -8,11 +8,17 @@ const DisplayBooking = () => {
 
     return (
     
-            // <div className="col-md-9">
-            // </div>
-                <h2>Display Booking Column</h2>
+            <div>
+                <p>Display Booking Column</p>
+                <p>Name</p>
+                <p>Date Start</p>
+                <p>Date End</p>
+                <p>Transaction ID</p>
+                <p>Status</p>
+            </div>
+
         
     )
 };
-
+                                                                                                                                                                                                                                                                               
 export default DisplayBooking;
