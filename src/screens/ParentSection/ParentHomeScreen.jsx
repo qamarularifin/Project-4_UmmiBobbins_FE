@@ -113,25 +113,30 @@ const ParentHomeScreen = (props) => {
           <Loader />
         ) : (
           <>
-            <div className="col-md-3 mt-3 bs" style={{ marginLeft: "18%" }}>
-              <RangePicker format="DD-MM-YYYY" onChange={filterByDate} />
+            {/* <div className="col justify-content-center mt-5"> */}
+            <div className="col lg={true}">
+              <div className="row-md-3 mt-3 bs" style={{ marginLeft: "18%" }}>
+                <RangePicker format="DD-MM-YYYY" onChange={filterByDate} />
+              </div>
+              <div className="row justify-content-center mt-5">
+                {babySitters.map((babySitter, i) => {
+                  return (
+                    <div key={i} className="col-md-8 mt-2">
+                      <ParentBabySitterDisplayScreen
+                        babySitter={babySitter}
+                        fromDate={fromDate}
+                        toDate={toDate}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-            <div className="row justify-content-center mt-5">
-              {babySitters.map((babySitter, i) => {
-                return (
-                  <div key={i} className="col-md-8 mt-2">
-                    <ParentBabySitterDisplayScreen
-                      babySitter={babySitter}
-                      fromDate={fromDate}
-                      toDate={toDate}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-            <div className="row justify-content-center mt-5">
-              <DisplayBooking />
-            </div>
+          
+                <div className="col lg={true}">
+                  <DisplayBooking />
+                </div>
+                
           </>
         )}
       </div>
