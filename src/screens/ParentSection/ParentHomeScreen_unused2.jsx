@@ -8,7 +8,6 @@ import Loader from "../../components/Loader";
 import Error from "../../components/Error";
 import ParentBabySitterDisplayScreen from "./ParentBabySitterDisplayScreen";
 import moment from "moment";
-import DisplayBooking from "../../components/DisplayBooking";
 
 import { DatePicker } from "antd";
 
@@ -65,15 +64,14 @@ const ParentHomeScreen = (props) => {
     setToDate(moment(dates[1]).format("DD-MM-YYYY"));
 
     let tempBabySitters = [];
-    for (let babySitter of duplicateBabySitters) {
-      let availability = false;
+    let availability = false;
+    for (const babySitter of duplicateBabySitters) {
       // check if theres any bookings
+      if (babySitter.currentBookings.length > 0) {
+        //check if the fromdate and todate (which is dates[0] and dates[1]) does not lie between the range of currentbooking fromdate and todate
 
-      //check if the fromdate and todate (which is dates[0] and dates[1]) does not lie between the range of currentbooking fromdate and todate
-
-      for (let booking of babySitter.currentBookings) {
-        // unable to work if choose outside of booked range but consists of booked dates
-        if (babySitter.currentBookings.length) {
+        for (const booking of babySitter.currentBookings) {
+          // unable to work if choose outside of booked range but consists of booked dates
           if (
             !moment(moment(dates[0]).format("DD-MM-YYYY")).isBetween(
               booking.fromDate,
@@ -97,9 +95,8 @@ const ParentHomeScreen = (props) => {
           }
         }
       }
-
       // if babysitter available or no current bookings
-      if (availability || babySitter.currentBookings.length === 0) {
+      if (availability === true || babySitter.currentBookings.length === 0) {
         tempBabySitters.push(babySitter);
       }
       // set the rooms with the temprooms so that those booked rooms will not appear in the rooms state
@@ -115,29 +112,22 @@ const ParentHomeScreen = (props) => {
           <Loader />
         ) : (
           <>
-            {/* <div className="col justify-content-center mt-5"> */}
-            <div className="col-lg-10">
-              <div className="row-md-3 mt-3 bs" style={{ marginLeft: "18%" }}>
-                <RangePicker format="DD-MM-YYYY" onChange={filterByDate} />
-              </div>
-              <div className="row justify-content-center mt-5">
-                {babySitters.map((babySitter, i) => {
-                  return (
-                    <div key={i} className="col-md-8 mt-2">
-                      <ParentBabySitterDisplayScreen
-                        babySitter={babySitter}
-                        fromDate={fromDate}
-                        toDate={toDate}
-                      />
-                    </div>
-                  );
-                })}
-              </div>
+            <div className="col-md-3 mt-3 bs" style={{ marginLeft: "18%" }}>
+              <RangePicker format="DD-MM-YYYY" onChange={filterByDate} />
             </div>
-            <div className="col-lg-2">
-              <DisplayBooking />
+            <div className="row justify-content-center mt-5">
+              {babySitters.map((babySitter, i) => {
+                return (
+                  <div key={i} className="col-md-8 mt-2">
+                    <ParentBabySitterDisplayScreen
+                      babySitter={babySitter}
+                      fromDate={fromDate}
+                      toDate={toDate}
+                    />
+                  </div>
+                );
+              })}
             </div>
-                
           </>
         )}
       </div>
