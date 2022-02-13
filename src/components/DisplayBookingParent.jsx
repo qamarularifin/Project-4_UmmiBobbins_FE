@@ -14,7 +14,6 @@ const DisplayBooking = () => {
   const [error, setError] = useState();
 
   const [bookings, setBookings] = useState([]);
-  const [otherData, setOtherData] = useState([]);
 
   useEffect(async () => {
     try {
