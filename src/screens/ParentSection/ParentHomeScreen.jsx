@@ -61,6 +61,7 @@ const ParentHomeScreen = (props) => {
   }, []);
 
   const filterByDate = (dates) => {
+    //setting the dates to database
     setFromDate(moment(dates[0]).format("DD-MM-YYYY"));
     setToDate(moment(dates[1]).format("DD-MM-YYYY"));
 
@@ -73,12 +74,14 @@ const ParentHomeScreen = (props) => {
 
       for (let booking of babySitter.currentBookings) {
         // unable to work if choose outside of booked range but consists of booked dates
-        if (babySitter.currentBookings.length) {
+        // unable to hide more than 1 same booked babysitter
+        if (babySitter.currentBookings.length > 0) {
+          //if dates you choose not within booked dates
           if (
             !moment(moment(dates[0]).format("DD-MM-YYYY")).isBetween(
               booking.fromDate,
               booking.toDate
-            ) &&
+            ) ||
             !moment(moment(dates[1]).format("DD-MM-YYYY")).isBetween(
               booking.fromDate,
               booking.toDate
@@ -103,37 +106,41 @@ const ParentHomeScreen = (props) => {
         tempBabySitters.push(babySitter);
       }
       // set the rooms with the temprooms so that those booked rooms will not appear in the rooms state
+      // tempBabySitters is the filtered results
       setBabySitters(tempBabySitters);
     }
   };
 
   ///////////////////////////////
   ////////////
-  // function setFilter(values) {
-  //   var selectedFrom = moment(values[0], "DD-MM-YYYY");
-  //   var selectedTo = moment(values[1], "DD-MM-YYYY");
+  // function setFilter(dates) {
+  //   //dates we choose
+  //   // var selectedFrom = moment(dates[0]).format("DD-MM-YYYY");
+  //   // var selectedTo = moment(dates[1]).format("DD-MM-YYYY");
+
+  //   setFromDate(moment(dates[0]).format("DD-MM-YYYY"));
+  //   setToDate(moment(dates[1]).format("DD-MM-YYYY"));
 
   //   var temp = [];
 
-  //   for (var babySitter of duplicateBabySitters) {
+  //   for (var babySitter of babySitters) {
   //     if (babySitter.currentBookings.length === 0) {
   //       temp.push(babySitter);
   //     } else {
   //       for (var booking of babySitter.currentBookings) {
   //         if (
-  //           selectedFrom.isBetween(booking.fromDate, booking.toDate) ||
-  //           selectedTo.isBetween(booking.fromDate, booking.toDate) ||
-  //           moment(booking.fromDate).isBetween(selectedFrom, selectedTo) ||
-  //           moment(booking.toDate).isBetween(selectedFrom, selectedTo)
+  //           fromDate.isBetween(booking.fromDate, booking.toDate) ||
+  //           toDate.isBetween(booking.fromDate, booking.toDate) ||
+  //           moment(booking.fromDate).isBetween(fromDate, toDate) ||
+  //           moment(booking.toDate).isBetween(fromDate, toDate)
   //         ) {
+  //           setDuplicateBabySitters(temp);
   //         } else {
   //           temp.push(babySitter);
   //         }
   //       }
   //     }
   //   }
-
-  //   setBabySitters(temp);
   // }
   /////////////
   /////////////
@@ -149,7 +156,11 @@ const ParentHomeScreen = (props) => {
             {/* <div className="col justify-content-center mt-5"> */}
             <div className="col-lg-10">
               <div className="row-md-3 mt-3 bs" style={{ marginLeft: "18%" }}>
-                <RangePicker format="DD-MM-YYYY" onChange={filterByDate} />
+                <RangePicker
+                  // showTime={{ format: "HH" }}
+                  format="DD-MM-YYYY"
+                  onChange={filterByDate}
+                />
               </div>
               <div className="row justify-content-center mt-5">
                 {babySitters.map((babySitter, i) => {

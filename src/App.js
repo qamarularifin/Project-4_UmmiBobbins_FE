@@ -103,7 +103,7 @@ function App() {
                 />
 
                 <Route
-                  path="/detail/:parentid"
+                  path="/detail/:parentname/:parentid"
                   element={
                     <PrivateRoute>
                       <BabySitterDetailScreen />

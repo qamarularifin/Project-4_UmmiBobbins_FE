@@ -15,7 +15,7 @@ const BabySitterParentDisplayScreen = (props) => {
         <img src={parent.image} className="bigimg" />
         <p>Location: {parent.location}</p>
         <p>Description: {parent.description}</p>
-        <Link to={`/detail/${parent._id}`}>
+        <Link to={`/detail/${parent.name}/${parent._id}`}>
           <button className="btn btn-primary m-2">Message</button>
         </Link>
 
