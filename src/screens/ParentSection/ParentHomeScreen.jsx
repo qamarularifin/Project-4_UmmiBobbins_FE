@@ -8,7 +8,7 @@ import Loader from "../../components/Loader";
 import Error from "../../components/Error";
 import ParentBabySitterDisplayScreen from "./ParentBabySitterDisplayScreen";
 import moment from "moment";
-import DisplayBooking from "../../components/DisplayBooking";
+import DisplayBookingParent from "../../components/DisplayBookingParent";
 
 import { DatePicker } from "antd";
 
@@ -166,7 +166,7 @@ const ParentHomeScreen = (props) => {
               </div>
             </div>
             <div className="col-lg-2">
-              <DisplayBooking />
+              <DisplayBookingParent />
             </div>
           </>
         )}

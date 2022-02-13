@@ -11,7 +11,7 @@ const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
 const ParentBookingScreen = () => {
   const navigate = useNavigate();
-  const { babysitterid, fromdate, todate } = useParams(); //lowercase fromdate and todate is correct
+  const { babysittername, babysitterid, fromdate, todate } = useParams(); //lowercase fromdate and todate is correct
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const [babySitter, setBabySitter] = useState();
@@ -49,6 +49,7 @@ const ParentBookingScreen = () => {
     const bookingDetails = {
       parentUserId: JSON.parse(localStorage.getItem("currentUser"))._id, //need to be parentid and not current parent user id
       babySitterId: babysitterid, //right side is real stringified object id
+      babySitterName: babysittername,
       fromDate: formattedFromDate,
       toDate: formattedToDate,
       totalAmount: totalAmount,
@@ -60,7 +61,7 @@ const ParentBookingScreen = () => {
         `${BACKEND_BASE_URL}/booking/api/bookbabysitter`,
         bookingDetails
       );
-
+      localStorage.setItem("currentBookings", JSON.stringify(results.data)); //this stores currentbookings in the localstorage
       setLoading(false);
       Swal.fire(
         "Congratulations!",

@@ -19,7 +19,9 @@ const ParentBabySitterDisplayScreen = (props) => {
 
         <div>
           {fromDate && toDate && (
-            <Link to={`/book/${babySitter._id}/${fromDate}/${toDate}`}>
+            <Link
+              to={`/book/${babySitter.name}/${babySitter._id}/${fromDate}/${toDate}`}
+            >
               <button className="btn btn-primary m-2">Book Now</button>
             </Link>
           )}
