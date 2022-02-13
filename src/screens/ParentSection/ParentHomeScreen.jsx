@@ -107,6 +107,37 @@ const ParentHomeScreen = (props) => {
     }
   };
 
+  ///////////////////////////////
+  ////////////
+  // function setFilter(values) {
+  //   var selectedFrom = moment(values[0], "DD-MM-YYYY");
+  //   var selectedTo = moment(values[1], "DD-MM-YYYY");
+
+  //   var temp = [];
+
+  //   for (var babySitter of duplicateBabySitters) {
+  //     if (babySitter.currentBookings.length === 0) {
+  //       temp.push(babySitter);
+  //     } else {
+  //       for (var booking of babySitter.currentBookings) {
+  //         if (
+  //           selectedFrom.isBetween(booking.fromDate, booking.toDate) ||
+  //           selectedTo.isBetween(booking.fromDate, booking.toDate) ||
+  //           moment(booking.fromDate).isBetween(selectedFrom, selectedTo) ||
+  //           moment(booking.toDate).isBetween(selectedFrom, selectedTo)
+  //         ) {
+  //         } else {
+  //           temp.push(babySitter);
+  //         }
+  //       }
+  //     }
+  //   }
+
+  //   setBabySitters(temp);
+  // }
+  /////////////
+  /////////////
+
   return (
     <div className="container">
       <div className="row mt-5">
@@ -137,7 +168,6 @@ const ParentHomeScreen = (props) => {
             <div className="col-lg-2">
               <DisplayBooking />
             </div>
-                
           </>
         )}
       </div>
