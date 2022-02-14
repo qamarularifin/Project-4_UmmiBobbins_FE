@@ -27,6 +27,15 @@ const BookingsScreen = () => {
     }
   }, []);
 
+  const deleteBooking = async (bookingId, parentId, babySitterId) => {
+    await axios.post(`${BACKEND_BASE_URL}/booking/api/deletebooking`, {
+      bookingId,
+      parentId,
+      babySitterId,
+    });
+    window.location.reload();
+  };
+
   return (
     <div className="row table-responsive">
       <div className="col-md-12">
@@ -43,6 +52,7 @@ const BookingsScreen = () => {
               <th>Total Days</th>
               <th>Transaction ID</th>
               <th>Booking Status</th>
+              <th>Delete Booking</th>
             </tr>
           </thead>
           <tbody>
@@ -58,7 +68,21 @@ const BookingsScreen = () => {
                     <td>{booking.totalAmount}</td>
                     <td>{booking.totalDays}</td>
                     <td>{booking.transactionId}</td>
-                    <td>{booking.status ? "Confirmed" : "Not confirmed"}</td>
+                    <td>{booking.status ? "Pending" : "Confirmed"}</td>
+                    <td>
+                      <button
+                        className="btn btn-primary"
+                        onClick={() =>
+                          deleteBooking(
+                            booking._id,
+                            booking.parentId,
+                            booking.babySitterId
+                          )
+                        }
+                      >
+                        Delete
+                      </button>
+                    </td>
                   </tr>
                 );
               })}
