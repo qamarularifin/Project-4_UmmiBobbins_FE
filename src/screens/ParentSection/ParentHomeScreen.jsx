@@ -77,27 +77,27 @@ const ParentHomeScreen = (props) => {
         // unable to hide more than 1 same booked babysitter
         if (babySitter.currentBookings.length > 0) {
           //if dates you choose not within booked dates
+          // if (
+          //   !moment(moment(dates[0]).format("DD-MM-YYYY")).isBetween(
+          //     booking.fromDate,
+          //     booking.toDate
+          //   ) ||
+          //   !moment(moment(dates[1]).format("DD-MM-YYYY")).isBetween(
+          //     booking.fromDate,
+          //     booking.toDate
+          //   )
+          // ) {
+          //check if user entered fromdate and todate i.e, (moment(date[0]), moment(date[1])) is not equal to booked fromdate and todate from database
           if (
-            !moment(moment(dates[0]).format("DD-MM-YYYY")).isBetween(
-              booking.fromDate,
-              booking.toDate
-            ) ||
-            !moment(moment(dates[1]).format("DD-MM-YYYY")).isBetween(
-              booking.fromDate,
-              booking.toDate
-            )
+            moment(dates[0]).format("DD-MM-YYYY") !== booking.fromDate && //from date entered not equal booked fromdate
+            moment(dates[0]).format("DD-MM-YYYY") !== booking.toDate && //from date entered not equal to booked todate
+            moment(dates[1]).format("DD-MM-YYYY") !== booking.fromDate && //to date entered not equal to booked fromdate
+            moment(dates[1]).format("DD-MM-YYYY") !== booking.toDate //to date entered not equal to booked todate
           ) {
-            //check if user entered fromdate and todate i.e, (moment(date[0]), moment(date[1])) is not equal to booked fromdate and todate from database
-            if (
-              moment(dates[0]).format("DD-MM-YYYY") !== booking.fromDate && //from date entered not equal booked fromdate
-              moment(dates[0]).format("DD-MM-YYYY") !== booking.toDate && //from date entered not equal to booked todate
-              moment(dates[1]).format("DD-MM-YYYY") !== booking.fromDate && //to date entered not equal to booked fromdate
-              moment(dates[1]).format("DD-MM-YYYY") !== booking.toDate //to date entered not equal to booked todate
-            ) {
-              // if all conditions above is true, means room is available, then set availability to true
-              availability = true;
-            }
+            // if all conditions above is true, means room is available, then set availability to true
+            availability = true;
           }
+          // }
         }
       }
 
@@ -105,11 +105,15 @@ const ParentHomeScreen = (props) => {
       if (availability || babySitter.currentBookings.length === 0) {
         tempBabySitters.push(babySitter);
       }
+      console.log("temp", tempBabySitters);
+      console.log("length", babySitter.currentBookings.length);
       // set the rooms with the temprooms so that those booked rooms will not appear in the rooms state
       // tempBabySitters is the filtered results
       setBabySitters(tempBabySitters);
     }
   };
+
+  console.log("ggg", babySitters);
 
   ///////////////////////////////
   ////////////

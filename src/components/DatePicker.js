@@ -3,10 +3,18 @@ import { Datepicker } from "@mobiscroll/react";
 import "@mobiscroll/react/dist/css/mobiscroll.min.css";
 
 const DatePicker = () => {
+  const [myAppointment, setMyAppointment] = React.useState(null);
+  const myPickerChange = (ev) => {
+    setMyAppointment(ev.value);
+  };
   return (
-    <div>
-      <Datepicker controls={["date"]} />
-    </div>
+    <>
+      <Datepicker
+        controls={["date", "time"]}
+        value={myAppointment}
+        onChange={myPickerChange}
+      />
+    </>
   );
 };
 
