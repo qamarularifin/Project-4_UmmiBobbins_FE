@@ -15,6 +15,7 @@ import BabySitterDetailScreen from "./screens/BabySitterSection/BabySitterDetail
 import ParentNewProfileScreen from "./screens/ParentSection/ParentNewProfileScreen";
 import BabySitterNewProfileScreen from "./screens/BabySitterSection/BabySitterNewProfileScreen";
 import AdminScreen from "./screens/Admin/AdminScreen";
+import { useNavigate } from "react-router-dom";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
@@ -24,6 +25,16 @@ function App() {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [role, setRole] = useState("");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    //if user is not admin, will route back to dashboard
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    if (user) {
+      navigate("/dashboard");
+    }
+  }, []);
 
   return (
     <div className="App">
