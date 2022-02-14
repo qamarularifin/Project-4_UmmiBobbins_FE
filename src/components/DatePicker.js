@@ -1,9 +1,11 @@
 import React from "react";
+import { Datepicker } from "@mobiscroll/react";
+import "@mobiscroll/react/dist/css/mobiscroll.min.css";
 
 const DatePicker = () => {
   return (
     <div>
-      <h1>hi</h1>
+      <Datepicker controls={["date"]} />
     </div>
   );
 };
