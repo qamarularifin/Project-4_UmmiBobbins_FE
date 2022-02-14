@@ -61,8 +61,12 @@ const DefaultLayout = (props) => {
                     className="dropdown-menu"
                     aria-labelledby="dropdownMenuButton"
                   >
-                    {/* <a className="dropdown-item" href="#">
-                      Bookings
+                    <Link to="/admin" className="dropdown-item">
+                      Admin
+                    </Link>
+
+                    {/* <a className="dropdown-item" href="/admin">
+                      Admin
                     </a> */}
                     <Link to="/update-profile" className="dropdown-item">
                       Account Settings
@@ -70,6 +74,9 @@ const DefaultLayout = (props) => {
                     {/* <a className="dropdown-item" href="/update-profile">
                       Account Settings
                     </a> */}
+                    <Link to="/datepicker" className="dropdown-item">
+                      DatePicker Testing
+                    </Link>
                     <a className="dropdown-item" href="/" onClick={logout}>
                       Logout
                     </a>

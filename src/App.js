@@ -16,6 +16,7 @@ import ParentNewProfileScreen from "./screens/ParentSection/ParentNewProfileScre
 import BabySitterNewProfileScreen from "./screens/BabySitterSection/BabySitterNewProfileScreen";
 import AdminScreen from "./screens/Admin/AdminScreen";
 import { useNavigate } from "react-router-dom";
+import DatePicker from "./components/DatePicker";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
@@ -128,6 +129,14 @@ function App() {
                   element={
                     <PrivateRoute>
                       <AdminScreen />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/datepicker"
+                  element={
+                    <PrivateRoute>
+                      <DatePicker />
                     </PrivateRoute>
                   }
                 />
