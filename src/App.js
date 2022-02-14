@@ -28,6 +28,7 @@ function App() {
 
   const navigate = useNavigate();
 
+  // useEffect to route back to dashboard when browser back button or url is changed to login page
   useEffect(() => {
     //if user is not admin, will route back to dashboard
     const user = JSON.parse(localStorage.getItem("currentUser"));

@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Loader from "./Loader";
 import Error from "./Error";
+import { Tabs } from "antd";
+import { Tag, Divider } from "antd";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
@@ -49,7 +51,14 @@ const DisplayBooking = () => {
                   <p>Date Start: {booking.fromDate}</p>
                   <p>Date End: {booking.toDate}</p>
                   <p>Transaction ID: {booking.transactionId}</p>
-                  <p>Status: {booking.status}</p>
+                  <p>
+                    Status:{" "}
+                    {booking.status === "pending" ? (
+                      <Tag color="red">Pending</Tag>
+                    ) : (
+                      <Tag color="green">Confirmed</Tag>
+                    )}
+                  </p>
                 </div>
               );
             })}
