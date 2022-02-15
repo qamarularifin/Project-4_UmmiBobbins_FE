@@ -17,6 +17,7 @@ import BabySitterNewProfileScreen from "./screens/BabySitterSection/BabySitterNe
 import AdminScreen from "./screens/Admin/AdminScreen";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "./components/DatePicker";
+import ForgotPassword from "./screens/Auth/ForgotPassword";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
@@ -69,6 +70,8 @@ function App() {
                 <Route path="/signup" element={<Signup />} />
 
                 <Route path="/" element={<Login />} />
+
+                <Route path="/forgot-password" element={<ForgotPassword />} />
 
                 <Route
                   path="/parent/new-profile"

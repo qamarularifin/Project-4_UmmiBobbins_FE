@@ -40,6 +40,8 @@ const ParentHomeScreen = (props) => {
   const [toDate, setToDate] = useState();
   const [duplicateBabySitters, setDuplicateBabySitters] = useState([]); //need [] because its a list
 
+  const [searchBabySitter, setSearchBabySitter] = useState();
+
   const navigate = useNavigate();
 
   useEffect(async () => {
@@ -49,7 +51,7 @@ const ParentHomeScreen = (props) => {
         `${BACKEND_BASE_URL}/babysitter/api/getallbabysitters`
       );
 
-      console.log("results", results.data);
+      // console.log("results", results.data);
       setBabySitters(results.data);
       setDuplicateBabySitters(results.data);
       setLoading(false);
@@ -60,9 +62,9 @@ const ParentHomeScreen = (props) => {
     }
   }, []);
 
-  useEffect(() => {
-    setDuplicateBabySitters(babySitters);
-  }, [babySitters]);
+  // useEffect(() => {
+  //   setDuplicateBabySitters(babySitters);
+  // }, [babySitters]);
 
   const filterByDate = (dates) => {
     //setting the dates to database
@@ -164,6 +166,13 @@ const ParentHomeScreen = (props) => {
   /////////////
   /////////////
 
+  const filterBySearch = () => {
+    const filteredBabySitters = duplicateBabySitters.filter((babySitter) =>
+      babySitter.name.toLowerCase().includes(searchBabySitter.toLowerCase())
+    );
+    setBabySitters(filteredBabySitters);
+  };
+
   return (
     <div className="container">
       <div className="row mt-5">
@@ -180,7 +189,17 @@ const ParentHomeScreen = (props) => {
                   format="DD-MM-YYYY"
                   onChange={filterByDate}
                 />
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Search Baby Sitter"
+                  value={searchBabySitter}
+                  onChange={(e) => setSearchBabySitter(e.target.value)}
+                  onKeyUp={filterBySearch}
+                />
               </div>
+
+              <div className="col-md-5"></div>
               <div className="row justify-content-center mt-5">
                 {babySitters.map((babySitter, i) => {
                   return (
@@ -197,7 +216,7 @@ const ParentHomeScreen = (props) => {
             </div>
             <div
               className="col-lg-2 "
-              style={{ marginTop: "159px", marginLeft: "-120px" }}
+              style={{ marginTop: "207px", marginLeft: "-160px" }}
             >
               <DisplayBookingParent />
             </div>
