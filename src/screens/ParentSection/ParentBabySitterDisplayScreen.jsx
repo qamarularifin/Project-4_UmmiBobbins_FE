@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Button, Carousel } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { Tag, Divider } from "antd";
 
 const ParentBabySitterDisplayScreen = (props) => {
   const { babySitter, fromDate, toDate } = props;
@@ -28,6 +29,20 @@ const ParentBabySitterDisplayScreen = (props) => {
           <button className="btn btn-primary" onClick={handleShow}>
             View Details
           </button>
+          <p className="mt-2">Dates Unavailable: </p>
+          {babySitter.currentBookings.map((booking, i) => {
+            return (
+              <>
+                <div className="row">
+                  <p>
+                    <Tag color="red">
+                      From: {booking.fromDate} To: {booking.toDate}
+                    </Tag>
+                  </p>
+                </div>
+              </>
+            );
+          })}
         </div>
       </div>
 
