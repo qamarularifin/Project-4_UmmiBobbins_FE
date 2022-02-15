@@ -62,6 +62,7 @@ const ParentHomeScreen = (props) => {
     }
   }, []);
 
+  // dont use this, will cause filtering not accurate
   // useEffect(() => {
   //   setDuplicateBabySitters(babySitters);
   // }, [babySitters]);
