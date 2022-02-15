@@ -30,8 +30,11 @@ const BabySitterHomeScreen = (props) => {
     userContext;
 
   const [parents, setParents] = useState([]);
+  const [duplicateParents, setDuplicateParents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
+
+  const [searchParent, setSearchParent] = useState();
 
   const navigate = useNavigate();
 
@@ -43,16 +46,21 @@ const BabySitterHomeScreen = (props) => {
       );
       console.log("results", results.data);
       setParents(results.data);
+      setDuplicateParents(results.data);
       setLoading(false);
     } catch (error) {
       setError(true);
       console.log(error);
       setLoading(false);
     }
-    return () => {
-      console.log("cleanup app");
-    };
   }, []);
+
+  const filterBySearch = () => {
+    const filteredParents = duplicateParents.filter((parent) =>
+      parent.name.toLowerCase().includes(searchParent.toLowerCase())
+    );
+    setParents(filteredParents);
+  };
 
   return (
     <div className="container">
@@ -60,10 +68,18 @@ const BabySitterHomeScreen = (props) => {
         <h1 className="row justify-content-center mt-5">
           Baby Sitter Home Screen
         </h1>
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Search Parent"
+          value={searchParent}
+          onChange={(e) => setSearchParent(e.target.value)}
+          onKeyUp={filterBySearch}
+        />
         <div className="row justify-content-center mt-5">
           {loading ? (
             <Loader />
-          ) : parents.length > 1 ? (
+          ) : (
             parents.map((parent, i) => {
               return (
                 <div key={i} className="col-md-9 mt-2">
@@ -71,8 +87,6 @@ const BabySitterHomeScreen = (props) => {
                 </div>
               );
             })
-          ) : (
-            <Error message="No Parents found!" />
           )}
         </div>
       </div>
