@@ -45,7 +45,20 @@ const ParentBookingScreen = () => {
     }
   }, []);
 
+  console.log("baby", babySitter);
+
   const bookBabySitter = async () => {
+    // if slots already booked, will trigger error
+    for (let baby of babySitter.currentBookings) {
+      if (
+        (baby.fromDate <= fromdate && fromdate <= baby.toDate) ||
+        (baby.fromDate <= todate && todate <= baby.toDate)
+      ) {
+        alert("Slot has been booked previously!");
+        return navigate("/dashboard");
+      }
+    }
+
     const bookingDetails = {
       parentUserId: JSON.parse(localStorage.getItem("currentUser"))._id, //need to be parentid and not current parent user id
       babySitterId: babysitterid, //right side is real stringified object id
@@ -93,6 +106,9 @@ const ParentBookingScreen = () => {
               <p>Location: {babySitter.location}</p>
               <p>Rate Per Day: $ {babySitter.ratePerDay}</p>
               <p>Description: {babySitter.description}</p>
+              <p>
+                Dates to book: {fromdate} to {todate}
+              </p>
               <button
                 className="btn btn-primary"
                 style={{ float: "right" }}
