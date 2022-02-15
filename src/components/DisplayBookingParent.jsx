@@ -39,8 +39,8 @@ const DisplayBooking = () => {
 
   return (
     <>
-      <div className="row bs">
-        <div className="col-md-6">
+      <div className="row bs" style={{ width: "500px" }}>
+        <div className="col-md-6" style={{ width: "100%" }}>
           {loading && <Loader />}
           <p>Display Booking Column </p>
           {bookings &&

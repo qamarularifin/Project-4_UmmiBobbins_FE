@@ -11,6 +11,7 @@ const BookingsScreen = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
+  const navigate = useNavigate();
 
   useEffect(async () => {
     try {
@@ -33,6 +34,7 @@ const BookingsScreen = () => {
       parentId,
       babySitterId,
     });
+
     window.location.reload();
   };
 

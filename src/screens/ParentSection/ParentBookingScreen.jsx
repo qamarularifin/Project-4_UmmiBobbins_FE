@@ -53,9 +53,17 @@ const ParentBookingScreen = () => {
       if (
         (baby.fromDate <= fromdate && fromdate <= baby.toDate) ||
         (baby.fromDate <= todate && todate <= baby.toDate)
+
+        // moment(fromdate).isBetween(baby.fromDate, baby.toDate, "[)")
+        // moment(todate).isBetween(baby.fromDate, baby.toDate, "()")
       ) {
-        alert("Slot has been booked previously!");
-        return navigate("/dashboard");
+        return Swal.fire(
+          "Oops!",
+          "Someone has book this timeslot!",
+          "error"
+        ).then((result) => {
+          navigate("/dashboard");
+        });
       }
     }
 

@@ -10,8 +10,8 @@ const ParentBabySitterDisplayScreen = (props) => {
   const handleShow = () => setShow(true);
 
   return (
-    <div className="row bs ">
-      <div className="col-md-9">
+    <div className="row bs">
+      <div className="col-md-9 mt-2">
         <p>Name: {babySitter.name}</p>
         <img src={babySitter.image} className="bigimg" />
         <p>Location: {babySitter.location}</p>
