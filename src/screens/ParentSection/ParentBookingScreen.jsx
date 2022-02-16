@@ -18,8 +18,9 @@ const ParentBookingScreen = () => {
   const [totalAmount, setTotalAmount] = useState();
 
   // useParams for the dates //  use moment to calculate no. of days
-  const formattedFromDate = moment(fromdate, "DD-MM-YYYY");
-  const formattedToDate = moment(todate, "DD-MM-YYYY");
+  const formattedFromDate = moment(fromdate, "DD-MM-YYYY"); //formatted needed for .diff function
+  const formattedToDate = moment(todate, "DD-MM-YYYY"); //formatted needed for .diff function
+
   const totalDays =
     moment.duration(formattedToDate.diff(formattedFromDate)).asDays() + 1;
 
@@ -44,8 +45,6 @@ const ParentBookingScreen = () => {
       setLoading(false);
     }
   }, []);
-
-  console.log("baby", babySitter);
 
   const bookBabySitter = async () => {
     // if slots already booked, will trigger error
