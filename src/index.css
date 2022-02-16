@@ -8,6 +8,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "Montserrat", sans-serif !important;
+  /* background: linear-gradient(
+    90deg,
+    rgba(223, 218, 215, 0.9) 0%,
+    rgb(63, 62, 59) 100%
+  ); */
 }
 
 code {

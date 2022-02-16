@@ -71,12 +71,15 @@ const DefaultLayout = (props) => {
                     <Link to="/update-profile" className="dropdown-item">
                       Account Settings
                     </Link>
+                    <Link to="/editbioscreen" className="dropdown-item">
+                      Edit Bio
+                    </Link>
                     {/* <a className="dropdown-item" href="/update-profile">
                       Account Settings
                     </a> */}
-                    <Link to="/datepicker" className="dropdown-item">
+                    {/* <Link to="/datepicker" className="dropdown-item">
                       DatePicker Testing
-                    </Link>
+                    </Link> */}
                     <a className="dropdown-item" href="/" onClick={logout}>
                       Logout
                     </a>

@@ -20,6 +20,9 @@ import DatePicker from "./components/DatePicker";
 import ForgotPassword from "./screens/Auth/ForgotPassword";
 import EditParentScreen from "./screens/Admin/EditParentScreen";
 import EditBabySitterScreen from "./screens/Admin/EditBabySitterScreen";
+import ParentEditBioScreen from "./screens/ParentSection/ParentEditBioScreen";
+import BabySitterEditBioScreen from "./screens/BabySitterSection/BabySitterEditBioScreen";
+import EditBioScreen from "./screens/EditBioScreen";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
@@ -40,6 +43,11 @@ function App() {
       navigate("/dashboard");
     }
   }, []);
+
+  // useEffect(async()=>{
+  //   const results = await axios.get(`${BACKEND_BASE_URL}/parent/api/getallparents`)
+  //   const getOne = results.data.map((one,i)=>)
+  // })
 
   return (
     <div className="App">
@@ -154,6 +162,31 @@ function App() {
                     </PrivateRoute>
                   }
                 />
+
+                <Route
+                  path="/editbioscreen"
+                  element={
+                    <PrivateRoute>
+                      <EditBioScreen />
+                    </PrivateRoute>
+                  }
+                />
+                {/* <Route
+                  path="/edit/parent/update-bio"
+                  element={
+                    <PrivateRoute>
+                      <ParentEditBioScreen />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/edit/babysitter/update-bio"
+                  element={
+                    <PrivateRoute>
+                      <BabySitterEditBioScreen />
+                    </PrivateRoute>
+                  }
+                /> */}
                 <Route
                   path="/datepicker"
                   element={
