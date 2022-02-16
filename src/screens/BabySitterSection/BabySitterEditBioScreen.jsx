@@ -11,42 +11,51 @@ import Error from "../../components/Error";
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
 const BabySitterEditBioScreen = (props) => {
-  const { babySitter } = props;
+  const {
+    babySitter,
+    babySitterName,
+    babySitterLocation,
+    babySitterImage,
+    babySitterDescription,
+    babySitterRatePerDay,
+    setBabySitterName,
+    setBabySitterLocation,
+    setBabySitterImage,
+    setBabySitterDescription,
+    setBabySitterRatePerDay,
+  } = props;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
-  const [name, setName] = useState("");
-  const [location, setLocation] = useState("");
-  const [image, setImage] = useState("");
-  const [description, setDescription] = useState("");
 
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("currentUser"));
 
-  useEffect(async () => {
-    try {
-      setLoading(true);
-      const results = await axios.get(
-        `${BACKEND_BASE_URL}/babysitter/api/${babySitter._id}`
-      );
-      setName(results.data.name);
-      setLocation(results.data.location);
-      setDescription(results.data.description);
-      setImage(results.data.image);
+  //the useeffect does not fill up the states the first time
+  // useEffect(async () => {
+  //   try {
+  //     setLoading(true);
+  //     const results = await axios.get(
+  //       `${BACKEND_BASE_URL}/babysitter/api/${babySitter._id}`
+  //     );
+  //     setName(results.data.name);
+  //     setLocation(results.data.location);
+  //     setDescription(results.data.description);
+  //     setImage(results.data.image);
 
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
-    }
-  }, []);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     setLoading(false);
+  //     console.log(error);
+  //   }
+  // }, []);
 
   const editSubmit = async () => {
     const editProfile = {
-      name: name,
-      location: location,
-      description: description,
-      image: image,
+      name: babySitterName,
+      location: babySitterLocation,
+      description: babySitterDescription,
+      image: babySitterImage,
+      ratePerDay: babySitterRatePerDay,
     };
     try {
       setLoading(true);
@@ -74,8 +83,8 @@ const BabySitterEditBioScreen = (props) => {
                 type="text"
                 // ref={""}
                 required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={babySitterName}
+                onChange={(e) => setBabySitterName(e.target.value)}
               />
             </Form.Group>
 
@@ -85,8 +94,8 @@ const BabySitterEditBioScreen = (props) => {
                 type="text"
                 // ref={""}
                 required
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
+                value={babySitterLocation}
+                onChange={(e) => setBabySitterLocation(e.target.value)}
               />
             </Form.Group>
 
@@ -95,8 +104,8 @@ const BabySitterEditBioScreen = (props) => {
               <Form.Control
                 type="text"
                 required
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
+                value={babySitterImage}
+                onChange={(e) => setBabySitterImage(e.target.value)}
               />
             </Form.Group>
 
@@ -105,8 +114,17 @@ const BabySitterEditBioScreen = (props) => {
               <Form.Control
                 type="text"
                 required
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                value={babySitterDescription}
+                onChange={(e) => setBabySitterDescription(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group id="rateperday">
+              <Form.Label>Rate Per Day</Form.Label>
+              <Form.Control
+                type="number"
+                required
+                value={babySitterRatePerDay}
+                onChange={(e) => setBabySitterRatePerDay(e.target.value)}
               />
             </Form.Group>
             <Button disabled={loading} className="w-100 mt-3" type="submit">

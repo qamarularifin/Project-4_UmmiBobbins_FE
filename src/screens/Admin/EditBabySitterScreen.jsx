@@ -19,6 +19,7 @@ const EditBabySitterScreen = () => {
   const [location, setLocation] = useState("");
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
+  const [ratePerDay, setRatePerDay] = useState();
 
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("currentUser"));
@@ -33,6 +34,7 @@ const EditBabySitterScreen = () => {
       setLocation(results.data.location);
       setDescription(results.data.description);
       setImage(results.data.image);
+      setRatePerDay(results.data.ratePerDay);
 
       setLoading(false);
     } catch (error) {
@@ -47,6 +49,7 @@ const EditBabySitterScreen = () => {
       location: location,
       description: description,
       image: image,
+      ratePerDay: ratePerDay,
     };
 
     try {
@@ -110,6 +113,15 @@ const EditBabySitterScreen = () => {
                 required
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group id="rateperday">
+              <Form.Label>Rate Per Day</Form.Label>
+              <Form.Control
+                type="number"
+                required
+                value={ratePerDay}
+                onChange={(e) => setRatePerDay(e.target.value)}
               />
             </Form.Group>
             <Button disabled={loading} className="w-100 mt-3" type="submit">

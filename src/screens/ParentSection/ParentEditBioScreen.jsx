@@ -28,7 +28,6 @@ const ParentEditBioScreen = (props) => {
 
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("currentUser"));
-  console.log("dddd", parent._id);
 
   const editSubmit = async () => {
     const editProfile = {
@@ -44,8 +43,10 @@ const ParentEditBioScreen = (props) => {
         editProfile
       );
       setLoading(false);
+      window.location.reload();
     } catch (error) {
       setLoading(false);
+      setError(true);
       console.log(error);
     }
   };

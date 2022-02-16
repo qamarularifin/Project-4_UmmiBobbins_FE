@@ -28,6 +28,7 @@ const EditBioScreen = () => {
   const [babySitterLocation, setBabySitterLocation] = useState("");
   const [babySitterImage, setBabySitterImage] = useState("");
   const [babySitterDescription, setBabySitterDescription] = useState("");
+  const [babySitterRatePerDay, setBabySitterRatePerDay] = useState();
 
   useEffect(async () => {
     try {
@@ -51,6 +52,7 @@ const EditBioScreen = () => {
       setBabySitterLocation(babySitterResult.data.location);
       setBabySitterImage(babySitterResult.data.image);
       setBabySitterDescription(babySitterResult.data.description);
+      setBabySitterRatePerDay(babySitterResult.data.ratePerDay);
 
       setLoading(false);
     } catch (error) {
@@ -89,6 +91,12 @@ const EditBioScreen = () => {
           babySitterLocation={babySitterLocation}
           babySitterImage={babySitterImage}
           babySitterDescription={babySitterDescription}
+          babySitterRatePerDay={babySitterRatePerDay}
+          setBabySitterName={setBabySitterName}
+          setBabySitterLocation={setBabySitterLocation}
+          setBabySitterImage={setBabySitterImage}
+          setBabySitterDescription={setBabySitterDescription}
+          setBabySitterRatePerDay={setBabySitterRatePerDay}
         />
       )}
     </>
