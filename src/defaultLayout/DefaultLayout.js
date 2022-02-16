@@ -25,7 +25,7 @@ const DefaultLayout = (props) => {
     <div>
       <nav className="navbar navbar-expand-lg">
         <a className="navbar-brand" href="/dashboard">
-          Ummi Bobbins
+          <i className="fa">Ummi Bobbins</i>
         </a>
         <button
           className="navbar-toggler"
@@ -42,7 +42,7 @@ const DefaultLayout = (props) => {
           </span>
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav mr-5">
+          <ul className="navbar-nav mr-3">
             {session ? (
               <>
                 <div className="dropdown">

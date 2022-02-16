@@ -177,7 +177,7 @@ const ParentHomeScreen = (props) => {
   return (
     <div className="container">
       <div className="row mt-5">
-        <h1 className="row justify-content-center mt-1">Parent Home Screen</h1>
+        <h1 className="row justify-content-center mt-3">Parent Home Screen</h1>
         {loading ? (
           <Loader />
         ) : (
