@@ -10,9 +10,10 @@ import ParentBabySitterDisplayScreen from "./ParentBabySitterDisplayScreen";
 import moment from "moment";
 import DisplayBookingParent from "../../components/DisplayBookingParent";
 
-import { DatePicker } from "antd";
+// import { DatePicker } from "antd";
+import Ant_DatePicker from "../../components/Antd_datePicker";  // revised datepicker
 
-const { RangePicker } = DatePicker;
+// const { RangePicker } = DatePicker;
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
@@ -185,11 +186,14 @@ const ParentHomeScreen = (props) => {
             {/* <div className="col justify-content-center mt-5"> */}
             <div className="col-lg-10">
               <div className="row-md-3 mt-3 bs" style={{ marginLeft: "18%" }}>
-                <RangePicker
+                <Ant_DatePicker 
+                onChange={filterByDate}
+                /> 
+                {/* <RangePicker
                   // showTime={{ format: "HH" }}
                   format="DD-MM-YYYY"
                   onChange={filterByDate}
-                />
+                /> */}
                 <input
                   type="text"
                   className="form-control"
