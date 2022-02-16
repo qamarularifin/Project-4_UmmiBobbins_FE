@@ -18,6 +18,7 @@ import AdminScreen from "./screens/Admin/AdminScreen";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "./components/DatePicker";
 import ForgotPassword from "./screens/Auth/ForgotPassword";
+import EditParentScreen from "./screens/Admin/EditParentScreen";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
@@ -132,6 +133,15 @@ function App() {
                   element={
                     <PrivateRoute>
                       <AdminScreen />
+                    </PrivateRoute>
+                  }
+                />
+
+                <Route
+                  path="/edit/parent/:parentid"
+                  element={
+                    <PrivateRoute>
+                      <EditParentScreen />
                     </PrivateRoute>
                   }
                 />

@@ -4,6 +4,7 @@ import Loader from "../../components/Loader";
 import Error from "../../components/Error";
 import { Navigate, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
@@ -40,6 +41,7 @@ const ParentsScreen = () => {
               <th>Location</th>
               <th>Description</th>
               <th>Image</th>
+              <th>Edit Bio</th>
             </tr>
           </thead>
           <tbody>
@@ -53,6 +55,9 @@ const ParentsScreen = () => {
                     <td>{parent.location}</td>
                     <td>{parent.description}</td>
                     <td>{parent.image}</td>
+                    <td>
+                      <Link to={`/edit/parent/${parent._id}`}>Edit</Link>
+                    </td>
                   </tr>
                 );
               })}
