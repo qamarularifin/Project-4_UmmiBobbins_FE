@@ -10,55 +10,44 @@ import Error from "../../components/Error";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
-const ParentEditBioScreen = () => {
-  const { parentid } = useParams();
+const ParentEditBioScreen = (props) => {
+  const {
+    parent,
+    parentName,
+    parentLocation,
+    parentImage,
+    parentDescription,
+    setParentName,
+    setParentLocation,
+    setParentImage,
+    setParentDescription,
+  } = props;
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const [name, setName] = useState("");
-  const [location, setLocation] = useState("");
-  const [image, setImage] = useState("");
-  const [description, setDescription] = useState("");
-
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("currentUser"));
-
-  //   useEffect(async () => {
-  //     try {
-  //       setLoading(true);
-  //       const results = await axios.get(
-  //         `${BACKEND_BASE_URL}/parent/api/${parentid}`
-  //       );
-  //       setName(results.data.name);
-  //       setLocation(results.data.location);
-  //       setDescription(results.data.description);
-  //       setImage(results.data.image);
-
-  //       setLoading(false);
-  //     } catch (error) {
-  //       setLoading(false);
-  //       console.log(error);
-  //     }
-  //   }, []);
+  console.log("dddd", parent._id);
 
   const editSubmit = async () => {
-    // const editProfile = {
-    //   name: name,
-    //   location: location,
-    //   description: description,
-    //   image: image,
-    // };
-    // try {
-    //   setLoading(true);
-    //   await axios.put(
-    //     `${BACKEND_BASE_URL}/parent/api/${parentid}/edit`,
-    //     editProfile
-    //   );
-    //   setLoading(false);
-    // } catch (error) {
-    //   setLoading(false);
-    //   console.log(error);
-    // }
+    const editProfile = {
+      name: parentName,
+      location: parentLocation,
+      description: parentDescription,
+      image: parentImage,
+    };
+    try {
+      setLoading(true);
+      await axios.put(
+        `${BACKEND_BASE_URL}/parent/api/${parent._id}/edit`,
+        editProfile
+      );
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
   };
   return (
     <>
@@ -74,8 +63,8 @@ const ParentEditBioScreen = () => {
                 type="text"
                 // ref={""}
                 required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={parentName}
+                onChange={(e) => setParentName(e.target.value)}
               />
             </Form.Group>
 
@@ -85,8 +74,8 @@ const ParentEditBioScreen = () => {
                 type="text"
                 // ref={""}
                 required
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
+                value={parentLocation}
+                onChange={(e) => setParentLocation(e.target.value)}
               />
             </Form.Group>
 
@@ -95,8 +84,8 @@ const ParentEditBioScreen = () => {
               <Form.Control
                 type="text"
                 required
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
+                value={parentImage}
+                onChange={(e) => setParentImage(e.target.value)}
               />
             </Form.Group>
 
@@ -105,8 +94,8 @@ const ParentEditBioScreen = () => {
               <Form.Control
                 type="text"
                 required
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                value={parentDescription}
+                onChange={(e) => setParentDescription(e.target.value)}
               />
             </Form.Group>
             <Button disabled={loading} className="w-100 mt-3" type="submit">

@@ -10,8 +10,8 @@ import Error from "../../components/Error";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
-const BabySitterEditBioScreen = () => {
-  const { parentid } = useParams();
+const BabySitterEditBioScreen = (props) => {
+  const { babySitter } = props;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -23,42 +23,42 @@ const BabySitterEditBioScreen = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("currentUser"));
 
-  //   useEffect(async () => {
-  //     try {
-  //       setLoading(true);
-  //       const results = await axios.get(
-  //         `${BACKEND_BASE_URL}/parent/api/${parentid}`
-  //       );
-  //       setName(results.data.name);
-  //       setLocation(results.data.location);
-  //       setDescription(results.data.description);
-  //       setImage(results.data.image);
+  useEffect(async () => {
+    try {
+      setLoading(true);
+      const results = await axios.get(
+        `${BACKEND_BASE_URL}/babysitter/api/${babySitter._id}`
+      );
+      setName(results.data.name);
+      setLocation(results.data.location);
+      setDescription(results.data.description);
+      setImage(results.data.image);
 
-  //       setLoading(false);
-  //     } catch (error) {
-  //       setLoading(false);
-  //       console.log(error);
-  //     }
-  //   }, []);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  }, []);
 
   const editSubmit = async () => {
-    // const editProfile = {
-    //   name: name,
-    //   location: location,
-    //   description: description,
-    //   image: image,
-    // };
-    // try {
-    //   setLoading(true);
-    //   await axios.put(
-    //     `${BACKEND_BASE_URL}/parent/api/${parentid}/edit`,
-    //     editProfile
-    //   );
-    //   setLoading(false);
-    // } catch (error) {
-    //   setLoading(false);
-    //   console.log(error);
-    // }
+    const editProfile = {
+      name: name,
+      location: location,
+      description: description,
+      image: image,
+    };
+    try {
+      setLoading(true);
+      await axios.put(
+        `${BACKEND_BASE_URL}/babysitter/api/${babySitter._id}/edit`,
+        editProfile
+      );
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
   };
   return (
     <>

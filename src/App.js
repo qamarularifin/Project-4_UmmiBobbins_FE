@@ -36,18 +36,13 @@ function App() {
   const navigate = useNavigate();
 
   // useEffect to route back to dashboard when browser back button or url is changed to login page
-  useEffect(() => {
-    //if user is not admin, will route back to dashboard
-    const user = JSON.parse(localStorage.getItem("currentUser"));
-    if (user) {
-      navigate("/dashboard");
-    }
-  }, []);
-
-  // useEffect(async()=>{
-  //   const results = await axios.get(`${BACKEND_BASE_URL}/parent/api/getallparents`)
-  //   const getOne = results.data.map((one,i)=>)
-  // })
+  // useEffect(() => {
+  //   //if user is not admin, will route back to dashboard
+  //   const user = JSON.parse(localStorage.getItem("currentUser"));
+  //   if (user) {
+  //     navigate("/dashboard");
+  //   }
+  // }, []);
 
   return (
     <div className="App">
@@ -171,22 +166,7 @@ function App() {
                     </PrivateRoute>
                   }
                 />
-                {/* <Route
-                  path="/edit/parent/update-bio"
-                  element={
-                    <PrivateRoute>
-                      <ParentEditBioScreen />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/edit/babysitter/update-bio"
-                  element={
-                    <PrivateRoute>
-                      <BabySitterEditBioScreen />
-                    </PrivateRoute>
-                  }
-                /> */}
+
                 <Route
                   path="/datepicker"
                   element={
