@@ -60,7 +60,7 @@ function App() {
         <DefaultLayout>
           <Container
             // className="d-flex align-items-center justify-content-center"
-            style={{ minHeight: "100vh" }}
+            style={{ minHeight: "100vh", marginTop: "70px" }}
           >
             <div
             // className="w-100"
