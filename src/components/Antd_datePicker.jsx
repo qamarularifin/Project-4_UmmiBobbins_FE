@@ -4,7 +4,7 @@ import { DatePicker, Space } from 'antd';
 
 const { RangePicker } = DatePicker;
 
-const Ant_DatePicker = () => {
+const Ant_DatePicker = (props) => {
   
 // *** Unused function ***
   // function range(start, end) {
@@ -44,34 +44,42 @@ const Ant_DatePicker = () => {
   //     disabledSeconds: () => [55, 56],
   //   };
   // }
+  const onDateSelection = (value, dateString) => {
+    console.log("value: ", value);
+    console.log("dateString: ", dateString);
+    props.parentCallback(value);
+ }
 
+  // props.parentCallback(onDateSelection);
 
-      return (
-          <>
-          <h1>test date picker</h1>
-            <Space direction="vertical" size={12}>
-              {/* <DatePicker
-                format="YYYY-MM-DD HH:mm:ss"
-                disabledDate={disabledDate}
-                disabledTime={disabledDateTime}
-                showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }}
-              />
-              <DatePicker picker="month" disabledDate={disabledDate} /> */}
-              <RangePicker disabledDate={disabledDate} 
-              format="DD-MM-YYYY"
-              />
-              {/* <RangePicker
-                disabledDate={disabledDate}
-                disabledTime={disabledRangeTime}
-                showTime={{
-                  hideDisabledOptions: true,
-                  defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('11:59:59', 'HH:mm:ss')],
-                }}
-                format="YYYY-MM-DD HH:mm:ss"
-              /> */}
-            </Space>
-          </>
-      );
+  return (
+      <>
+      <h1>test date picker</h1>
+        <Space direction="vertical" size={12}>
+          {/* <DatePicker
+            format="YYYY-MM-DD HH:mm:ss"
+            disabledDate={disabledDate}
+            disabledTime={disabledDateTime}
+            showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }}
+          />
+          <DatePicker picker="month" disabledDate={disabledDate} /> */}
+          <RangePicker 
+          onChange={onDateSelection}
+          disabledDate={disabledDate} 
+          format="DD-MM-YYYY"
+          />
+          {/* <RangePicker
+            disabledDate={disabledDate}
+            disabledTime={disabledRangeTime}
+            showTime={{
+              hideDisabledOptions: true,
+              defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('11:59:59', 'HH:mm:ss')],
+            }}
+            format="YYYY-MM-DD HH:mm:ss"
+          /> */}
+        </Space>
+      </>
+  );
 
 }
 

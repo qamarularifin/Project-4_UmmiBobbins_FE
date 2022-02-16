@@ -13,6 +13,7 @@ import DisplayBookingParent from "../../components/DisplayBookingParent";
 // import { DatePicker } from "antd";
 import Ant_DatePicker from "../../components/Antd_datePicker";  // revised datepicker
 
+
 // const { RangePicker } = DatePicker;
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
@@ -40,28 +41,50 @@ const ParentHomeScreen = (props) => {
   const [fromDate, setFromDate] = useState();
   const [toDate, setToDate] = useState();
   const [duplicateBabySitters, setDuplicateBabySitters] = useState([]); //need [] because its a list
+  const searchFlag = false;
 
   const [searchBabySitter, setSearchBabySitter] = useState();
 
   const navigate = useNavigate();
 
-  useEffect(async () => {
-    try {
-      setLoading(true);
-      const results = await axios.get(
-        `${BACKEND_BASE_URL}/babysitter/api/getallbabysitters`
-      );
+  const getAllSitters = async () => {
+    setLoading(true);
+    await axios.get(
+      `${BACKEND_BASE_URL}/babysitter/api/getallbabysitters`)
+      .then(res => {
+        if (res.status === 200) {
+          setBabySitters(res.data);
+          setDuplicateBabySitters(res.data);
+          setLoading(false);
+        } else {
+          console.log(error)
+          setLoading(false);
+        }
+      })
 
-      // console.log("results", results.data);
-      setBabySitters(results.data);
-      setDuplicateBabySitters(results.data);
-      setLoading(false);
-    } catch (error) {
-      setError(true);
-      console.log(error);
-      setLoading(false);
-    }
-  }, []);
+  }
+  useEffect(() => {
+    getAllSitters();
+  }, [fromDate]); // re-render filter results when from date filter state has changed
+
+  // useEffect(async () => {
+  //   try {
+  //     setLoading(true);
+  //     const results = await axios.get(
+  //       `${BACKEND_BASE_URL}/babysitter/api/getallbabysitters`
+  //     );
+
+  //     // console.log("results", results.data);
+  //     setBabySitters(results.data);
+  //     setDuplicateBabySitters(results.data);
+  //     setLoading(false);
+  //     console.log("hello2");
+  //   } catch (error) {
+  //     setError(true);
+  //     console.log(error);
+  //     setLoading(false);
+  //   }
+  // }, []);
 
   // dont use this, will cause filtering not accurate
   // useEffect(() => {
@@ -72,8 +95,110 @@ const ParentHomeScreen = (props) => {
     //setting the dates to database
     setFromDate(moment(dates[0]).format("DD-MM-YYYY"));
     setToDate(moment(dates[1]).format("DD-MM-YYYY"));
+    // console.log("after datepicker: ", fromDate);
 
-    //////////////
+    
+  };
+
+  const filterBySearch = () => {
+    const filteredBabySitters = duplicateBabySitters.filter((babySitter) =>
+      babySitter.name.toLowerCase().includes(searchBabySitter.toLowerCase())
+    );
+    setBabySitters(filteredBabySitters);
+  };
+
+  const handleCallback = (pickerData) => {
+    setFromDate(pickerData[0]);
+    setToDate(pickerData[1]);
+    searchFlag=true;
+    // console.log(pickerData);
+  }
+  
+  // console.log("From date: ", fromDate);
+  // console.log("To date: ", toDate);
+
+  const RenderSearchTerms = () => {
+    console.log("HELLLLLOOOOOO search terms");
+    
+      return (
+        <div>
+          <h3>Showing availablity for {fromDate._d} to {toDate._d}</h3>
+        </div>
+      )
+    
+  }
+
+  const renderBbSitters = babySitters.map((babySitter, i) => {
+      // console.log(babySitter);
+      const checkFrom = moment(babySitter.currentBookings[0].fromDate, 'DD-MM-YYYY', true).format();
+      const checkTo = moment(babySitter.currentBookings[0].toDate, 'DD-MM-YYYY', true).format();
+      // console.log(checkFrom);     
+      if (moment(checkFrom).isBetween(fromDate,toDate) || moment(checkTo).isBetween(fromDate,toDate)) {
+        // console.log("CLASH!!!");
+      }else {//console.log("No Clash")
+        return (
+          <div className="row justify-content-center mt-5">
+            <div key={i} className="col-md-8 mt-2">
+              <ParentBabySitterDisplayScreen
+                babySitter={babySitter}
+                fromDate={fromDate}
+                toDate={toDate}
+              />
+            </div>
+          </div>
+        );
+      };
+    })
+  
+
+  return (
+    <div className="container">
+      <div className="row mt-5">
+        <h1 className="row justify-content-center mt-3">Parent Home Screen</h1>
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            {/* <div className="col justify-content-center mt-5"> */}
+            <div className="col-lg-10">
+              <div className="row-md-3 mt-3 bs" style={{ marginLeft: "18%" }}>
+                <Ant_DatePicker 
+                parentCallback={handleCallback}
+                /> 
+                {/* <RangePicker
+                  // showTime={{ format: "HH" }}
+                  format="DD-MM-YYYY"
+                  onChange={filterByDate}
+                /> */}
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Search Baby Sitter"
+                  value={searchBabySitter}
+                  onChange={(e) => setSearchBabySitter(e.target.value)}
+                  onKeyUp={filterBySearch}
+                />
+              </div>
+   
+              <div className="col-md-5"></div>
+              <div>{renderBbSitters}</div>
+            </div>
+            <div
+              className="col-lg-2 "
+              style={{ marginTop: "207px", marginLeft: "-160px" }}
+            >
+              <DisplayBookingParent />
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default ParentHomeScreen;
+
+//////////////
     ///// Range picker to hide booked babysitter which has more than 1 booking doesnt work. So commented it out
     ////////////
     // let tempBabySitters = [];
@@ -122,7 +247,6 @@ const ParentHomeScreen = (props) => {
     //   // tempBabySitters is the filtered results
     //   setBabySitters(tempBabySitters);
     // }
-  };
 
   ///////////////////////////////
   //////////// Other method but also doesnt work
@@ -167,69 +291,3 @@ const ParentHomeScreen = (props) => {
   // }
   /////////////
   /////////////
-
-  const filterBySearch = () => {
-    const filteredBabySitters = duplicateBabySitters.filter((babySitter) =>
-      babySitter.name.toLowerCase().includes(searchBabySitter.toLowerCase())
-    );
-    setBabySitters(filteredBabySitters);
-  };
-
-  return (
-    <div className="container">
-      <div className="row mt-5">
-        <h1 className="row justify-content-center mt-3">Parent Home Screen</h1>
-        {loading ? (
-          <Loader />
-        ) : (
-          <>
-            {/* <div className="col justify-content-center mt-5"> */}
-            <div className="col-lg-10">
-              <div className="row-md-3 mt-3 bs" style={{ marginLeft: "18%" }}>
-                <Ant_DatePicker 
-                onChange={filterByDate}
-                /> 
-                {/* <RangePicker
-                  // showTime={{ format: "HH" }}
-                  format="DD-MM-YYYY"
-                  onChange={filterByDate}
-                /> */}
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Search Baby Sitter"
-                  value={searchBabySitter}
-                  onChange={(e) => setSearchBabySitter(e.target.value)}
-                  onKeyUp={filterBySearch}
-                />
-              </div>
-
-              <div className="col-md-5"></div>
-              <div className="row justify-content-center mt-5">
-                {babySitters.map((babySitter, i) => {
-                  return (
-                    <div key={i} className="col-md-8 mt-2">
-                      <ParentBabySitterDisplayScreen
-                        babySitter={babySitter}
-                        fromDate={fromDate}
-                        toDate={toDate}
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-            <div
-              className="col-lg-2 "
-              style={{ marginTop: "207px", marginLeft: "-160px" }}
-            >
-              <DisplayBookingParent />
-            </div>
-          </>
-        )}
-      </div>
-    </div>
-  );
-};
-
-export default ParentHomeScreen;
