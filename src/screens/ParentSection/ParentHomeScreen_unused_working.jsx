@@ -69,23 +69,23 @@ const ParentHomeScreen = (props) => {
     setFromDate(moment(dates[0]).format("DD-MM-YYYY"));
     setToDate(moment(dates[1]).format("DD-MM-YYYY"));
 
-    let tempFromDate = [];
-    let tempToDate = [];
+    // let tempFromDate = [];
+    // let tempToDate = [];
 
-    for (let babySitter of duplicateBabySitters) {
-      tempFromDate.push(babySitter.fromDate);
-      tempToDate.push(babySitter.toDate);
-    }
-    console.log("fromdate", fromDate);
-    console.log("todate", toDate);
-    console.log("tempfromdate", tempFromDate);
-    console.log("temptodate", tempToDate);
+    // for (let babySitter of duplicateBabySitters) {
+    //   tempFromDate.push(babySitter.fromDate);
+    //   tempToDate.push(babySitter.toDate);
+    // }
+    // console.log("fromdate", fromDate);
+    // console.log("todate", toDate);
+    // console.log("tempfromdate", tempFromDate);
+    // console.log("temptodate", tempToDate);
 
-    if (tempFromDate.includes(fromDate) && tempToDate.includes(toDate)) {
-      console.log("yay");
-    } else {
-      console.log("Nay");
-    }
+    // if (tempFromDate.includes(fromDate) && tempToDate.includes(toDate)) {
+    //   console.log("yay");
+    // } else {
+    //   console.log("Nay");
+    // }
 
     // setBabySitters(filteredData);
   };
@@ -166,3 +166,97 @@ const ParentHomeScreen = (props) => {
 };
 
 export default ParentHomeScreen;
+
+//////////////
+///// Range picker to hide booked babysitter which has more than 1 booking doesnt work. So commented it out
+////////////
+// let tempBabySitters = [];
+// for (let babySitter of duplicateBabySitters) {
+//   let availability = false;
+//   // check if theres any bookings
+
+//   //check if the fromdate and todate (which is dates[0] and dates[1]) does not lie between the range of currentbooking fromdate and todate
+
+//   for (let booking of babySitter.currentBookings) {
+//     // unable to work if choose outside of booked range but consists of booked dates
+//     // unable to hide more than 1 same booked babysitter
+//     if (babySitter.currentBookings.length > 0) {
+//       //if dates you choose not within booked dates
+//       if (
+//         !moment(moment(dates[0]).format("DD-MM-YYYY")).isBetween(
+//           booking.fromDate,
+//           booking.toDate
+//         ) ||
+//         !moment(moment(dates[1]).format("DD-MM-YYYY")).isBetween(
+//           booking.fromDate,
+//           booking.toDate
+//         )
+//       ) {
+//         //check if user entered fromdate and todate i.e, (moment(date[0]), moment(date[1])) is not equal to booked fromdate and todate from database
+//         if (
+//           moment(dates[0]).format("DD-MM-YYYY") !== booking.fromDate && //from date entered not equal booked fromdate
+//           moment(dates[0]).format("DD-MM-YYYY") !== booking.toDate && //from date entered not equal to booked todate
+//           moment(dates[1]).format("DD-MM-YYYY") !== booking.fromDate && //to date entered not equal to booked fromdate
+//           moment(dates[1]).format("DD-MM-YYYY") !== booking.toDate //to date entered not equal to booked todate
+//         ) {
+//           // if all conditions above is true, means room is available, then set availability to true
+//           availability = true;
+//         }
+//       }
+//     }
+//   }
+
+//   // if babysitter available or no current bookings
+//   if (availability || babySitter.currentBookings.length === 0) {
+//     tempBabySitters.push(babySitter);
+//   }
+//   console.log("temp", tempBabySitters);
+//   console.log("length", babySitter.currentBookings.length);
+//   // set the rooms with the temprooms so that those booked rooms will not appear in the rooms state
+//   // tempBabySitters is the filtered results
+//   setBabySitters(tempBabySitters);
+// }
+
+///////////////////////////////
+//////////// Other method but also doesnt work
+// function setFilter(values) {
+//   //dates we choose
+//   setFromDate(moment(values[0]).format("DD-MM-YYYY"));
+//   setToDate(moment(values[1]).format("DD-MM-YYYY"));
+//   // let selectedFrom = moment(values[0], "DD-MM-YYYY");
+//   // let selectedTo = moment(values[1], "DD-MM-YYYY");
+//   let temp = [];
+
+//   for (let babySitter of babySitters) {
+//     if (babySitter.currentBookings.length === 0) {
+//       //if no booking, show all
+//       temp.push(babySitter);
+//     } else {
+//       for (let booking of babySitter.currentBookings) {
+//         if (
+//           moment(values[0])
+//             .format("DD-MM-YYYY")
+//             .isBetween(booking.fromDate, booking.toDate) ||
+//           moment(values[1])
+//             .format("DD-MM-YYYY")
+//             .isBetween(booking.fromDate, booking.toDate) ||
+//           moment(booking.fromDate).isBetween(
+//             moment(values[0]).format("DD-MM-YYYY"),
+//             moment(values[1]).format("DD-MM-YYYY")
+//           ) ||
+//           moment(booking.toDate).isBetween(
+//             moment(values[0]).format("DD-MM-YYYY"),
+//             moment(values[1]).format("DD-MM-YYYY")
+//           )
+//         ) {
+//         } else {
+//           //if available, show
+//           temp.push(babySitter);
+//         }
+//       }
+//     }
+//   }
+//   setBabySitters(temp);
+// }
+/////////////
+/////////////
