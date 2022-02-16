@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import DatePicker from "./components/DatePicker";
 import ForgotPassword from "./screens/Auth/ForgotPassword";
 import EditParentScreen from "./screens/Admin/EditParentScreen";
+import EditBabySitterScreen from "./screens/Admin/EditBabySitterScreen";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
@@ -142,6 +143,14 @@ function App() {
                   element={
                     <PrivateRoute>
                       <EditParentScreen />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/edit/babysitter/:babysitterid"
+                  element={
+                    <PrivateRoute>
+                      <EditBabySitterScreen />
                     </PrivateRoute>
                   }
                 />

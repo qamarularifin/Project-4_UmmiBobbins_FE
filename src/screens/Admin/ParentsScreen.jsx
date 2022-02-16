@@ -35,13 +35,13 @@ const ParentsScreen = () => {
         <table className="table table-bordered">
           <thead className="bs">
             <tr>
+              <th>Edit Bio</th>
               <th>Parent ID</th>
               <th>User ID</th>
               <th>Name</th>
               <th>Location</th>
               <th>Description</th>
               <th>Image</th>
-              <th>Edit Bio</th>
             </tr>
           </thead>
           <tbody>
@@ -49,15 +49,15 @@ const ParentsScreen = () => {
               parents.map((parent, i) => {
                 return (
                   <tr key={i}>
+                    <td>
+                      <Link to={`/edit/parent/${parent._id}`}>Edit</Link>
+                    </td>
                     <td>{parent._id}</td>
                     <td>{parent.userId}</td>
                     <td>{parent.name}</td>
                     <td>{parent.location}</td>
                     <td>{parent.description}</td>
                     <td>{parent.image}</td>
-                    <td>
-                      <Link to={`/edit/parent/${parent._id}`}>Edit</Link>
-                    </td>
                   </tr>
                 );
               })}
