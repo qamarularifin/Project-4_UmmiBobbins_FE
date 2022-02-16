@@ -4,6 +4,7 @@ import Loader from "../../components/Loader";
 import Error from "../../components/Error";
 import { Navigate, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
@@ -34,6 +35,7 @@ const ParentsScreen = () => {
         <table className="table table-bordered">
           <thead className="bs">
             <tr>
+              <th>Edit Bio</th>
               <th>Parent ID</th>
               <th>User ID</th>
               <th>Name</th>
@@ -47,6 +49,9 @@ const ParentsScreen = () => {
               parents.map((parent, i) => {
                 return (
                   <tr key={i}>
+                    <td>
+                      <Link to={`/edit/parent/${parent._id}`}>Edit</Link>
+                    </td>
                     <td>{parent._id}</td>
                     <td>{parent.userId}</td>
                     <td>{parent.name}</td>
