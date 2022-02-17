@@ -47,7 +47,9 @@ const BookingsScreen = () => {
             <tr>
               <th>Booking ID</th>
               <th>Parent ID</th>
+              <th>Parent Name</th>
               <th>Baby Sitter ID</th>
+              <th>Baby Sitter Name</th>
               <th>From Date</th>
               <th>To Date</th>
               <th>Total Amount</th>
@@ -64,7 +66,9 @@ const BookingsScreen = () => {
                   <tr key={i}>
                     <td>{booking._id}</td>
                     <td>{booking.parentId}</td>
+                    <td>{booking.parentName}</td>
                     <td>{booking.babySitterId}</td>
+                    <td>{booking.babySitterName}</td>
                     <td>{booking.fromDate}</td>
                     <td>{booking.toDate}</td>
                     <td>{booking.totalAmount}</td>

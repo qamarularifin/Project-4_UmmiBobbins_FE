@@ -26,7 +26,6 @@ const DisplayBookingBabySitter = () => {
           userId: user._id,
         }
       );
-
       setBookings(results.data.currentBookings);
 
       setLoading(false);
@@ -46,8 +45,8 @@ const DisplayBookingBabySitter = () => {
           {bookings &&
             bookings.map((booking, i) => {
               return (
-                <div className="bs" key={i}>
-                  <p>Name: {booking.babySitterName}</p>
+                <div className="bs">
+                  <p>Name: {booking.parentName}</p>
                   <p>Date Start: {booking.fromDate}</p>
                   <p>Date End: {booking.toDate}</p>
                   <p>Transaction ID: {booking.transactionId}</p>

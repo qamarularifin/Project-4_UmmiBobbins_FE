@@ -10,12 +10,15 @@ import { useNavigate } from "react-router-dom";
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
 const ParentBookingScreen = () => {
+  const user = JSON.parse(localStorage.getItem("currentUser"));
   const navigate = useNavigate();
   const { babysittername, babysitterid, fromdate, todate } = useParams(); //lowercase fromdate and todate is correct
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const [babySitter, setBabySitter] = useState();
   const [totalAmount, setTotalAmount] = useState();
+
+  const [parentName, setParentName] = useState("");
 
   // useParams for the dates //  use moment to calculate no. of days
   const formattedFromDate = moment(fromdate, "DD-MM-YYYY"); //formatted needed for .diff function
@@ -35,6 +38,18 @@ const ParentBookingScreen = () => {
           id: babysitterid,
         }
       );
+
+      /////////
+      /////////
+      //get parentname by user id
+      const parentName = await axios.post(
+        `${BACKEND_BASE_URL}/parent/api/getparentbyuserid`,
+        { userId: user._id }
+      );
+      setParentName(parentName.data.name);
+
+      /////////
+      //////////
 
       setTotalAmount(totalDays * results.data.ratePerDay);
       setBabySitter(results.data);
@@ -69,6 +84,7 @@ const ParentBookingScreen = () => {
     const bookingDetails = {
       parentUserId: JSON.parse(localStorage.getItem("currentUser"))._id, //need to be parentid and not current parent user id
       babySitterId: babysitterid, //right side is real stringified object id
+      parentName: parentName,
       babySitterName: babysittername,
       fromDate: formattedFromDate,
       toDate: formattedToDate,

@@ -45,7 +45,7 @@ const BabySitterHomeScreen = (props) => {
       const results = await axios.get(
         `${BACKEND_BASE_URL}/parent/api/getallparents`
       );
-      console.log("results", results.data);
+      // console.log("results", results.data);
       setParents(results.data);
       setDuplicateParents(results.data);
       setLoading(false);

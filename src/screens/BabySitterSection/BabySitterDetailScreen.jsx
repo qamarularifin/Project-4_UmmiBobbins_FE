@@ -25,7 +25,7 @@ const BabySitterDetailScreen = () => {
           id: parentid,
         }
       );
-      console.log("results", results.data);
+      // console.log("results", results.data);
       setParent(results.data);
       setLoading(false);
     } catch (error) {
