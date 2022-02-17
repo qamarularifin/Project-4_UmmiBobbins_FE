@@ -47,7 +47,7 @@ const Ant_DatePicker = (props) => {
   const onDateSelection = (value, dateString) => {
     console.log("value: ", value);
     console.log("dateString: ", dateString);
-    props.parentCallback(value);
+    props.parentCallback(dateString);
  }
 
   // props.parentCallback(onDateSelection);
