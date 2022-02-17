@@ -5,6 +5,7 @@ import Loader from "./Loader";
 import Error from "./Error";
 import { Tabs } from "antd";
 import { Tag, Divider } from "antd";
+import Swal from "sweetalert2";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
@@ -37,6 +38,29 @@ const DisplayBookingParent = () => {
     }
   }, []);
 
+  const cancelBooking = async (bookingId, parentId, babySitterId) => {
+    try {
+      setLoading(true);
+      await axios.post(`${BACKEND_BASE_URL}/booking/api/cancelbooking`, {
+        bookingId: bookingId,
+        parentId: parentId,
+        babySitterId: babySitterId,
+      });
+      setLoading(false);
+      Swal.fire(
+        "Congratulations!",
+        "Booking cancelled successfully",
+        "success"
+      ).then((result) => {
+        window.location.reload();
+      });
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      Swal.fire("Oops", "Cancelled failed", "error");
+    }
+  };
+
   return (
     <>
       <div className="row bs" style={{ width: "500px" }}>
@@ -51,8 +75,11 @@ const DisplayBookingParent = () => {
                   <p>Date Start: {booking.fromDate}</p>
                   <p>Date End: {booking.toDate}</p>
                   <p>Transaction ID: {booking.transactionId}</p>
+                  <p>booking id: {booking.bookingId}</p>
+                  <p>parent id: {booking.parentId}</p>
+                  <p>babysitter id: {booking.babySitterId}</p>
                   <p>
-                    Status:{" "}
+                    Status:
                     {booking.status === "pending" ? (
                       <Tag color="orange">Pending</Tag>
                     ) : booking.status === "confirmed" ? (
@@ -61,6 +88,29 @@ const DisplayBookingParent = () => {
                       <Tag color="red">Cancelled</Tag>
                     )}
                   </p>
+                  <div>
+                    {booking.status === "pending" && (
+                      <div>
+                        <button
+                          className="btn btn-primary"
+                          onClick={() =>
+                            cancelBooking(
+                              booking.bookingId,
+                              booking.parentId,
+                              booking.babySitterId
+                            )
+                          }
+                        >
+                          Cancel Booking
+                        </button>
+                      </div>
+                    )}
+                    {booking.status === "confirmed" && (
+                      <div>
+                        <button className="btn btn-primary">Pay Now</button>
+                      </div>
+                    )}
+                  </div>
                 </div>
               );
             })}
