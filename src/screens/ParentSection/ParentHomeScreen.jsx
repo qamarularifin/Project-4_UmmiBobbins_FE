@@ -40,7 +40,7 @@ const ParentHomeScreen = (props) => {
   const [fromDate, setFromDate] = useState();
   const [toDate, setToDate] = useState();
   const [duplicateBabySitters, setDuplicateBabySitters] = useState([]); //need [] because its a list
-  let searchFlag = false;
+  const [searchFlag, setSearchFlag] = useState(false);
 
   const [searchBabySitter, setSearchBabySitter] = useState();
 
@@ -106,21 +106,22 @@ const ParentHomeScreen = (props) => {
   const handleCallback = (pickerData) => {
     setFromDate(pickerData[0]);
     setToDate(pickerData[1]);
-    searchFlag = true;
-    console.log("PICKERDATA: ", pickerData);
+    setSearchFlag(true);
+    // console.log("PICKERDATA: ", pickerData);
   };
 
   console.log("From date: ", fromDate);
   console.log("To date: ", toDate);
 
   const RenderSearchTerms = () => {
-    console.log("HELLLLLOOOOOO search terms");
-
+    const from = fromDate;
+    const to = toDate;
+    console.log("HELLLLLOOOOOO search terms", from);
     return (
       <div>
-        <h3>
-          Showing availablity for {fromDate._d} to {toDate._d}
-        </h3>
+        <p>
+          Showing availablity for {from} to {to}
+        </p>
       </div>
     );
   };
@@ -132,7 +133,6 @@ const ParentHomeScreen = (props) => {
     //   "DD-MM-YYYY",
     //   true
     // ).format();
-    console.log(moment(fromDate, "DD-MM-YYYY", true).format());
     const bookingFrom = moment(
       babySitter.currentBookings[0].fromDate
     );
@@ -141,17 +141,17 @@ const ParentHomeScreen = (props) => {
       "DD-MM-YYYY",
       true
     ).format();
-    console.log("bookingFrom: ", bookingFrom._i);
-    console.log("bookingTo: ", bookingTo);
+    // console.log("bookingFrom: ", bookingFrom._i);
+    // console.log("bookingTo: ", bookingTo);
     if (
       // moment(bookingFrom._i).isBetween(moment(fromDate), moment(toDate)) ||
       // moment(bookingTo._i).isBetween(moment(fromDate), moment(toDate))
       (bookingFrom._i >= fromDate && bookingFrom._i <= toDate) || 
       (bookingTo._i >= fromDate && bookingTo._i <= toDate)
     ) {
-      console.log("CLASH!!!");
+      // console.log("CLASH!!!");
     } else {
-      console.log("No Clash")
+      // console.log("No Clash")
       return (
         <div className="row justify-content-center mt-5">
           <div key={i} className="col-md-8 mt-2">
@@ -192,8 +192,12 @@ const ParentHomeScreen = (props) => {
                   onKeyUp={filterBySearch}
                 />
               </div>
+              <div>
+                Search results: {searchFlag ? <RenderSearchTerms /> : <p>all</p>}
+              </div>
 
               <div className="col-md-5"></div>
+
               <div>{renderBbSitters}</div>
             </div>
             <div
