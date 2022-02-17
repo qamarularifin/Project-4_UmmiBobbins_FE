@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { DatePicker, Space } from 'antd';
+import ReactDOM from 'react-dom';
 
 const { RangePicker } = DatePicker;
 
@@ -47,14 +48,12 @@ const Ant_DatePicker = (props) => {
   const onDateSelection = (value, dateString) => {
     console.log("value: ", value);
     console.log("dateString: ", dateString);
-    props.parentCallback(value);
+    props.parentCallback(dateString);
  }
-
-  // props.parentCallback(onDateSelection);
 
   return (
       <>
-      <h1>test date picker</h1>
+      <h1>Select Date for booking</h1>
         <Space direction="vertical" size={12}>
           {/* <DatePicker
             format="YYYY-MM-DD HH:mm:ss"

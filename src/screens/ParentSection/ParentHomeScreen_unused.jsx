@@ -10,10 +10,9 @@ import ParentBabySitterDisplayScreen from "./ParentBabySitterDisplayScreen";
 import moment from "moment";
 import DisplayBookingParent from "../../components/DisplayBookingParent";
 
-// import { DatePicker } from "antd";
-import Ant_DatePicker from "../../components/Antd_datePicker"; // revised datepicker
+import { DatePicker } from "antd";
 
-// const { RangePicker } = DatePicker;
+const { RangePicker } = DatePicker;
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
@@ -40,134 +39,95 @@ const ParentHomeScreen = (props) => {
   const [fromDate, setFromDate] = useState();
   const [toDate, setToDate] = useState();
   const [duplicateBabySitters, setDuplicateBabySitters] = useState([]); //need [] because its a list
-  const [searchFlag, setSearchFlag] = useState(false);
-
-  const [searchBabySitter, setSearchBabySitter] = useState();
 
   const navigate = useNavigate();
 
-  const getAllSitters = async () => {
-    setLoading(true);
-    await axios
-      .get(`${BACKEND_BASE_URL}/babysitter/api/getallbabysitters`)
-      .then((res) => {
-        if (res.status === 200) {
-          setBabySitters(res.data);
-          setDuplicateBabySitters(res.data);
-          setLoading(false);
-        } else {
-          console.log(error);
-          setLoading(false);
-        }
-      });
-  };
-  useEffect(() => {
-    getAllSitters();
-  }, [fromDate]); // re-render filter results when from date filter state has changed
+  useEffect(async () => {
+    try {
+      setLoading(true);
+      const results = await axios.get(
+        `${BACKEND_BASE_URL}/babysitter/api/getallbabysitters`
+      );
 
-  // useEffect(async () => {
-  //   try {
-  //     setLoading(true);
-  //     const results = await axios.get(
-  //       `${BACKEND_BASE_URL}/babysitter/api/getallbabysitters`
-  //     );
+      const res = await axios.get(
+        `${BACKEND_BASE_URL}/booking/api/getallbookings`
+      );
 
-  //     // console.log("results", results.data);
-  //     setBabySitters(results.data);
-  //     setDuplicateBabySitters(results.data);
-  //     setLoading(false);
-  //     console.log("hello2");
-  //   } catch (error) {
-  //     setError(true);
-  //     console.log(error);
-  //     setLoading(false);
-  //   }
-  // }, []);
-
-  // dont use this, will cause filtering not accurate
-  // useEffect(() => {
-  //   setDuplicateBabySitters(babySitters);
-  // }, [babySitters]);
+      console.log("results", results.data);
+      setBabySitters(results.data);
+      setDuplicateBabySitters(res.data);
+      setLoading(false);
+    } catch (error) {
+      setError(true);
+      console.log(error);
+      setLoading(false);
+    }
+  }, []);
 
   const filterByDate = (dates) => {
     //setting the dates to database
     setFromDate(moment(dates[0]).format("DD-MM-YYYY"));
     setToDate(moment(dates[1]).format("DD-MM-YYYY"));
-    // console.log("after datepicker: ", fromDate);
+
+    // let tempFromDate = [];
+    // let tempToDate = [];
+
+    // for (let babySitter of duplicateBabySitters) {
+    //   tempFromDate.push(babySitter.fromDate);
+    //   tempToDate.push(babySitter.toDate);
+    // }
+    // console.log("fromdate", fromDate);
+    // console.log("todate", toDate);
+    // console.log("tempfromdate", tempFromDate);
+    // console.log("temptodate", tempToDate);
+
+    // if (tempFromDate.includes(fromDate) && tempToDate.includes(toDate)) {
+    //   console.log("yay");
+    // } else {
+    //   console.log("Nay");
+    // }
+
+    // setBabySitters(filteredData);
   };
 
-  const filterBySearch = () => {
-    const filteredBabySitters = duplicateBabySitters.filter((babySitter) =>
-      babySitter.name.toLowerCase().includes(searchBabySitter.toLowerCase())
-    );
-    setBabySitters(filteredBabySitters);
-  };
+  ///////////////////////////////
+  //////////// Other method but also doesnt work
+  // function setFilter(dates) {
+  //   //dates we choose
+  //   // var selectedFrom = moment(dates[0]).format("DD-MM-YYYY");
+  //   // var selectedTo = moment(dates[1]).format("DD-MM-YYYY");
 
-  const handleCallback = (pickerData) => {
-    setFromDate(pickerData[0]);
-    setToDate(pickerData[1]);
-    setSearchFlag(true);
-    // console.log("PICKERDATA: ", pickerData);
-  };
+  //   setFromDate(moment(dates[0]).format("DD-MM-YYYY"));
+  //   setToDate(moment(dates[1]).format("DD-MM-YYYY"));
 
-  console.log("From date: ", fromDate);
-  console.log("To date: ", toDate);
+  //   var temp = [];
 
-  const RenderSearchTerms = () => {
-    const from = fromDate;
-    const to = toDate;
-    console.log("HELLLLLOOOOOO search terms", from);
-    return (
-      <div>
-        <p>
-          Showing availablity for {from} to {to}
-        </p>
-      </div>
-    );
-  };
-
-  const renderBbSitters = babySitters.map((babySitter, i) => {
-    // console.log(babySitter);
-    // const bookingFrom = moment(
-    //   babySitter.currentBookings[0].fromDate,
-    //   "DD-MM-YYYY",
-    //   true
-    // ).format();
-    const bookingFrom = moment(babySitter.currentBookings[0].fromDate);
-    const bookingTo = moment(
-      babySitter.currentBookings[0].toDate,
-      "DD-MM-YYYY",
-      true
-    ).format();
-    // console.log("bookingFrom: ", bookingFrom._i);
-    // console.log("bookingTo: ", bookingTo);
-    if (
-      // moment(bookingFrom._i).isBetween(moment(fromDate), moment(toDate)) ||
-      // moment(bookingTo._i).isBetween(moment(fromDate), moment(toDate))
-      (bookingFrom._i >= fromDate && bookingFrom._i <= toDate) ||
-      (bookingTo._i >= fromDate && bookingTo._i <= toDate)
-    ) {
-      // console.log("CLASH!!!");
-    } else {
-      // console.log("No Clash")
-      return (
-        <div className="row justify-content-center mt-5">
-          <div key={i} className="col-md-8 mt-2">
-            <ParentBabySitterDisplayScreen
-              babySitter={babySitter}
-              fromDate={fromDate}
-              toDate={toDate}
-            />
-          </div>
-        </div>
-      );
-    }
-  });
+  //   for (var babySitter of babySitters) {
+  //     if (babySitter.currentBookings.length === 0) {
+  //       temp.push(babySitter);
+  //     } else {
+  //       for (var booking of babySitter.currentBookings) {
+  //         if (
+  //           fromDate.isBetween(booking.fromDate, booking.toDate) ||
+  //           toDate.isBetween(booking.fromDate, booking.toDate) ||
+  //           moment(booking.fromDate).isBetween(fromDate, toDate) ||
+  //           moment(booking.toDate).isBetween(fromDate, toDate)
+  //         ) {
+  //           setDuplicateBabySitters(temp);
+  //         } else {
+  //           temp.push(babySitter);
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+  /////////////
+  /////////////
 
   return (
     <div className="container">
       <div className="row mt-5">
-        <h1 className="row justify-content-center mt-3">Parent Home Screen</h1>
+        <h1 className="row justify-content-center mt-1">Parent Home Screen</h1>
         {loading ? (
           <Loader />
         ) : (
@@ -175,34 +135,27 @@ const ParentHomeScreen = (props) => {
             {/* <div className="col justify-content-center mt-5"> */}
             <div className="col-lg-10">
               <div className="row-md-3 mt-3 bs" style={{ marginLeft: "18%" }}>
-                <Ant_DatePicker parentCallback={handleCallback} />
-                {/* <RangePicker
+                <RangePicker
                   // showTime={{ format: "HH" }}
                   format="DD-MM-YYYY"
                   onChange={filterByDate}
-                /> */}
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Search Baby Sitter"
-                  value={searchBabySitter}
-                  onChange={(e) => setSearchBabySitter(e.target.value)}
-                  onKeyUp={filterBySearch}
                 />
               </div>
-              <div>
-                Search results:{" "}
-                {searchFlag ? <RenderSearchTerms /> : <p>all</p>}
+              <div className="row justify-content-center mt-5">
+                {babySitters.map((babySitter, i) => {
+                  return (
+                    <div key={i} className="col-md-8 mt-2">
+                      <ParentBabySitterDisplayScreen
+                        babySitter={babySitter}
+                        fromDate={fromDate}
+                        toDate={toDate}
+                      />
+                    </div>
+                  );
+                })}
               </div>
-
-              <div className="col-md-5"></div>
-
-              <div>{renderBbSitters}</div>
             </div>
-            <div
-              className="col-lg-2 "
-              style={{ marginTop: "207px", marginLeft: "-160px" }}
-            >
+            <div className="col-lg-2">
               <DisplayBookingParent />
             </div>
           </>
