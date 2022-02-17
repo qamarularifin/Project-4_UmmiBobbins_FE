@@ -8,7 +8,7 @@ import { Tag, Divider } from "antd";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
-const DisplayBookingParent = () => {
+const DisplayBookingBabySitter = () => {
   const user = JSON.parse(localStorage.getItem("currentUser"));
 
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const DisplayBookingParent = () => {
     try {
       setLoading(true);
       const results = await axios.post(
-        `${BACKEND_BASE_URL}/booking/api/getparentbookingsbyuserid`,
+        `${BACKEND_BASE_URL}/booking/api/getbabysitterbookingsbyuserid`,
         {
           userId: user._id,
         }
@@ -70,4 +70,4 @@ const DisplayBookingParent = () => {
   );
 };
 
-export default DisplayBookingParent;
+export default DisplayBookingBabySitter;

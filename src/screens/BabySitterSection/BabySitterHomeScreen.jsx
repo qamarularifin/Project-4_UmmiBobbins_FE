@@ -8,6 +8,7 @@ import Loader from "../../components/Loader";
 import Error from "../../components/Error";
 import BabySitterParentDisplayScreen from "./BabySitterParentDisplayScreen";
 import moment from "moment";
+import DisplayBookingBabySitter from "../../components/DisplayBookingBabySitter";
 import { DatePicker } from "antd";
 const { RangePicker } = DatePicker;
 
@@ -68,14 +69,17 @@ const BabySitterHomeScreen = (props) => {
         <h1 className="row justify-content-center mt-5">
           Baby Sitter Home Screen
         </h1>
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Search Parent"
-          value={searchParent}
-          onChange={(e) => setSearchParent(e.target.value)}
-          onKeyUp={filterBySearch}
-        />
+        <div className="col-6 col-md-4 bs">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Search Parent"
+            value={searchParent}
+            onChange={(e) => setSearchParent(e.target.value)}
+            onKeyUp={filterBySearch}
+          />
+        </div>
+
         <div className="row justify-content-center mt-5">
           {loading ? (
             <Loader />
@@ -88,6 +92,12 @@ const BabySitterHomeScreen = (props) => {
               );
             })
           )}
+        </div>
+        <div
+          className="col-lg-2 "
+          style={{ marginTop: "207px", marginLeft: "10px" }}
+        >
+          <DisplayBookingBabySitter />
         </div>
       </div>
     </div>
