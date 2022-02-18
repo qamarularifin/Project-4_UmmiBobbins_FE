@@ -38,13 +38,11 @@ const DisplayBookingParent = () => {
     }
   }, []);
 
-  const cancelBooking = async (bookingId, parentId, babySitterId) => {
+  const cancelBooking = async (bookingId) => {
     try {
       setLoading(true);
       await axios.post(`${BACKEND_BASE_URL}/booking/api/cancelbooking`, {
         bookingId: bookingId,
-        parentId: parentId,
-        babySitterId: babySitterId,
       });
       setLoading(false);
       Swal.fire(
@@ -75,9 +73,8 @@ const DisplayBookingParent = () => {
                   <p>Date Start: {booking.fromDate}</p>
                   <p>Date End: {booking.toDate}</p>
                   <p>Transaction ID: {booking.transactionId}</p>
-                  <p>booking id: {booking.bookingId}</p>
-                  <p>parent id: {booking.parentId}</p>
-                  <p>babysitter id: {booking.babySitterId}</p>
+                  <p>booking id: {booking._id}</p>
+
                   <p>
                     Status:
                     {booking.status === "pending" ? (
@@ -93,13 +90,7 @@ const DisplayBookingParent = () => {
                       <div>
                         <button
                           className="btn btn-primary"
-                          onClick={() =>
-                            cancelBooking(
-                              booking.bookingId,
-                              booking.parentId,
-                              booking.babySitterId
-                            )
-                          }
+                          onClick={() => cancelBooking(booking._id)}
                         >
                           Cancel Booking
                         </button>

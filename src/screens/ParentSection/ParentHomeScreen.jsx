@@ -63,8 +63,9 @@ const ParentHomeScreen = (props) => {
   };
   useEffect(() => {
     getAllSitters();
-  }, [fromDate]); // re-render filter results when from date filter state has changed
+  }, []); // re-render filter results when from date filter state has changed
 
+  // not using
   // useEffect(async () => {
   //   try {
   //     setLoading(true);
@@ -84,17 +85,12 @@ const ParentHomeScreen = (props) => {
   //   }
   // }, []);
 
-  // dont use this, will cause filtering not accurate
-  // useEffect(() => {
-  //   setDuplicateBabySitters(babySitters);
-  // }, [babySitters]);
-
-  const filterByDate = (dates) => {
-    //setting the dates to database
-    setFromDate(moment(dates[0]).format("DD-MM-YYYY"));
-    setToDate(moment(dates[1]).format("DD-MM-YYYY"));
-    // console.log("after datepicker: ", fromDate);
-  };
+  // const filterByDate = (dates) => {
+  //   //setting the dates to database
+  //   setFromDate(moment(dates[0]).format("DD-MM-YYYY"));
+  //   setToDate(moment(dates[1]).format("DD-MM-YYYY"));
+  //   // console.log("after datepicker: ", fromDate);
+  // };
 
   const filterBySearch = () => {
     const filteredBabySitters = duplicateBabySitters.filter((babySitter) =>

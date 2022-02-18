@@ -49,13 +49,13 @@ const ParentHomeScreen = (props) => {
         `${BACKEND_BASE_URL}/babysitter/api/getallbabysitters`
       );
 
-      const res = await axios.get(
-        `${BACKEND_BASE_URL}/booking/api/getallbookings`
-      );
+      // const results = await axios.get(
+      //   `${BACKEND_BASE_URL}/booking/api/getallbookings`
+      // );
 
       console.log("results", results.data);
       setBabySitters(results.data);
-      setDuplicateBabySitters(res.data);
+      // setDuplicateBabySitters(results.data);
       setLoading(false);
     } catch (error) {
       setError(true);

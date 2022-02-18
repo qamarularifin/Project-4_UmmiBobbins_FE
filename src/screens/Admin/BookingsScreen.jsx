@@ -4,6 +4,7 @@ import Loader from "../../components/Loader";
 import Error from "../../components/Error";
 import { Navigate, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Tag, Divider } from "antd";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
@@ -74,7 +75,15 @@ const BookingsScreen = () => {
                     <td>{booking.totalAmount}</td>
                     <td>{booking.totalDays}</td>
                     <td>{booking.transactionId}</td>
-                    <td>{booking.status ? "Pending" : "Confirmed"}</td>
+                    <td>
+                      {booking.status === "pending" ? (
+                        <Tag color="orange">Pending</Tag>
+                      ) : booking.status === "confirmed" ? (
+                        <Tag color="green">Confirmed</Tag>
+                      ) : (
+                        <Tag color="red">Cancelled</Tag>
+                      )}
+                    </td>
                     <td>
                       <button
                         className="btn btn-primary"
