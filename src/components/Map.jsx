@@ -3,7 +3,8 @@ import { MapContainer,
     TileLayer, 
     Marker, 
     Popup, 
-    useMapEvents 
+    useMapEvents,
+    SVGOverlay, 
 } from "react-leaflet";
 import "../leaflet.css"
 import LocationMarker from "./TestLocationMarker";
@@ -12,8 +13,13 @@ import LocationMarker from "./TestLocationMarker";
 
 const MyMap = () => {
     // const position = [1.3521, 103.8198];
-    
-      
+    const bounds = [
+        [1.3, 102],
+        [1.38, 104],
+      ]
+    const clickHandler = () => {
+        LocationMarker();
+    }      
     //   function EventsExample() {
     //     return (
     //       <MapContainer 
@@ -33,17 +39,12 @@ const MyMap = () => {
     return (
         <>
             <div><h1>My Map</h1></div>
-            <div style={{ height: "500px" }}>
+            <div id="leaflet-container" style={{ height: "500px" }}>
             <MapContainer center={[1.3521, 103.8198]} zoom={12} style={{ height: "80vh" }}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                {/* <Marker position={[1.3521, 103.8198]}>
-                    <Popup>
-                    A pretty CSS3 popup. <br /> Easily customizable.
-                    </Popup>
-                </Marker> */}
                 <LocationMarker />
             </MapContainer>
             </div>

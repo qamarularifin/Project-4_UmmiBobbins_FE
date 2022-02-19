@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import markerIcon from "../images/marker-icon-2x.png"
+import { Icon } from "leaflet";
 import { MapContainer, 
     TileLayer, 
     Marker, 
@@ -9,7 +11,7 @@ import "../leaflet.css"
 
 
 function LocationMarker() {
-    const [position, setPosition] = useState([1.3521, 103.8198])
+    const [position, setPosition] = useState(null)
     const map = useMapEvents({
       click() {
         map.locate()
@@ -20,8 +22,13 @@ function LocationMarker() {
       },
     })
   
+    const icon2 = new Icon ({
+        iconUrl: markerIcon,
+        iconSize: [50, 50]
+    });
+
     return position === null ? null : (
-      <Marker position={position}>
+      <Marker position={position} icon={icon2}>
         <Popup>You are here</Popup>
       </Marker>
     )
