@@ -1,7 +1,6 @@
 import React from 'react';
 import moment from 'moment';
 import { DatePicker, Space } from 'antd';
-import ReactDOM from 'react-dom';
 
 const { RangePicker } = DatePicker;
 
@@ -17,7 +16,7 @@ const Ant_DatePicker = (props) => {
   // }
 
   function disabledDate(current) {
-    // Can not select days before today and today
+    // Prevent selecting days before today and today
     return current && current < moment().endOf('day');
   }
 
@@ -46,8 +45,6 @@ const Ant_DatePicker = (props) => {
   //   };
   // }
   const onDateSelection = (value, dateString) => {
-    console.log("value: ", value);
-    console.log("dateString: ", dateString);
     props.parentCallback(dateString);
  }
 

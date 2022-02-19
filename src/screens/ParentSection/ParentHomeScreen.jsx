@@ -5,29 +5,26 @@ import { useContext } from "react";
 import GeneralContext from "../../context/GeneralContext";
 import axios from "axios";
 import Loader from "../../components/Loader";
-import Error from "../../components/Error";
+// import Error from "../../components/Error";
 import ParentBabySitterDisplayScreen from "./ParentBabySitterDisplayScreen";
 import moment from "moment";
 import DisplayBookingParent from "../../components/DisplayBookingParent";
-
-// import { DatePicker } from "antd";
 import Ant_DatePicker from "../../components/Antd_datePicker"; // revised datepicker
 
-// const { RangePicker } = DatePicker;
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
 const ParentHomeScreen = (props) => {
-  const user = JSON.parse(localStorage.getItem("currentUser"));
+  // const user = JSON.parse(localStorage.getItem("currentUser"));
 
-  const {
-    quote,
-    setQuote,
-    tempQuote,
-    setTempQuote,
-    updateQuote,
-    handleLogout,
-  } = props;
+  // const {
+  //   quote,
+  //   setQuote,
+  //   tempQuote,
+  //   setTempQuote,
+  //   updateQuote,
+  //   handleLogout,
+  // } = props;
 
   const { userContext } = useContext(GeneralContext);
   const [name, setName, email, setEmail, password, setPassword, role, setRole] =
@@ -44,7 +41,7 @@ const ParentHomeScreen = (props) => {
 
   const [searchBabySitter, setSearchBabySitter] = useState();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const getAllSitters = async () => {
     setLoading(true);
@@ -63,34 +60,7 @@ const ParentHomeScreen = (props) => {
   };
   useEffect(() => {
     getAllSitters();
-  }, []); // re-render filter results when from date filter state has changed
-
-  // not using
-  // useEffect(async () => {
-  //   try {
-  //     setLoading(true);
-  //     const results = await axios.get(
-  //       `${BACKEND_BASE_URL}/babysitter/api/getallbabysitters`
-  //     );
-
-  //     // console.log("results", results.data);
-  //     setBabySitters(results.data);
-  //     setDuplicateBabySitters(results.data);
-  //     setLoading(false);
-  //     console.log("hello2");
-  //   } catch (error) {
-  //     setError(true);
-  //     console.log(error);
-  //     setLoading(false);
-  //   }
-  // }, []);
-
-  // const filterByDate = (dates) => {
-  //   //setting the dates to database
-  //   setFromDate(moment(dates[0]).format("DD-MM-YYYY"));
-  //   setToDate(moment(dates[1]).format("DD-MM-YYYY"));
-  //   // console.log("after datepicker: ", fromDate);
-  // };
+  }, [fromDate]); // re-render filter results when from date filter state has changed
 
   const filterBySearch = () => {
     const filteredBabySitters = duplicateBabySitters.filter((babySitter) =>
@@ -103,61 +73,48 @@ const ParentHomeScreen = (props) => {
     setFromDate(pickerData[0]);
     setToDate(pickerData[1]);
     setSearchFlag(true);
-    // console.log("PICKERDATA: ", pickerData);
   };
-
-  console.log("From date: ", fromDate);
-  console.log("To date: ", toDate);
 
   const RenderSearchTerms = () => {
     const from = fromDate;
     const to = toDate;
-    console.log("HELLLLLOOOOOO search terms", from);
     return (
-      <div>
-        <p>
-          Showing availablity for {from} to {to}
-        </p>
-      </div>
+      <div><p>Showing availablity for {from} to {to}</p></div>
     );
   };
 
   const renderBbSitters = babySitters.map((babySitter, i) => {
-    // console.log(babySitter);
-    // const bookingFrom = moment(
-    //   babySitter.currentBookings[0].fromDate,
-    //   "DD-MM-YYYY",
-    //   true
-    // ).format();
-    const bookingFrom = moment(babySitter.currentBookings[0].fromDate);
-    const bookingTo = moment(
-      babySitter.currentBookings[0].toDate,
-      "DD-MM-YYYY",
-      true
-    ).format();
-    // console.log("bookingFrom: ", bookingFrom._i);
-    // console.log("bookingTo: ", bookingTo);
-    if (
-      // moment(bookingFrom._i).isBetween(moment(fromDate), moment(toDate)) ||
-      // moment(bookingTo._i).isBetween(moment(fromDate), moment(toDate))
-      (bookingFrom._i >= fromDate && bookingFrom._i <= toDate) ||
-      (bookingTo._i >= fromDate && bookingTo._i <= toDate)
-    ) {
-      // console.log("CLASH!!!");
-    } else {
-      // console.log("No Clash")
-      return (
-        <div className="row justify-content-center mt-5">
-          <div key={i} className="col-md-8 mt-2">
-            <ParentBabySitterDisplayScreen
-              babySitter={babySitter}
-              fromDate={fromDate}
-              toDate={toDate}
-            />
-          </div>
-        </div>
+    let preventRender = false;
+    babySitter.currentBookings.map((booking, j) => {  // to check individual sitter booking array
+      const bookingFrom = moment(
+        booking.fromDate
       );
-    }
+      const bookingTo = moment(
+        booking.toDate,
+        "DD-MM-YYYY",
+        true
+      ).format();
+      if (
+        (bookingFrom._i >= fromDate && bookingFrom._i <= toDate) || 
+        (bookingTo._i >= fromDate && bookingTo._i <= toDate)
+      ) {
+        preventRender = true;  // this sets the preventRender flag to not render current sitter in iteration
+      } else {
+        // console.log("No Clash");
+      }
+    })
+    if (!preventRender)
+    return (
+      <div className="row justify-content-center mt-5">
+        <div key={i} className="col-md-8 mt-2">
+          <ParentBabySitterDisplayScreen
+            babySitter={babySitter}
+            fromDate={fromDate}
+            toDate={toDate}
+          />
+        </div>
+      </div>
+    );
   });
 
   return (
@@ -168,15 +125,9 @@ const ParentHomeScreen = (props) => {
           <Loader />
         ) : (
           <>
-            {/* <div className="col justify-content-center mt-5"> */}
             <div className="col-lg-10">
               <div className="row-md-3 mt-3 bs" style={{ marginLeft: "18%" }}>
                 <Ant_DatePicker parentCallback={handleCallback} />
-                {/* <RangePicker
-                  // showTime={{ format: "HH" }}
-                  format="DD-MM-YYYY"
-                  onChange={filterByDate}
-                /> */}
                 <input
                   type="text"
                   className="form-control"
@@ -187,12 +138,10 @@ const ParentHomeScreen = (props) => {
                 />
               </div>
               <div>
-                Search results:{" "}
-                {searchFlag ? <RenderSearchTerms /> : <p>all</p>}
+                Search results: {searchFlag ? <RenderSearchTerms /> : <p>all</p>}
               </div>
 
               <div className="col-md-5"></div>
-
               <div>{renderBbSitters}</div>
             </div>
             <div
@@ -209,97 +158,3 @@ const ParentHomeScreen = (props) => {
 };
 
 export default ParentHomeScreen;
-
-//////////////
-///// Range picker to hide booked babysitter which has more than 1 booking doesnt work. So commented it out
-////////////
-// let tempBabySitters = [];
-// for (let babySitter of duplicateBabySitters) {
-//   let availability = false;
-//   // check if theres any bookings
-
-//   //check if the fromdate and todate (which is dates[0] and dates[1]) does not lie between the range of currentbooking fromdate and todate
-
-//   for (let booking of babySitter.currentBookings) {
-//     // unable to work if choose outside of booked range but consists of booked dates
-//     // unable to hide more than 1 same booked babysitter
-//     if (babySitter.currentBookings.length > 0) {
-//       //if dates you choose not within booked dates
-//       if (
-//         !moment(moment(dates[0]).format("DD-MM-YYYY")).isBetween(
-//           booking.fromDate,
-//           booking.toDate
-//         ) ||
-//         !moment(moment(dates[1]).format("DD-MM-YYYY")).isBetween(
-//           booking.fromDate,
-//           booking.toDate
-//         )
-//       ) {
-//         //check if user entered fromdate and todate i.e, (moment(date[0]), moment(date[1])) is not equal to booked fromdate and todate from database
-//         if (
-//           moment(dates[0]).format("DD-MM-YYYY") !== booking.fromDate && //from date entered not equal booked fromdate
-//           moment(dates[0]).format("DD-MM-YYYY") !== booking.toDate && //from date entered not equal to booked todate
-//           moment(dates[1]).format("DD-MM-YYYY") !== booking.fromDate && //to date entered not equal to booked fromdate
-//           moment(dates[1]).format("DD-MM-YYYY") !== booking.toDate //to date entered not equal to booked todate
-//         ) {
-//           // if all conditions above is true, means room is available, then set availability to true
-//           availability = true;
-//         }
-//       }
-//     }
-//   }
-
-//   // if babysitter available or no current bookings
-//   if (availability || babySitter.currentBookings.length === 0) {
-//     tempBabySitters.push(babySitter);
-//   }
-//   console.log("temp", tempBabySitters);
-//   console.log("length", babySitter.currentBookings.length);
-//   // set the rooms with the temprooms so that those booked rooms will not appear in the rooms state
-//   // tempBabySitters is the filtered results
-//   setBabySitters(tempBabySitters);
-// }
-
-///////////////////////////////
-//////////// Other method but also doesnt work
-// function setFilter(values) {
-//   //dates we choose
-//   setFromDate(moment(values[0]).format("DD-MM-YYYY"));
-//   setToDate(moment(values[1]).format("DD-MM-YYYY"));
-//   // let selectedFrom = moment(values[0], "DD-MM-YYYY");
-//   // let selectedTo = moment(values[1], "DD-MM-YYYY");
-//   let temp = [];
-
-//   for (let babySitter of babySitters) {
-//     if (babySitter.currentBookings.length === 0) {
-//       //if no booking, show all
-//       temp.push(babySitter);
-//     } else {
-//       for (let booking of babySitter.currentBookings) {
-//         if (
-//           moment(values[0])
-//             .format("DD-MM-YYYY")
-//             .isBetween(booking.fromDate, booking.toDate) ||
-//           moment(values[1])
-//             .format("DD-MM-YYYY")
-//             .isBetween(booking.fromDate, booking.toDate) ||
-//           moment(booking.fromDate).isBetween(
-//             moment(values[0]).format("DD-MM-YYYY"),
-//             moment(values[1]).format("DD-MM-YYYY")
-//           ) ||
-//           moment(booking.toDate).isBetween(
-//             moment(values[0]).format("DD-MM-YYYY"),
-//             moment(values[1]).format("DD-MM-YYYY")
-//           )
-//         ) {
-//         } else {
-//           //if available, show
-//           temp.push(babySitter);
-//         }
-//       }
-//     }
-//   }
-//   setBabySitters(temp);
-// }
-/////////////
-/////////////

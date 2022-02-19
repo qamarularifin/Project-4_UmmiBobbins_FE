@@ -33,7 +33,7 @@ const ParentBabySitterDisplayScreen = (props) => {
           {babySitter.currentBookings.map((booking, i) => {
             return (
               <>
-                <div className="row">
+                <div key={i} className="row" >
                   <p>
                     <Tag color="red">
                       From: {booking.fromDate} To: {booking.toDate}
