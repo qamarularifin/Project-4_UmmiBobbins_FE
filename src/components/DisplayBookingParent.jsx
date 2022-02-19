@@ -78,11 +78,17 @@ const DisplayBookingParent = () => {
                   <p>
                     Status:
                     {booking.status === "pending" ? (
-                      <Tag color="orange">Pending</Tag>
+                      <Tag color="orange" className="ml-2">
+                        Pending
+                      </Tag>
                     ) : booking.status === "confirmed" ? (
-                      <Tag color="green">Confirmed</Tag>
+                      <Tag color="green" className="ml-2">
+                        Confirmed
+                      </Tag>
                     ) : (
-                      <Tag color="red">Cancelled</Tag>
+                      <Tag color="red" className="ml-2">
+                        Cancelled
+                      </Tag>
                     )}
                   </p>
                   <div>
