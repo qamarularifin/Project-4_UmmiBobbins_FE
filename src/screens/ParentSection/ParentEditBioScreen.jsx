@@ -58,6 +58,7 @@ const ParentEditBioScreen = (props) => {
           <h2 className="text-center mb-4">Edit Parent Bio</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={editSubmit}>
+            <img src={parentImage} style={{ width: "300px" }} />
             <Form.Group id="name">
               <Form.Label>Name</Form.Label>
               <Form.Control

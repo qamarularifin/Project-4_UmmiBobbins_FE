@@ -77,6 +77,7 @@ const BabySitterEditBioScreen = (props) => {
           <h2 className="text-center mb-4">Edit Baby Sitter Bio</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={editSubmit}>
+            <img src={babySitterImage} style={{ width: "200px" }} />
             <Form.Group id="name">
               <Form.Label>Name</Form.Label>
               <Form.Control
