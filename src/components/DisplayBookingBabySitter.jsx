@@ -103,7 +103,7 @@ const DisplayBookingBabySitter = () => {
                     )}
                   </p>
                   <div>
-                    {booking.status === "pending" && (
+                    {/* {booking.status === "pending" && (
                       <div>
                         <button
                           className="btn btn-primary"
@@ -112,9 +112,9 @@ const DisplayBookingBabySitter = () => {
                           Confirm Booking
                         </button>
                       </div>
-                    )}
+                    )} */}
                     <br />
-                    {booking.status === "pending" && (
+                    {booking.status === "confirmed" && (
                       <div>
                         <button
                           className="btn btn-primary"

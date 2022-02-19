@@ -86,7 +86,7 @@ const DisplayBookingParent = () => {
                     )}
                   </p>
                   <div>
-                    {booking.status === "pending" && (
+                    {booking.status === "confirmed" && (
                       <div>
                         <button
                           className="btn btn-primary"
@@ -96,10 +96,8 @@ const DisplayBookingParent = () => {
                         </button>
                       </div>
                     )}
-                    {booking.status === "confirmed" && (
-                      <div>
-                        <button className="btn btn-primary">Pay Now</button>
-                      </div>
+                    {booking.status === "cancelled" && (
+                      <p>Please contact 64589232 for immediately refund.</p>
                     )}
                   </div>
                 </div>

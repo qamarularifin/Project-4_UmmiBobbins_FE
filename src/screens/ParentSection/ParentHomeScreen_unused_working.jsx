@@ -40,6 +40,7 @@ const ParentHomeScreen = (props) => {
   const [toDate, setToDate] = useState();
   const [duplicateBabySitters, setDuplicateBabySitters] = useState([]); //need [] because its a list
 
+  const [searchBabySitter, setSearchBabySitter] = useState();
   const navigate = useNavigate();
 
   useEffect(async () => {
@@ -55,7 +56,7 @@ const ParentHomeScreen = (props) => {
 
       console.log("results", results.data);
       setBabySitters(results.data);
-      // setDuplicateBabySitters(results.data);
+      setDuplicateBabySitters(results.data);
       setLoading(false);
     } catch (error) {
       setError(true);
@@ -124,6 +125,13 @@ const ParentHomeScreen = (props) => {
   /////////////
   /////////////
 
+  const filterBySearch = () => {
+    const filteredBabySitters = duplicateBabySitters.filter((babySitter) =>
+      babySitter.name.toLowerCase().includes(searchBabySitter.toLowerCase())
+    );
+    setBabySitters(filteredBabySitters);
+  };
+
   return (
     <div className="container">
       <div className="row mt-5">
@@ -139,6 +147,14 @@ const ParentHomeScreen = (props) => {
                   // showTime={{ format: "HH" }}
                   format="DD-MM-YYYY"
                   onChange={filterByDate}
+                />
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Search Baby Sitter"
+                  value={searchBabySitter}
+                  onChange={(e) => setSearchBabySitter(e.target.value)}
+                  onKeyUp={filterBySearch}
                 />
               </div>
               <div className="row justify-content-center mt-5">

@@ -5,6 +5,8 @@ import Loader from "../../components/Loader";
 import Error from "../../components/Error";
 import moment from "moment";
 import Swal from "sweetalert2";
+import StripeCheckout from "react-stripe-checkout";
+
 import { useNavigate } from "react-router-dom";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
@@ -61,7 +63,8 @@ const ParentBookingScreen = () => {
     }
   }, []);
 
-  const bookBabySitter = async () => {
+  //if dont want to use stripe, remove the token
+  const bookBabySitter = async (token) => {
     // if slots already booked, will trigger error
     for (let baby of babySitter.currentBookings) {
       if (
@@ -90,6 +93,7 @@ const ParentBookingScreen = () => {
       toDate: formattedToDate,
       totalAmount: totalAmount,
       totalDays: totalDays,
+      token,
     };
     try {
       setLoading(true);
@@ -132,13 +136,22 @@ const ParentBookingScreen = () => {
               <p>
                 Dates to book: {fromdate} to {todate}
               </p>
-              <button
-                className="btn btn-primary"
-                style={{ float: "right" }}
-                onClick={bookBabySitter}
+              <p>Total Amount: $ {totalAmount}</p>
+              {/* if dont want to use stripe, replace StripeCheckout with div an uncomment button onclick */}
+              <StripeCheckout
+                amount={totalAmount * 100}
+                token={bookBabySitter}
+                currency="SGD"
+                stripeKey="pk_test_51KQT8BIuVbRoacy6ZqPWF6H2vLwTn4ilOP93aQrGOYRFph9pLOtsdvr3Se3ZNJoikICNXhmcp6PM4h64YYO69ibi00XZUjL2Tv"
               >
-                Proceed to book
-              </button>
+                <button
+                  className="btn btn-primary"
+                  style={{ float: "right" }}
+                  // onClick={bookBabySitter}
+                >
+                  Proceed to book
+                </button>
+              </StripeCheckout>
             </div>
           </div>
         </div>
