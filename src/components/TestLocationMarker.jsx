@@ -18,7 +18,7 @@ function LocationMarker() {
       },
       locationfound(e) {
         setPosition(e.latlng)
-        map.flyTo(e.latlng, map.getZoom(15))
+        map.flyTo(e.latlng, 17) // #17 refers to zoom level
       },
     })
   
