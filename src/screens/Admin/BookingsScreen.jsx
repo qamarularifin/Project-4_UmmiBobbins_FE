@@ -39,6 +39,27 @@ const BookingsScreen = () => {
     window.location.reload();
   };
 
+  const cancelBooking = async (bookingId) => {
+    try {
+      setLoading(true);
+      await axios.post(`${BACKEND_BASE_URL}/booking/api/cancelbooking`, {
+        bookingId: bookingId,
+      });
+      setLoading(false);
+      Swal.fire(
+        "Congratulations!",
+        "Booking cancelled successfully",
+        "success"
+      ).then((result) => {
+        window.location.reload();
+      });
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      Swal.fire("Oops", "Cancelled failed", "error");
+    }
+  };
+
   return (
     <div className="row table-responsive">
       <div className="col-md-12">
@@ -57,6 +78,7 @@ const BookingsScreen = () => {
               <th>Total Days</th>
               <th>Transaction ID</th>
               <th>Booking Status</th>
+              <th>Cancel Booking</th>
               <th>Delete Booking</th>
             </tr>
           </thead>
@@ -83,6 +105,14 @@ const BookingsScreen = () => {
                       ) : (
                         <Tag color="red">Cancelled</Tag>
                       )}
+                    </td>
+                    <td>
+                      <button
+                        className="btn btn-primary"
+                        onClick={() => cancelBooking(booking._id)}
+                      >
+                        Cancel
+                      </button>
                     </td>
                     <td>
                       <button
