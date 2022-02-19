@@ -74,6 +74,7 @@ const EditBabySitterScreen = () => {
           <h2 className="text-center mb-4">Edit Baby Sitter Profile</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={editSubmit}>
+            <img src={image} style={{ width: "200px" }} />
             <Form.Group id="name">
               <Form.Label>Name</Form.Label>
               <Form.Control
