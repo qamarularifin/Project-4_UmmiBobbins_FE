@@ -134,14 +134,14 @@ const ParentHomeScreen = (props) => {
 
   return (
     <div className="container">
-      <div className="row mt-5">
+      <div className="row justify-content-center mt-5">
         <h1 className="row justify-content-center mt-1">Parent Home Screen</h1>
         {loading ? (
           <Loader />
         ) : (
           <>
             {/* <div className="col justify-content-center mt-5"> */}
-            <div className="col-lg-10">
+            <div className="col-lg-12">
               <div className="row-md-3 mt-3 bs" style={{ marginLeft: "18%" }}>
                 <RangePicker
                   // showTime={{ format: "HH" }}
@@ -157,10 +157,10 @@ const ParentHomeScreen = (props) => {
                   onKeyUp={filterBySearch}
                 />
               </div>
-              <div className="row justify-content-center mt-5">
+              <div>
                 {babySitters.map((babySitter, i) => {
                   return (
-                    <div key={i} className="col-md-8 mt-2">
+                    <div key={i} className="col-md-6 mt-2">
                       <ParentBabySitterDisplayScreen
                         babySitter={babySitter}
                         fromDate={fromDate}
@@ -170,9 +170,12 @@ const ParentHomeScreen = (props) => {
                   );
                 })}
               </div>
-            </div>
-            <div className="col-lg-2">
-              <DisplayBookingParent />
+              <div
+                className="col-md-6 mt-2"
+                style={{ marginLeft: "700px", bottom: "1025px" }}
+              >
+                <DisplayBookingParent />
+              </div>
             </div>
           </>
         )}
