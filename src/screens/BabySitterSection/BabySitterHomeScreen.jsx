@@ -65,7 +65,7 @@ const BabySitterHomeScreen = (props) => {
 
   return (
     <div className="container">
-      <div className="row">
+      <div className="row justify-content-center mt-5">
         <h1 className="row justify-content-center mt-5">
           Baby Sitter Home Screen
         </h1>
