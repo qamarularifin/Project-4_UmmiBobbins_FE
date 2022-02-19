@@ -12,7 +12,6 @@ import DisplayBookingParent from "../../components/DisplayBookingParent";
 import Ant_DatePicker from "../../components/Antd_datePicker"; // revised datepicker
 import MyMap from "../../components/Map";
 
-
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
 const ParentHomeScreen = (props) => {
@@ -80,54 +79,51 @@ const ParentHomeScreen = (props) => {
     const from = fromDate;
     const to = toDate;
     return (
-      <div><p>Showing availablity for {from} to {to}</p></div>
+      <div>
+        <p>
+          Showing availablity for {from} to {to}
+        </p>
+      </div>
     );
   };
 
   const renderBbSitters = babySitters.map((babySitter, i) => {
     let preventRender = false;
-    babySitter.currentBookings.map((booking, j) => {  // to check individual sitter booking array
-      const bookingFrom = moment(
-        booking.fromDate
-      );
-      const bookingTo = moment(
-        booking.toDate,
-        "DD-MM-YYYY",
-        true
-      ).format();
+    babySitter.currentBookings.map((booking, j) => {
+      // to check individual sitter booking array
+      const bookingFrom = moment(booking.fromDate);
+      const bookingTo = moment(booking.toDate, "DD-MM-YYYY", true).format();
       if (
-        (bookingFrom._i >= fromDate && bookingFrom._i <= toDate) || 
+        (bookingFrom._i >= fromDate && bookingFrom._i <= toDate) ||
         (bookingTo._i >= fromDate && bookingTo._i <= toDate)
       ) {
-        preventRender = true;  // this sets the preventRender flag to not render current sitter in iteration
+        preventRender = true; // this sets the preventRender flag to not render current sitter in iteration
       } else {
         // console.log("No Clash");
       }
-    })
+    });
     if (!preventRender)
-    return (
-      <div className="row justify-content-center mt-5">
-        <div key={i} className="col-md-8 mt-2">
+      return (
+        <div key={i} className="col justify-content-center mt-5">
           <ParentBabySitterDisplayScreen
             babySitter={babySitter}
             fromDate={fromDate}
             toDate={toDate}
           />
         </div>
-      </div>
-    );
+      );
   });
 
   return (
     <div className="container">
-      <div className="row mt-5">
-        <h1 className="row justify-content-center mt-3">Parent Home Screen</h1>
+      <div className="row justify-content-center mt-5">
+        <h1 className="row justify-content-center mt-5">Parent Home Screen</h1>
         {loading ? (
           <Loader />
         ) : (
           <>
-            <div className="col-lg-10">
-              <div className="row-md-3 mt-3 bs" style={{ marginLeft: "18%" }}>
+            <div className="row justify-content-center mt-5">
+              <div className="row-md-3 mt-3 bs">
                 <Ant_DatePicker parentCallback={handleCallback} />
                 <input
                   type="text"
@@ -137,19 +133,19 @@ const ParentHomeScreen = (props) => {
                   onChange={(e) => setSearchBabySitter(e.target.value)}
                   onKeyUp={filterBySearch}
                 />
-              </div>
-              <div>
-                Search results: {searchFlag ? <RenderSearchTerms /> : <p>all</p>}
+
+                <div className="mt-2">
+                  Search results:
+                  {searchFlag ? <RenderSearchTerms /> : <p>all</p>}
+                </div>
               </div>
 
-              <div className="col-md-5"></div>
-              <div>{renderBbSitters}</div>
-            </div>
-            <div
-              className="col-lg-2 "
-              style={{ marginTop: "207px", marginLeft: "-160px" }}
-            >
-              <DisplayBookingParent />
+              <div className="col justify-content-center mt-5 bs">
+                {renderBbSitters}
+              </div>
+              <div className="col justify-content-center mt-5 bs">
+                <DisplayBookingParent />
+              </div>
             </div>
             <div 
               id="map"

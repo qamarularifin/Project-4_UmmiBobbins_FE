@@ -69,7 +69,7 @@ const BabySitterHomeScreen = (props) => {
         <h1 className="row justify-content-center mt-5">
           Baby Sitter Home Screen
         </h1>
-        <div className="col-6 col-md-4 bs">
+        <div className="row justify-content-center mt-5 bs">
           <input
             type="text"
             className="form-control"
@@ -80,23 +80,20 @@ const BabySitterHomeScreen = (props) => {
           />
         </div>
 
-        <div className="row justify-content-center mt-5">
+        <div className="col justify-content-center mt-5 bs">
           {loading ? (
             <Loader />
           ) : (
             parents.map((parent, i) => {
               return (
-                <div key={i} className="col-md-9 mt-2">
+                <div key={i} className="col justify-content-center mt-5">
                   <BabySitterParentDisplayScreen parent={parent} />
                 </div>
               );
             })
           )}
         </div>
-        <div
-          className="col-lg-2 "
-          style={{ marginTop: "207px", marginLeft: "10px" }}
-        >
+        <div className="col justify-content-center mt-5 bs">
           <DisplayBookingBabySitter />
         </div>
       </div>

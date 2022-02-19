@@ -71,6 +71,7 @@ const EditParentScreen = () => {
           <h2 className="text-center mb-4">Edit Parent Profile</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={editSubmit}>
+            <img src={image} style={{ width: "300px" }} />
             <Form.Group id="name">
               <Form.Label>Name</Form.Label>
               <Form.Control
