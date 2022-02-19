@@ -10,6 +10,7 @@ import ParentBabySitterDisplayScreen from "./ParentBabySitterDisplayScreen";
 import moment from "moment";
 import DisplayBookingParent from "../../components/DisplayBookingParent";
 import Ant_DatePicker from "../../components/Antd_datePicker"; // revised datepicker
+import MyMap from "../../components/Map";
 
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
@@ -149,6 +150,11 @@ const ParentHomeScreen = (props) => {
               style={{ marginTop: "207px", marginLeft: "-160px" }}
             >
               <DisplayBookingParent />
+            </div>
+            <div 
+              id="map"
+              style={{ height: "180px" }}>
+              <MyMap />
             </div>
           </>
         )}
