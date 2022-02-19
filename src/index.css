@@ -8,11 +8,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "Montserrat", sans-serif !important;
-  /* background: linear-gradient(
+  background: linear-gradient(
     90deg,
-    rgba(223, 218, 215, 0.9) 0%,
-    rgb(63, 62, 59) 100%
-  ); */
+    rgba(41, 25, 184, 0.329) 0%,
+    rgb(246, 247, 243) 100%
+  );
 }
 
 code {
@@ -22,19 +22,18 @@ code {
 
 /* !important to overwrite bootstrap styling */
 .navbar {
-  background-color: rgb(33, 90, 128) !important;
-
+  background-color: rgba(127, 131, 190, 0.76) !important;
   display: flex;
   align-items: center;
   position: fixed;
   top: 0;
   width: 100%;
-  height: 50px;
-  /* padding: 0 20px; */
-  /* background-color: aquamarine; */
+  height: 60px;
+  /* padding: 0 20px;
+  background-color: aquamarine; */
   background: linear-gradient(
     90deg,
-    rgba(33, 128, 29, 0.7) 0%,
+    rgba(193, 196, 18, 0.7) 0%,
     rgb(59, 59, 63) 100%
   );
   z-index: 1;
@@ -63,20 +62,20 @@ h1 {
 }
 
 .btn {
-  background-color: rgb(180, 75, 75) !important;
+  background-color: rgba(117, 124, 123, 0.932) !important;
   color: white !important;
   box-shadow: none !important;
 }
 
 .bs {
-  box-shadow: rgba(49, 104, 36, 0.35) 0px 5px 15px;
+  box-shadow: rgba(61, 63, 70, 0.582) 0px 5px 15px;
   margin-top: 20px !important;
-  border-radius: 5px !important;
+  border-radius: 15px !important;
   padding: 20px !important;
 }
 
 .bigimg {
-  height: 200px;
+  height: 10rem;
   border-radius: 5px !important;
 }
 
