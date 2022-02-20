@@ -119,8 +119,12 @@ const ParentBookingScreen = () => {
     }
   };
 
+  const returnHome = () => {
+    navigate("/dashboard");
+  };
+
   return (
-    <div className="m-5">
+    <div className="row justify-content-center mt-5">
       <h1 className="row justify-content-center mt-5">Parent Booking Screen</h1>
       {loading ? (
         <Loader />
@@ -129,7 +133,7 @@ const ParentBookingScreen = () => {
           <div className="row justify-content-center mt-5 bs">
             <div className="col-md-9">
               <img src={babySitter.image} className="bigimg" />
-              <p>Name: {babySitter.name}</p>
+              <p className="mt-3">Name: {babySitter.name}</p>
               <p>Location: {babySitter.location}</p>
               <p>Rate Per Day: $ {babySitter.ratePerDay}</p>
               <p>Description: {babySitter.description}</p>
@@ -138,6 +142,7 @@ const ParentBookingScreen = () => {
               </p>
               <p>Total Amount: $ {totalAmount}</p>
               {/* if dont want to use stripe, replace StripeCheckout with div an uncomment button onclick */}
+
               <StripeCheckout
                 amount={totalAmount * 100}
                 token={bookBabySitter}
@@ -152,6 +157,14 @@ const ParentBookingScreen = () => {
                   Proceed to book
                 </button>
               </StripeCheckout>
+
+              <button
+                className="btn btn-primary mr-3"
+                style={{ float: "right" }}
+                onClick={returnHome}
+              >
+                Return to Homepage
+              </button>
             </div>
           </div>
         </div>

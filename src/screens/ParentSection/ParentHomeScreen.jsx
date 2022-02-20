@@ -81,7 +81,7 @@ const ParentHomeScreen = (props) => {
     return (
       <div>
         <p>
-          Showing availablity for {from} to {to}
+          Showing availability for {from} to {to}
         </p>
       </div>
     );
@@ -104,7 +104,7 @@ const ParentHomeScreen = (props) => {
     });
     if (!preventRender)
       return (
-        <div key={i} className="col justify-content-center mt-5">
+        <div key={i} className="col justify-content-center">
           <ParentBabySitterDisplayScreen
             babySitter={babySitter}
             fromDate={fromDate}
@@ -136,20 +136,19 @@ const ParentHomeScreen = (props) => {
 
                 <div className="mt-2">
                   Search results:
-                  {searchFlag ? <RenderSearchTerms /> : <p>all</p>}
+                  {searchFlag ? <RenderSearchTerms /> : <p>All</p>}
                 </div>
               </div>
 
               <div className="col justify-content-center mt-5 bs">
+                <b>Display Baby Sitters</b>
                 {renderBbSitters}
               </div>
               <div className="col justify-content-center mt-5 bs">
                 <DisplayBookingParent />
               </div>
             </div>
-            <div 
-              id="map"
-              style={{ height: "180px" }}>
+            <div id="map" style={{ height: "180px" }}>
               <MyMap />
             </div>
           </>

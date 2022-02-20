@@ -61,10 +61,10 @@ const DisplayBookingParent = () => {
 
   return (
     <>
-      <div className="row bs">
+      <div className="row">
         <div className="col-md-6" style={{ width: "100%" }}>
           {loading && <Loader />}
-          <p>Display Booking Column </p>
+          <b>Display Booking Column </b>
           {bookings &&
             bookings.map((booking, i) => {
               return (

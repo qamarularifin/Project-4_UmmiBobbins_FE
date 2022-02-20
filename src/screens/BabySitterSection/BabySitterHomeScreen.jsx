@@ -81,12 +81,13 @@ const BabySitterHomeScreen = (props) => {
         </div>
 
         <div className="col justify-content-center mt-5 bs">
+          <b>Display Parents</b>
           {loading ? (
             <Loader />
           ) : (
             parents.map((parent, i) => {
               return (
-                <div key={i} className="col justify-content-center mt-5">
+                <div key={i} className="col justify-content-center">
                   <BabySitterParentDisplayScreen parent={parent} />
                 </div>
               );
