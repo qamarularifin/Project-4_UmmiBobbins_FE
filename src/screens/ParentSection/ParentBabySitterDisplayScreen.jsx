@@ -12,8 +12,8 @@ const ParentBabySitterDisplayScreen = (props) => {
   return (
     <div className="row bs">
       <div className="col-md-9 mt-2">
-        <p>Name: {babySitter.name}</p>
         <img src={babySitter.image} className="bigimg" />
+        <p className="mt-3">Name: {babySitter.name}</p>
         <p>Location: {babySitter.location}</p>
         <p>Rate Per Day: $ {babySitter.ratePerDay}</p>
         <p>Description: {babySitter.description}</p>

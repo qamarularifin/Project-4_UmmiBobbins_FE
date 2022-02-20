@@ -73,7 +73,7 @@ const DisplayBookingParent = () => {
                   <p>Date Start: {booking.fromDate}</p>
                   <p>Date End: {booking.toDate}</p>
                   <p>Transaction ID: {booking.transactionId}</p>
-                  <p>booking id: {booking._id}</p>
+                  {/* <p>booking id: {booking._id}</p> */}
 
                   <p>
                     Status:
