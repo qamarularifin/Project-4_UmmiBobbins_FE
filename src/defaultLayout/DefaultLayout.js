@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../App.css";
 import {
   Form,
@@ -9,12 +9,34 @@ import {
   Nav,
   NavDropdown,
 } from "react-bootstrap";
-import Logout from "../components/Logout";
+// import Logout from "../components/Logout";
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
+
+import { useContext } from "react";
+import GeneralContext from "../context/GeneralContext";
+
+const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
 const DefaultLayout = (props) => {
   const session = JSON.parse(localStorage.getItem("currentUser"));
   const navigate = useNavigate();
+
+  const { userContext } = useContext(GeneralContext);
+  const [
+    name,
+    setName,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    passwordConfirm,
+    setPasswordConfirm,
+    userId,
+    setUserId,
+    role,
+    setRole,
+  ] = userContext;
 
   const logout = () => {
     localStorage.removeItem("currentUser");
@@ -55,7 +77,7 @@ const DefaultLayout = (props) => {
                     aria-expanded="false"
                   >
                     <i className="fa fa-user mr-2"></i>
-                    {session.email}
+                    {email}
                   </button>
                   <div
                     className="dropdown-menu"

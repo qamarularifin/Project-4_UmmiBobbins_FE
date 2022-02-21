@@ -73,7 +73,7 @@ const ParentEditBioScreen = (props) => {
             <Form.Group id="location">
               <Form.Label>Location</Form.Label>
               <Form.Control
-                type="text"
+                type="number"
                 // ref={""}
                 required
                 value={parentLocation}
