@@ -23,7 +23,7 @@ import EditBabySitterScreen from "./screens/Admin/EditBabySitterScreen";
 import ParentEditBioScreen from "./screens/ParentSection/ParentEditBioScreen";
 import BabySitterEditBioScreen from "./screens/BabySitterSection/BabySitterEditBioScreen";
 import EditBioScreen from "./screens/EditBioScreen";
-import Socket from "./components/Socket";
+// import Socket from "./components/Socket"; // for testing only
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
@@ -37,13 +37,13 @@ function App() {
   const navigate = useNavigate();
 
   // useEffect to route back to dashboard when browser back button or url is changed to login page
-  useEffect(() => {
-    //if user is not admin, will route back to dashboard
-    const user = JSON.parse(localStorage.getItem("currentUser"));
-    if (user) {
-      navigate("/dashboard");
-    }
-  }, []);
+  // useEffect(() => {
+  //   //if user is not admin, will route back to dashboard
+  //   const user = JSON.parse(localStorage.getItem("currentUser"));
+  //   if (user) {
+  //     navigate("/dashboard");
+  //   }
+  // }, []);
 
   return (
     <div className="App">
@@ -176,14 +176,14 @@ function App() {
                     </PrivateRoute>
                   }
                 />
-                <Route
+                {/* <Route
                   path="/socket"
                   element={
                     <PrivateRoute>
                       <Socket />
                     </PrivateRoute>
                   }
-                />
+                /> */}
               </Routes>
             </div>
           </Container>
