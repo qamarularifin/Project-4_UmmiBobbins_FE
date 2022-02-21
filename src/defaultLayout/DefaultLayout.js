@@ -22,6 +22,7 @@ const DefaultLayout = (props) => {
   const session = JSON.parse(localStorage.getItem("currentUser"));
   const navigate = useNavigate();
 
+  // use useContext to get the email state
   const { userContext } = useContext(GeneralContext);
   const [
     name,
