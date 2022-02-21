@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import { Modal, Button, Carousel } from "react-bootstrap";
+import { Modal, Carousel } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Tag, Divider } from "antd";
+import Button from "@mui/material/Button";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 const ParentBabySitterDisplayScreen = (props) => {
   const { babySitter, fromDate, toDate } = props;
@@ -29,6 +32,23 @@ const ParentBabySitterDisplayScreen = (props) => {
           <button className="btn btn-primary" onClick={handleShow}>
             View Details
           </button>
+
+          <Button
+            variant="contained"
+            size="medium"
+            color="error"
+            startIcon={<FavoriteIcon />}
+          >
+            DEL
+          </Button>
+          <Button
+            variant="contained"
+            size="medium"
+            color="success"
+            startIcon={<FavoriteIcon />}
+          >
+            Fav
+          </Button>
           <p className="mt-2">Dates Unavailable: </p>
           {babySitter.currentBookings.map((booking, i) => {
             return (
@@ -68,9 +88,9 @@ const ParentBabySitterDisplayScreen = (props) => {
           <p>Description: {babySitter.description}</p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <button className="btn btn-primary" onClick={handleClose}>
             Close
-          </Button>
+          </button>
         </Modal.Footer>
       </Modal>
     </div>

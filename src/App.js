@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import { Container } from "react-bootstrap";
@@ -23,6 +23,8 @@ import EditBabySitterScreen from "./screens/Admin/EditBabySitterScreen";
 import ParentEditBioScreen from "./screens/ParentSection/ParentEditBioScreen";
 import BabySitterEditBioScreen from "./screens/BabySitterSection/BabySitterEditBioScreen";
 import EditBioScreen from "./screens/EditBioScreen";
+import { favReducer } from "./reducers/favReducer";
+import FavouriteParent from "./screens/ParentSection/FavouriteParent";
 // import Socket from "./components/Socket"; // for testing only
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
@@ -36,14 +38,21 @@ function App() {
 
   const navigate = useNavigate();
 
+  // reducer for favourite connected to localstorage
+  const [fav, dispatchFav] = useReducer(favReducer, [], () => {
+    const localData = localStorage.getItem("parent-favourites");
+    return localData ? JSON.parse(localData) : [];
+  });
+
   // useEffect to route back to dashboard when browser back button or url is changed to login page
-  // useEffect(() => {
-  //   //if user is not admin, will route back to dashboard
-  //   const user = JSON.parse(localStorage.getItem("currentUser"));
-  //   if (user) {
-  //     navigate("/dashboard");
-  //   }
-  // }, []);
+  useEffect(() => {
+    //if user is not admin, will route back to dashboard
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    if (user) {
+      navigate("/dashboard");
+      localStorage.setItem("parent-favourites", JSON.stringify(fav));
+    }
+  }, [fav]);
 
   return (
     <div className="App">
@@ -61,6 +70,7 @@ function App() {
             role,
             setRole,
           ],
+          favouriteContext: [fav, dispatchFav],
         }}
       >
         <DefaultLayout>
@@ -102,6 +112,15 @@ function App() {
                   element={
                     <PrivateRoute>
                       <Dashboard />
+                    </PrivateRoute>
+                  }
+                />
+
+                <Route
+                  path="/favourite-parent"
+                  element={
+                    <PrivateRoute>
+                      <FavouriteParent />
                     </PrivateRoute>
                   }
                 />
