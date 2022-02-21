@@ -23,6 +23,7 @@ import EditBabySitterScreen from "./screens/Admin/EditBabySitterScreen";
 import ParentEditBioScreen from "./screens/ParentSection/ParentEditBioScreen";
 import BabySitterEditBioScreen from "./screens/BabySitterSection/BabySitterEditBioScreen";
 import EditBioScreen from "./screens/EditBioScreen";
+import Socket from "./components/Socket";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
@@ -172,6 +173,14 @@ function App() {
                   element={
                     <PrivateRoute>
                       <DatePicker />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/socket"
+                  element={
+                    <PrivateRoute>
+                      <Socket />
                     </PrivateRoute>
                   }
                 />

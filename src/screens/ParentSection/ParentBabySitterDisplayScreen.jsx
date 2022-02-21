@@ -15,7 +15,7 @@ const ParentBabySitterDisplayScreen = (props) => {
         <img src={babySitter.image} className="bigimg" />
         <p className="mt-3">Name: {babySitter.name}</p>
         <p>Location: {babySitter.location}</p>
-        <p>Rate Per Day: $ {babySitter.ratePerDay}</p>
+        {/* <p>Rate Per Day: $ {babySitter.ratePerDay}</p> */}
         <p>Description: {babySitter.description}</p>
 
         <div>
@@ -61,7 +61,11 @@ const ParentBabySitterDisplayScreen = (props) => {
               );
             })}
           </Carousel> */}
-          <p>{babySitter.location}</p>
+
+          <img src={babySitter.image} style={{ width: "300px" }} />
+          <p className="mt-3">Location postal code: {babySitter.location}</p>
+          <p>Rate Per Day: $ {babySitter.ratePerDay}</p>
+          <p>Description: {babySitter.description}</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

@@ -44,6 +44,13 @@ const UpdateProfile = () => {
       return setError("Passwords do not match");
     }
 
+    if (
+      passwordRef.current.value === "" ||
+      passwordConfirmRef.current.value === ""
+    ) {
+      return setError("Password must not be blank");
+    }
+
     const res = await fetch(
       `${BACKEND_BASE_URL}/user/api/dashboard/update-profile/${user._id}`,
       {

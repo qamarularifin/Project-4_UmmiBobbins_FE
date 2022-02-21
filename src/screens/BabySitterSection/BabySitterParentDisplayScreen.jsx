@@ -39,7 +39,10 @@ const BabySitterParentDisplayScreen = (props) => {
                 );
               })}
             </Carousel> */}
-          <p>{parent.location}</p>
+          <img src={parent.image} style={{ width: "300px" }} />
+          <p className="mt-3">Location postal code: {parent.location}</p>
+
+          <p>Description: {parent.description}</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
