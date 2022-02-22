@@ -53,7 +53,7 @@ function App() {
     //if user is not admin, will route back to dashboard
     const user = JSON.parse(localStorage.getItem("currentUser"));
     if (user) {
-      // navigate("/dashboard");
+      navigate("/dashboard");
       localStorage.setItem("parent-favourites", JSON.stringify(favParent));
     }
   }, [favParent]);

@@ -39,8 +39,8 @@ const ParentBabySitterDisplayScreen = (props) => {
             View Details
           </button>
 
-          {/* ////////////////////////////////////////favourite//////////////// */}
-          {favParent.some((p) => p._id === babySitter._id) ? (
+          {/* ////////////////////////////////////////favourite////////////////  working*/}
+          {/* {favParent.some((p) => p._id === babySitter._id) ? (
             <Button
               variant="contained"
               size="medium"
@@ -70,15 +70,16 @@ const ParentBabySitterDisplayScreen = (props) => {
                     image: babySitter.image,
                     name: babySitter.name,
                     description: babySitter.description,
+                    currentBookings: babySitter.currentBookings,
                   },
                 });
               }}
             >
               Fav
             </Button>
-          )}
+          )} */}
 
-          {/* ////////////////////////////////////////favourite//////////////// */}
+          {/* ////////////////////////////////////////favourite end//////////////// */}
 
           <p className="mt-2">Dates Unavailable: </p>
           {babySitter.currentBookings.map((booking, i) => {

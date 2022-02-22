@@ -4,6 +4,7 @@ import GeneralContext from "../../context/GeneralContext";
 import Button from "@mui/material/Button";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { Tag, Divider } from "antd";
 
 const FavouriteParent = () => {
   const { favouriteContext } = useContext(GeneralContext);
@@ -16,8 +17,18 @@ const FavouriteParent = () => {
       <div key={i}>
         <p>Favourite Parent</p>
         <img src={ele.image} style={{ width: "300px" }} />
-        <p>name: {ele.name}</p>
-        <p>description: {ele.description}</p>
+        <p>Name: {ele.name}</p>
+        <p>Description: {ele.description}</p>
+
+        {/* <p className="mt-2">Dates Unavailable: </p>
+
+        <p>
+          <Tag color="red">
+            From: {ele.currentBookings[0].fromDate} To:
+            {ele.currentBookings[0].toDate}
+          </Tag>
+        </p> */}
+
         <Button
           variant="contained"
           size="small"
