@@ -5,12 +5,18 @@ import { Tag, Divider } from "antd";
 import Button from "@mui/material/Button";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { useContext } from "react";
+import GeneralContext from "../../context/GeneralContext";
 
 const ParentBabySitterDisplayScreen = (props) => {
   const { babySitter, fromDate, toDate } = props;
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  // console.log("ttt", babySitter._id); show all babysitters
+
+  const { favouriteContext } = useContext(GeneralContext);
+  const [favParent, dispatchFavParent] = favouriteContext;
 
   return (
     <div className="row bs">
@@ -33,22 +39,47 @@ const ParentBabySitterDisplayScreen = (props) => {
             View Details
           </button>
 
-          <Button
-            variant="contained"
-            size="medium"
-            color="error"
-            startIcon={<FavoriteIcon />}
-          >
-            DEL
-          </Button>
-          <Button
-            variant="contained"
-            size="medium"
-            color="success"
-            startIcon={<FavoriteIcon />}
-          >
-            Fav
-          </Button>
+          {/* ////////////////////////////////////////favourite//////////////// */}
+          {favParent.some((p) => p._id === babySitter._id) ? (
+            <Button
+              variant="contained"
+              size="medium"
+              color="error"
+              startIcon={<FavoriteIcon />}
+              onClick={() => {
+                dispatchFavParent({
+                  type: "REMOVEFROMFAV",
+                  payload: babySitter._id,
+                });
+              }}
+            >
+              DEL
+            </Button>
+          ) : (
+            <Button
+              variant="contained"
+              size="medium"
+              color="success"
+              startIcon={<FavoriteBorderIcon />}
+              onClick={() => {
+                dispatchFavParent({
+                  type: "ADDTOFAV",
+
+                  payload: {
+                    _id: babySitter._id,
+                    image: babySitter.image,
+                    name: babySitter.name,
+                    description: babySitter.description,
+                  },
+                });
+              }}
+            >
+              Fav
+            </Button>
+          )}
+
+          {/* ////////////////////////////////////////favourite//////////////// */}
+
           <p className="mt-2">Dates Unavailable: </p>
           {babySitter.currentBookings.map((booking, i) => {
             return (

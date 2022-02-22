@@ -1,4 +1,4 @@
-export const favReducer = (state, action) => {
+export const favParentReducer = (state, action) => {
   switch (action.type) {
     case "ADDTOFAV":
       return [action.payload, ...state];

@@ -10,7 +10,7 @@ const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 const UsersScreen = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("currentUser"));
-  console.log(user);
+  // console.log(user);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();

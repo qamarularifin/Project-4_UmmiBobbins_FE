@@ -97,6 +97,14 @@ const DefaultLayout = (props) => {
                     <Link to="/editbioscreen" className="dropdown-item">
                       Edit Bio
                     </Link>
+                    {session.role === "parent" ? (
+                      <Link to="/favourite-parent" className="dropdown-item">
+                        Favourites
+                      </Link>
+                    ) : (
+                      ""
+                    )}
+
                     {/* <a className="dropdown-item" href="/update-profile">
                       Account Settings
                     </a> */}

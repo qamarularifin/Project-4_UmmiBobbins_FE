@@ -1,21 +1,47 @@
 import React from "react";
 import { useContext } from "react";
 import GeneralContext from "../../context/GeneralContext";
+import Button from "@mui/material/Button";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 const FavouriteParent = () => {
   const { favouriteContext } = useContext(GeneralContext);
-  const [fav, dispatchFav] = favouriteContext;
+  const [favParent, dispatchFavParent] = favouriteContext;
 
-  const favItem = fav.map((ele, i) => {
+  console.log("ffff", favParent);
+
+  const favItem = favParent.map((ele, i) => {
     return (
-      <div>
-        <img src={ele.image} />
+      <div key={i}>
+        <p>Favourite Parent</p>
+        <img src={ele.image} style={{ width: "300px" }} />
         <p>name: {ele.name}</p>
+        <p>description: {ele.description}</p>
+        <Button
+          variant="contained"
+          size="small"
+          color="error"
+          startIcon={<FavoriteIcon />}
+          onClick={() => {
+            dispatchFavParent({ type: "REMOVEFROMFAV", payload: ele._id });
+          }}
+        >
+          Del
+        </Button>
       </div>
     );
   });
 
-  return <div></div>;
+  return (
+    <div>
+      {favItem.length < 1 ? (
+        <h1 className="fav-empty">Favourite is Empty!</h1>
+      ) : (
+        favItem
+      )}
+    </div>
+  );
 };
 
 export default FavouriteParent;
