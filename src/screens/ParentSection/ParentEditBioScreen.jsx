@@ -38,7 +38,7 @@ const ParentEditBioScreen = (props) => {
     };
     try {
       setLoading(true);
-      await axios.post(
+      await axios.put(
         `${BACKEND_BASE_URL}/parent/api/${parent._id}/edit`,
         editProfile
       );
