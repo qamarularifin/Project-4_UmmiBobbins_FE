@@ -18,29 +18,38 @@ const BabySitterHomeScreen = () => {
 
   const [parents, setParents] = useState([]);
   const [duplicateParents, setDuplicateParents] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
 
   const [searchParent, setSearchParent] = useState();
 
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  useEffect(async () => {
-    try {
-      setLoading(true);
+  //use effect with mount and unmount to prevent memory leak
+  useEffect(() => {
+    let componentMounted = true;
+    const fetchData = async () => {
       const results = await axios.get(
         `${BACKEND_BASE_URL}/parent/api/getallparents`
       );
-      setParents(results.data);
-      setDuplicateParents(results.data);
-
-      // console.log("results", results.data);
+      if (componentMounted) {
+        setParents(results.data);
+        setDuplicateParents(results.data);
+      }
+    };
+    try {
+      setLoading(true);
+      fetchData();
       setLoading(false);
     } catch (error) {
       setError(true);
       console.log(error);
       setLoading(false);
     }
+
+    return () => {
+      componentMounted = false;
+    };
   }, []);
 
   const filterBySearch = () => {
@@ -90,3 +99,23 @@ const BabySitterHomeScreen = () => {
 };
 
 export default BabySitterHomeScreen;
+
+// useEffect(async () => {
+//   try {
+//     setLoading(true);
+
+//     const results = await axios.get(
+//       `${BACKEND_BASE_URL}/parent/api/getallparents`
+//     );
+
+//     setParents(results.data);
+//     setDuplicateParents(results.data);
+
+//     // console.log("results", results.data);
+//     setLoading(false);
+//   } catch (error) {
+//     setError(true);
+//     console.log(error);
+//     setLoading(false);
+//   }
+// }, []);

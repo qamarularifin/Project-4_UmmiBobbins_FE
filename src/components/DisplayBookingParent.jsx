@@ -18,25 +18,31 @@ const DisplayBookingParent = () => {
 
   const [bookings, setBookings] = useState([]);
 
-  useEffect(async () => {
-    try {
-      setLoading(true);
-
+  //use effect with mount and unmount to prevent memory leak
+  useEffect(() => {
+    let componentMounted = true;
+    const fetchData = async () => {
       const results = await axios.post(
         `${BACKEND_BASE_URL}/booking/api/getparentbookingsbyuserid`,
-        {
-          userId: user._id,
-        }
+        { userId: user._id }
       );
-
-      setBookings(results.data.currentBookings);
-
+      if (componentMounted) {
+        setBookings(results.data.currentBookings);
+      }
+    };
+    try {
+      setLoading(true);
+      fetchData();
       setLoading(false);
     } catch (error) {
       setError(true);
       console.log(error);
       setLoading(false);
     }
+
+    return () => {
+      componentMounted = false;
+    };
   }, []);
 
   const cancelBooking = async (bookingId) => {
@@ -117,3 +123,24 @@ const DisplayBookingParent = () => {
 };
 
 export default DisplayBookingParent;
+
+// useEffect(async () => {
+//   try {
+//     setLoading(true);
+
+//     const results = await axios.post(
+//       `${BACKEND_BASE_URL}/booking/api/getparentbookingsbyuserid`,
+//       {
+//         userId: user._id,
+//       }
+//     );
+
+//     setBookings(results.data.currentBookings);
+
+//     setLoading(false);
+//   } catch (error) {
+//     setError(true);
+//     console.log(error);
+//     setLoading(false);
+//   }
+// }, []);

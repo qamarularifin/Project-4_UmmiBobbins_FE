@@ -18,44 +18,52 @@ const DisplayBookingBabySitter = () => {
 
   const [bookings, setBookings] = useState([]);
 
-  useEffect(async () => {
-    try {
-      setLoading(true);
+  //use effect with mount and unmount to prevent memory leak
+  useEffect(() => {
+    let componentMounted = true;
+    const fetchData = async () => {
       const results = await axios.post(
         `${BACKEND_BASE_URL}/booking/api/getbabysitterbookingsbyuserid`,
-        {
-          userId: user._id,
-        }
+        { userId: user._id }
       );
-      setBookings(results.data.currentBookings);
-
+      if (componentMounted) {
+        setBookings(results.data.currentBookings);
+      }
+    };
+    try {
+      setLoading(true);
+      fetchData();
       setLoading(false);
     } catch (error) {
       setError(true);
       console.log(error);
       setLoading(false);
     }
+
+    return () => {
+      componentMounted = false;
+    };
   }, []);
 
   // not using as only have cancelled and confirmed
-  const confirmBooking = async (bookingId) => {
-    try {
-      setLoading(true);
-      await axios.post(`${BACKEND_BASE_URL}/booking/api/confirmbooking`, {
-        bookingId: bookingId,
-      });
-      setLoading(false);
-      Swal.fire("Congratulations!", "Booking is confirmed", "success").then(
-        (result) => {
-          window.location.reload();
-        }
-      );
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-      Swal.fire("Oops", "Confirmation failed", "error");
-    }
-  };
+  // const confirmBooking = async (bookingId) => {
+  //   try {
+  //     setLoading(true);
+  //     await axios.post(`${BACKEND_BASE_URL}/booking/api/confirmbooking`, {
+  //       bookingId: bookingId,
+  //     });
+  //     setLoading(false);
+  //     Swal.fire("Congratulations!", "Booking is confirmed", "success").then(
+  //       (result) => {
+  //         window.location.reload();
+  //       }
+  //     );
+  //   } catch (error) {
+  //     console.log(error);
+  //     setLoading(false);
+  //     Swal.fire("Oops", "Confirmation failed", "error");
+  //   }
+  // };
 
   const cancelBooking = async (bookingId) => {
     try {
