@@ -49,7 +49,8 @@ const BabySitterEditBioScreen = (props) => {
   //   }
   // }, []);
 
-  const editSubmit = async () => {
+  const editSubmit = async (e) => {
+    e.preventDefault();
     const editProfile = {
       name: babySitterName,
       location: babySitterLocation,
@@ -64,6 +65,7 @@ const BabySitterEditBioScreen = (props) => {
         editProfile
       );
       setLoading(false);
+      window.location.reload();
     } catch (error) {
       setLoading(false);
       console.log(error);

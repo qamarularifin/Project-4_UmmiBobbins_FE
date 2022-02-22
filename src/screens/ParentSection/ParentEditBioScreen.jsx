@@ -29,7 +29,30 @@ const ParentEditBioScreen = (props) => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("currentUser"));
 
-  const editSubmit = async () => {
+  // const editSubmit = async () => {
+  //   const editProfile = {
+  //     name: parentName,
+  //     location: parentLocation,
+  //     description: parentDescription,
+  //     image: parentImage,
+  //   };
+  //   try {
+  //     setLoading(true);
+  //     await axios.put(
+  //       `${BACKEND_BASE_URL}/parent/api/${parent._id}/edit`,
+  //       editProfile
+  //     );
+  //     setLoading(false);
+  //     window.location.reload();
+  //   } catch (error) {
+  //     setLoading(false);
+  //     setError(true);
+  //     console.log(error);
+  //   }
+  // };
+
+  const editSubmit = async (e) => {
+    e.preventDefault();
     const editProfile = {
       name: parentName,
       location: parentLocation,
