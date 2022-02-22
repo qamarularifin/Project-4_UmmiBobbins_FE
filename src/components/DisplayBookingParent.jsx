@@ -21,6 +21,7 @@ const DisplayBookingParent = () => {
   useEffect(async () => {
     try {
       setLoading(true);
+
       const results = await axios.post(
         `${BACKEND_BASE_URL}/booking/api/getparentbookingsbyuserid`,
         {

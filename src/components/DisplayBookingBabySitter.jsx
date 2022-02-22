@@ -37,6 +37,7 @@ const DisplayBookingBabySitter = () => {
     }
   }, []);
 
+  // not using as only have cancelled and confirmed
   const confirmBooking = async (bookingId) => {
     try {
       setLoading(true);

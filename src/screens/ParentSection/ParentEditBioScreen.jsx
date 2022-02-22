@@ -38,7 +38,7 @@ const ParentEditBioScreen = (props) => {
     };
     try {
       setLoading(true);
-      await axios.put(
+      await axios.post(
         `${BACKEND_BASE_URL}/parent/api/${parent._id}/edit`,
         editProfile
       );
@@ -63,7 +63,6 @@ const ParentEditBioScreen = (props) => {
               <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
-                // ref={""}
                 required
                 value={parentName}
                 onChange={(e) => setParentName(e.target.value)}
@@ -106,6 +105,17 @@ const ParentEditBioScreen = (props) => {
           </Form>
         </Card.Body>
       </Card>
+
+      {/* <div>
+        <form onSubmit={editSubmit}>
+          <input
+            type="text"
+            value={parentName}
+            onChange={(e) => setParentName(e.target.value)}
+          />
+          <button>Edit</button>
+        </form>
+      </div> */}
     </>
   );
 };

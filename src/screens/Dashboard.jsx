@@ -27,8 +27,7 @@ const Dashboard = () => {
   const [quote, setQuote] = useState("");
   const [tempQuote, setTempQuote] = useState("");
 
-  // do i really need below??
-  // route GET cash data for index page only
+  // need below for user
   const loadData = async () => {
     const res = await fetch(
       `${BACKEND_BASE_URL}/user/api/dashboard/${user._id}`

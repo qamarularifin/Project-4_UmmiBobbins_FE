@@ -18,7 +18,7 @@ const UsersScreen = () => {
   useEffect(async () => {
     try {
       const results = await axios.get(`${BACKEND_BASE_URL}/user/api/`);
-      console.log(results.data);
+      // console.log(results.data);
       setUsers(results.data);
       setLoading(false);
     } catch (error) {

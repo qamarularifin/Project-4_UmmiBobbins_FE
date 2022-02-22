@@ -97,6 +97,8 @@ const DefaultLayout = (props) => {
                     <Link to="/editbioscreen" className="dropdown-item">
                       Edit Bio
                     </Link>
+
+                    {/* for showing fav in nav bar */}
                     {/* {session.role === "parent" ? (
                       <Link to="/favourite-parent" className="dropdown-item">
                         Favourites
