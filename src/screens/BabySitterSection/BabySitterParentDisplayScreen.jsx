@@ -15,9 +15,9 @@ const BabySitterParentDisplayScreen = (props) => {
         <p className="mt-3">Name: {parent.name}</p>
         <p>Location: {parent.location}</p>
         <p>Description: {parent.description}</p>
-        {/* <Link to={`/detail/${parent.name}/${parent._id}`}>
+        <Link to={`/detail/${parent.name}/${parent._id}`}>
           <button className="btn btn-primary m-2">Message</button>
-        </Link> */}
+        </Link>
 
         <button className="btn btn-primary" onClick={handleShow}>
           View Details

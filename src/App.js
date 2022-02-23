@@ -48,15 +48,24 @@ function App() {
     }
   );
 
+  // useEffect for use with fav feature ---DO NOT DELETE--
+  // useEffect(() => {
+  //   //if user is not admin, will route back to dashboard
+  //   const user = JSON.parse(localStorage.getItem("currentUser"));
+  //   if (user) {
+  //     navigate("/dashboard");
+  //     localStorage.setItem("parent-favourites", JSON.stringify(favParent));
+  //   }
+  // }, [favParent]);
+
   // useEffect to route back to dashboard when browser back button or url is changed to login page
   useEffect(() => {
     //if user is not admin, will route back to dashboard
     const user = JSON.parse(localStorage.getItem("currentUser"));
     if (user) {
       navigate("/dashboard");
-      localStorage.setItem("parent-favourites", JSON.stringify(favParent));
     }
-  }, [favParent]);
+  }, []);
 
   return (
     <div className="App">

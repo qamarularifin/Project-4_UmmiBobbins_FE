@@ -9,11 +9,12 @@ import moment from "moment";
 import DisplayBookingParent from "../../components/DisplayBookingParent";
 import Ant_DatePicker from "../../components/Antd_datePicker"; // revised datepicker
 import MyMap from "../../components/Map";
+import ParentMessages from "../ParentSection/ParentMessages";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
 const ParentHomeScreen = () => {
-  // const user = JSON.parse(localStorage.getItem("currentUser"));
+  const user = JSON.parse(localStorage.getItem("currentUser"));
 
   const [babySitters, setBabySitters] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -25,6 +26,7 @@ const ParentHomeScreen = () => {
   const [searchFlag, setSearchFlag] = useState(false);
 
   const [searchBabySitter, setSearchBabySitter] = useState();
+  const [messages, setMessages] = useState([]);
 
   // const navigate = useNavigate();
 
@@ -53,6 +55,33 @@ const ParentHomeScreen = () => {
     );
     setBabySitters(filteredBabySitters);
   };
+
+  // for messages
+  useEffect(() => {
+    let componentMounted = true;
+    const fetchData = async () => {
+      const results = await axios.post(
+        `${BACKEND_BASE_URL}/parent/api/getmessagefrombabysitter`,
+        { userId: user._id }
+      );
+      if (componentMounted) {
+        setMessages(results.data);
+      }
+    };
+    try {
+      setLoading(true);
+      fetchData();
+      setLoading(false);
+    } catch (error) {
+      setError(true);
+      console.log(error);
+      setLoading(false);
+    }
+
+    return () => {
+      componentMounted = false;
+    };
+  }, []);
 
   const handleCallback = (pickerData) => {
     setFromDate(pickerData[0]);
@@ -123,6 +152,10 @@ const ParentHomeScreen = () => {
                   Search results:
                   {searchFlag ? <RenderSearchTerms /> : <p>All</p>}
                 </div>
+              </div>
+
+              <div className="row-md-3 mt-3 bs">
+                <ParentMessages messages={messages} />
               </div>
 
               <div className="col justify-content-center mt-5 bs">
