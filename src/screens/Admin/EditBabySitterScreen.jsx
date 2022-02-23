@@ -43,7 +43,8 @@ const EditBabySitterScreen = () => {
     }
   }, []);
 
-  const editSubmit = async () => {
+  const editSubmit = async (e) => {
+    e.preventDefault();
     const editProfile = {
       name: name,
       location: location,
@@ -60,6 +61,7 @@ const EditBabySitterScreen = () => {
       );
 
       setLoading(false);
+      navigate("/admin");
     } catch (error) {
       setLoading(false);
       console.log(error);
