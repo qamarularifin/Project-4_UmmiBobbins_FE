@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { Form, Button, Card, Alert } from "react-bootstrap";
 
 import axios from "axios";
 import Loader from "../../components/Loader";
@@ -8,8 +7,7 @@ import Error from "../../components/Error";
 import BabySitterParentDisplayScreen from "./BabySitterParentDisplayScreen";
 import moment from "moment";
 import DisplayBookingBabySitter from "../../components/DisplayBookingBabySitter";
-import { DatePicker } from "antd";
-const { RangePicker } = DatePicker;
+import MyMap from "../../components/Map";
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
@@ -93,29 +91,12 @@ const BabySitterHomeScreen = () => {
         <div className="col justify-content-center mt-5 bs">
           <DisplayBookingBabySitter />
         </div>
+        <div id="map" style={{ height: "180px" }}>
+            <MyMap />
+        </div>
       </div>
     </div>
   );
 };
 
 export default BabySitterHomeScreen;
-
-// useEffect(async () => {
-//   try {
-//     setLoading(true);
-
-//     const results = await axios.get(
-//       `${BACKEND_BASE_URL}/parent/api/getallparents`
-//     );
-
-//     setParents(results.data);
-//     setDuplicateParents(results.data);
-
-//     // console.log("results", results.data);
-//     setLoading(false);
-//   } catch (error) {
-//     setError(true);
-//     console.log(error);
-//     setLoading(false);
-//   }
-// }, []);
