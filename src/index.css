@@ -8,11 +8,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "Montserrat", sans-serif !important;
+
   background: linear-gradient(
     90deg,
     rgba(41, 25, 184, 0.329) 0%,
     rgb(187, 192, 173) 100%
   );
+  background-image: url("https://media.istockphoto.com/vectors/illustration-of-baby-related-things-in-pattern-baby-items-pattern-for-vector-id1005316762?k=20&m=1005316762&s=612x612&w=0&h=W0BmPIjsfFlHqfwAnJTDOVkKZ-1UoFMxUaUR2HMr6tU=");
 }
 
 code {
@@ -77,6 +79,7 @@ h1 {
     rgba(224, 223, 226, 0.329) 100%,
     rgb(153, 125, 118) 100%
   );
+  background: url("https://media.istockphoto.com/vectors/spoons-teats-and-bibs-pattern-vector-id465071268?k=20&m=465071268&s=612x612&w=0&h=kT_4rN8dZLwJU08PJAXIqMLaKJxxtENEZ4V_sKW_KE8=");
 }
 
 .bigimg {
