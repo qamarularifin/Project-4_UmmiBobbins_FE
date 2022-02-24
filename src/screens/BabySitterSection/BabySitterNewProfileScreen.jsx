@@ -101,7 +101,7 @@ const BabySitterNewProfileScreen = () => {
               />
             </Form.Group>
 
-            <Form.Group id="rateperhour">
+            <Form.Group id="rateperday">
               <Form.Label>Rate Per Day</Form.Label>
               <Form.Control
                 type="number"
