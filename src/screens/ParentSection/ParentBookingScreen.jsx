@@ -22,12 +22,17 @@ const ParentBookingScreen = () => {
 
   const [parentName, setParentName] = useState("");
 
+  // console.log("fromDate", fromdate);
+  // console.log("toDate", todate);
+
   // useParams for the dates //  use moment to calculate no. of days
   const formattedFromDate = moment(fromdate, "DD-MM-YYYY"); //formatted needed for .diff function
   const formattedToDate = moment(todate, "DD-MM-YYYY"); //formatted needed for .diff function
 
   const totalDays =
     moment.duration(formattedToDate.diff(formattedFromDate)).asDays() + 1;
+
+  // console.log("totaldays", totalDays);
 
   // send data from frontend to backend with post method //right roomid is from front end and send to left roomid backend to retrieve the specific room individual data
   //!!! this is important to get the id complete object of individual room
