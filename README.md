@@ -1,70 +1,85 @@
-# Getting Started with Create React App
+# Project-4: UmmiBobbins A Baby Sitter App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Background
 
-## Available Scripts
+An app that allows users to either sign up as parent or babysitter. Parents can select a babysitter based on available dates and make a booking. Babysitters can either accept the job or cancel it.
 
-In the project directory, you can run:
+## Github Repo Links
 
-### `npm start`
+https://github.com/qamarularifin/Project-4_UmmiBobbins_FE
+https://github.com/qamarularifin/Project-4_UmmiBobbins_BE
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Heroku Deployment Links
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+https://project-4-ummibobbins-fe.herokuapp.com/
+https://project-4-ummibobbins-be.herokuapp.com/
 
-### `npm test`
+## Technologies
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- MERN Stack: MongoDB, Express JS, React JS, Node JS
+- Ant Design
+- React-Bootstrap
+- Stripe Payment
 
-### `npm run build`
+## Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Sign up page (as a Parent or Babysitter)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Users are given the option to sign up as a parent or as a babysitter
+2. Users are required to provide an email address and password
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Create new profile page
 
-### `npm run eject`
+1. New users will be brought to a new create profile page where they get to fill up bio such as name, location, description etc
+2. As for new babysitters, they are required to provide the rate per day which will automatically be calculated based on the numbers of days picked by parents
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Parent Home Screen
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. To book a babysitter, parent will first need to select the start date and end date or else, the book now button will not appear
+2. Parents can click on View Details button to view more details about the babysitter such as the rate per day
+3. Parents can also perform a filter search for the babysitters to select their prefered babysitter
+4. Parents can also view messages sent from various babysitters
+5. There is also a red tag that indicates the dates unavailable for the babysitters
+6. The booking appointments are shown on the right hand side which indicates whether the booking is cancelled or confirmed
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Parent Booking Screen
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. Upon clicking the Book Now button, parents will be brought to a booking screen which indicates the information of the babysitter and most importantly the total booking dates and total amount
+2. Parents can then either Return to Homepage or Proceed to book
+3. If parents proceed to booking, they will be brought to stripe payment section and make payment
+4. Once payment is successful, booking status will be set to "Confirmed"
+5. Parents or babysitters can still cancel the booking on each side
 
-## Learn More
+### Babysitter Home Screen
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. The babysitter home screen will be somewhat similar to the parent home screen minus the datepicker
+2. For babysitters, the only difference is they are able to send a direct message to whichever parent they wish to send a quick note
+3. This can be done by clicking on the Message button
+4. A default sentence i.e, "Hi I am from baby1@baby1.com" is there to quickly identify who the babysitter is so that the parent who receives the message knows where the message is coming from
+5. Once the Send Message button is clicked, the message will be sent to the intended parent and the parent can see the message from the parent home screen under Parent Messages
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Account Settings
 
-### Code Splitting
+1. Both parents and babysitters can choose to edit their email address and enter new password
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Edit Bio
 
-### Analyzing the Bundle Size
+1. Both parents and babysitters can choose to edit their bio/profile
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Admin Mode
 
-### Making a Progressive Web App
+1. Admin mode is a special access that gives the admin user the right to view, delete, or edit all users. From these users, we can know these users are tied to which babysitter and parent profile
+2. Overall bookings can also be viewed, cancelled or deleted
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Struggles
 
-### Advanced Configuration
+1. Parent data goes to parent home screen and babysitter data goes to babysitter home screen
+2. Only new sign ups will be brought to create new profile page
+3. Using mongoose.Types.ObjectId effectively to reference currentBooking from both parent and babysitter model. Problem was when the booking is cancelled, the same is not for the currentBooking array. Hence, using the reference method solved this issue
+4. After app was deployed to Heroku for both FE and BE and after booking was made, found out that there is a day difference in the booking date. This was because once backend was deployed through Heroku, there was a time conversion folowing US time zone which i.e, instead of 15 Mar, it was booked as 14 Mar. This was fixed by adding a conversion in the backend payment booking section
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Good to have
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Forgot Password feature
+- Socket.io to chat directly between parents and babysitters
+- Favourite section to favouritise parent/babysitter
