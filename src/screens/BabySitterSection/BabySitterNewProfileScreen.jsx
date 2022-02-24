@@ -93,7 +93,7 @@ const BabySitterNewProfileScreen = () => {
             <Form.Group id="location">
               <Form.Label>Location</Form.Label>
               <Form.Control
-                type="text"
+                type="number"
                 required
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
