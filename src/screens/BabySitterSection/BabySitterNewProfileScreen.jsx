@@ -94,6 +94,7 @@ const BabySitterNewProfileScreen = () => {
               <Form.Label>Location</Form.Label>
               <Form.Control
                 type="number"
+                placeholder="Enter postal code"
                 required
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
@@ -101,7 +102,7 @@ const BabySitterNewProfileScreen = () => {
             </Form.Group>
 
             <Form.Group id="rateperhour">
-              <Form.Label>Rate Per Hour</Form.Label>
+              <Form.Label>Rate Per Day</Form.Label>
               <Form.Control
                 type="number"
                 required

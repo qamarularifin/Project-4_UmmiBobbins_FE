@@ -111,7 +111,7 @@ const ParentNewProfileScreen = () => {
               <Form.Label>Location</Form.Label>
               <Form.Control
                 type="number"
-                // ref={""}
+                placeholder="Enter postal code"
                 required
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
