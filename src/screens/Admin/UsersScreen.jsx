@@ -37,7 +37,7 @@ const UsersScreen = () => {
     <div className="row table-responsive">
       <div className="col-md-12">
         {loading && <Loader />}
-        <table className="table table-bordered">
+        <table className="table table-bordered bs">
           <thead className="bs">
             <tr>
               <th>User ID</th>

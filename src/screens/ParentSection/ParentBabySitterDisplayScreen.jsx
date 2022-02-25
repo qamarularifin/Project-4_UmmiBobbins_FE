@@ -19,7 +19,7 @@ const ParentBabySitterDisplayScreen = (props) => {
   const [favParent, dispatchFavParent] = favouriteContext; //dont delete //for fav feature
 
   return (
-    <div className="row bs">
+    <div className="row cs">
       <div className="col-md-9 mt-2">
         <img src={babySitter.image} className="bigimg" />
         <p className="mt-3">Name: {babySitter.name}</p>

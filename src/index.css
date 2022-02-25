@@ -79,7 +79,22 @@ h1 {
     rgba(224, 223, 226, 0.329) 100%,
     rgb(153, 125, 118) 100%
   );
-  background: url("https://media.istockphoto.com/vectors/spoons-teats-and-bibs-pattern-vector-id465071268?k=20&m=465071268&s=612x612&w=0&h=kT_4rN8dZLwJU08PJAXIqMLaKJxxtENEZ4V_sKW_KE8=");
+  background-color: rgb(238, 221, 198);
+  /* background: url("https://media.istockphoto.com/photos/metal-texture-background-picture-id812254568?k=20&m=812254568&s=612x612&w=0&h=1Ce45amogDoPZLx2UxVXu5zVgUqkLNu97DToNROGzlY="); */
+}
+
+.cs {
+  box-shadow: rgba(61, 63, 70, 0.582) 0px 5px 15px;
+  margin-top: 20px !important;
+  border-radius: 15px !important;
+  padding: 20px !important;
+  background: linear-gradient(
+    90deg,
+    rgba(224, 223, 226, 0.329) 100%,
+    rgb(153, 125, 118) 100%
+  );
+  background-color: rgb(216, 178, 125);
+  /* background: url("https://media.istockphoto.com/photos/metal-texture-background-picture-id812254568?k=20&m=812254568&s=612x612&w=0&h=1Ce45amogDoPZLx2UxVXu5zVgUqkLNu97DToNROGzlY="); */
 }
 
 .bigimg {

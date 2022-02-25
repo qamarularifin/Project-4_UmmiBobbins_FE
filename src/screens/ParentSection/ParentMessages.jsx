@@ -11,7 +11,7 @@ const ParentMessages = ({ messages }) => {
 
   return (
     <div>
-      <h1> Parent Messages</h1>
+      <h1> Message Board</h1>
       {printMessages}
     </div>
   );

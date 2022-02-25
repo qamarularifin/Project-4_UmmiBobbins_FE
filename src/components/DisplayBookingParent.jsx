@@ -75,7 +75,7 @@ const DisplayBookingParent = () => {
           {bookings &&
             bookings.map((booking, i) => {
               return (
-                <div className="bs" key={i}>
+                <div className="cs" key={i}>
                   <p>Name: {booking.babySitterName}</p>
                   <p>Date Start: {booking.fromDate}</p>
                   <p>Date End: {booking.toDate}</p>

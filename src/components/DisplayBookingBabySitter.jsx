@@ -95,7 +95,7 @@ const DisplayBookingBabySitter = () => {
           {bookings &&
             bookings.map((booking, i) => {
               return (
-                <div key={i} className="bs">
+                <div key={i} className="cs">
                   <p>Name: {booking.parentName}</p>
                   <p>Date Start: {booking.fromDate}</p>
                   <p>Date End: {booking.toDate}</p>
