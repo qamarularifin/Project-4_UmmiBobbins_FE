@@ -20,6 +20,9 @@ https://project-4-ummibobbins-be.herokuapp.com/
 - Ant Design
 - React-Bootstrap
 - Stripe Payment
+- Sweetalert2
+- Socket.io
+- Leaflet.js
 
 ## Features
 
@@ -77,6 +80,9 @@ https://project-4-ummibobbins-be.herokuapp.com/
 2. Only new sign ups will be brought to create new profile page
 3. Using mongoose.Types.ObjectId effectively to reference currentBooking from both parent and babysitter model. Problem was when the booking is cancelled, the same is not for the currentBooking array. Hence, using the reference method solved this issue
 4. After app was deployed to Heroku for both FE and BE and after booking was made, found out that there is a day difference in the booking date. This was because once backend was deployed through Heroku, there was a time conversion folowing US time zone which i.e, instead of 15 Mar, it was booked as 14 Mar. This was fixed by adding a conversion in the backend payment booking section
+5. Memory leak issues caused my multiple loaders accessing states after useEffect has run its course.
+Addressed using hook cleanup functions
+6. Date usage on Moment.js had to follow the ISO standard, otherwise a lot of date format conversions had to be done 
 
 ## Good to have
 
